@@ -1,37 +1,46 @@
-import { FaEye } from "react-icons/fa";
-import { TbClipboardText } from "react-icons/tb";
+import { FaRegEdit } from "react-icons/fa";
+import { IoTrashOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
 
-const TableRicecrop = () => {
+const TableIncomeExpense = () => {
+  const handleDelete = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "คุณต้องการลบ?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "ลบสำเร็จ!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
   return (
     <div className="">
       <div>
         <div className="hidden md:flex">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-4 border">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
                   ลำดับที่
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
-                  ปี
+                  รายการ
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
-                  วันที่ปลูก
+                  ราคา (บาท)
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
-                  วันที่เก็บเกี่ยว
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  พันธุ์ข้าว
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  พื้นที่ (ไร่)
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  รายการย้อนหลัง
-                </th>
-                <th scope="col" className="px-6 py-3 text-center">
-                  รายละเอียด
+                  Action
                 </th>
               </tr>
             </thead>
@@ -43,24 +52,24 @@ const TableRicecrop = () => {
                 >
                   1
                 </th>
-                <td className="px-6 py-4 text-center">2024</td>
-                <td className="px-6 py-4 text-center">01/01/2024</td>
-                <td className="px-6 py-4 text-center">03/04/2024</td>
-                <td className="px-6 py-4 text-center">กข65</td>
-                <td className="px-6 py-4 text-center">21</td>
+                <td className="px-6 py-4 text-center">ซื้อปุ๋ยเคมี</td>
+                <td className="px-6 py-4 text-center">300</td>
                 <td className="px-6 py-4">
-                  <a href="/history" className="flex justify-center items-center">
-                    <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-16 h-8 flex justify-center items-center border border-orange-200">
-                      <TbClipboardText className="w-6 h-6" />
+                  <div className="flex justify-center items-center gap-2">
+                    <div className="flex justify-center items-center cursor-pointer">
+                      <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
+                        <FaRegEdit className="w-6 h-6" />
+                      </div>
                     </div>
-                  </a>
-                </td>
-                <td className="px-6 py-4 ">
-                  <a href="/detail" className="flex justify-center items-center">
-                    <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
-                      <FaEye className="w-6 h-6" />
+                    <div
+                      className="flex justify-center items-center cursor-pointer"
+                      onClick={handleDelete}
+                    >
+                      <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-16 h-8 flex justify-center items-center border border-red-200">
+                        <IoTrashOutline className="w-6 h-6" />
+                      </div>
                     </div>
-                  </a>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -68,36 +77,24 @@ const TableRicecrop = () => {
         </div>
         <div className="md:hidden">
           <div className="flex flex-col gap-1">
-            <span className="text-center">ปลูกรอบที่ 1</span>
-            <div className="flex justify-between items-center text-sm">
-              <span>ปี</span>
-              <span>2024</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span>วันที่ปลูก</span>
-              <span>2024</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span>วันที่เก็บเกี่ยว</span>
-              <span>2024</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span>พันธุ์ข้าว</span>
-              <span>2024</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span>พื้นที่ (ไร่)</span>
-              <span>2024</span>
-            </div>
-            <div className="flex justify-center gap-4">
-              <a href="/history" className="border border-orange-200 bg-orange-100 text-orange-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
-                <div>
-                  <TbClipboardText />
+            <div className="flex justify-between items-center text- border p-2 bg-gray-50">
+              <div className="flex flex-col">
+                <span className="text-sm">ซื้อปุ๋ยเคมี</span>
+                <span className="text-xs text-gray-500">01/01/2024</span>
+              </div>
+              <div className="flex gap-1">
+                <span className="text-red-600 font-bold">- 300</span>
+                <span>บาท</span>
+              </div>
+              <div className="flex gap-1">
+                <div className="flex justify-center items-center">
+                  <FaRegEdit className="w-5 h-5 text-sky-400" />
                 </div>
-              </a>
-              <div className="border border-sky-200 bg-sky-100 text-sky-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
-                <div>
-                  <FaEye />
+                <div
+                  className="flex justify-center items-center cursor-pointer"
+                  onClick={handleDelete}
+                >
+                  <IoTrashOutline className="w-5 h-5 text-red-400" />
                 </div>
               </div>
             </div>
@@ -182,4 +179,4 @@ const TableRicecrop = () => {
   );
 };
 
-export default TableRicecrop;
+export default TableIncomeExpense;
