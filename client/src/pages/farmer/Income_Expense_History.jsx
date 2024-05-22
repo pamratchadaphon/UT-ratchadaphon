@@ -1,25 +1,28 @@
 import Navbar from "../../components/farmer/Navbar";
 import TableIncomeExpense from "../../components/farmer/TableIncomeExpense";
+import BoxIncomeExpense from "./BoxIncomeExpense";
+import { IoIosArrowForward } from "react-icons/io";
 
 const Income_Expense_History = () => {
   return (
     <div>
       <Navbar />
       <div className="mx-auto max-w-screen-xl p-4">
-        <div className="flex flex-wrap gap-4">
-          <div className="border border-red-300 bg-red-100 p-4 flex md:flex-col rounded-lg w-full md:w-60 justify-between items-center md:items-start">
-            <span className="text-xl font-semibold text-red-700">รายจ่าย</span>
-            <span className="text-sm text-red-800">10,000 บาท</span>
-          </div>
-          <div className="border border-green-400 bg-green-100 p-4 flex md:flex-col rounded-lg w-full md:w-60 justify-between items-center md:items-start">
-            <span className="text-xl font-semibold text-green-700">รายรับ</span>
-            <span className="text-sm text-green-800">10,000 บาท</span>
-          </div>
-          <div className="border border-gray-300 bg-gray-100 p-4 flex md:flex-col rounded-lg w-full md:w-60 justify-between items-center md:items-start">
-            <span className="text-xl font-semibold text-gray-700">คงเหลือ</span>
-            <span className="text-sm text-gray-800">10,000 บาท</span>
-          </div>
-        </div>
+        <nav className="flex mb-4">
+          <ol className="flex space-x-1 items-center">
+            <li>
+              <a href="ricecrop/2" className="hover:underline hover:text-green-700">
+                รอบการปลูก
+              </a>
+            </li>
+            <li>
+              <IoIosArrowForward />
+            </li>
+            <li className="text-green-700">รายการย้อนหลัง</li>
+          </ol>
+        </nav>
+
+        <BoxIncomeExpense />
         <div className="bg-white p-4 my-4 shadow rounded-lg">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
             <div className="flex gap-2">

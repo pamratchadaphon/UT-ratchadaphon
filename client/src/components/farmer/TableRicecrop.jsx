@@ -114,7 +114,7 @@ const TableRicecrop = () => {
             </span>{" "}
             of{" "}
             <span className="font-semibold text-gray-900 dark:text-white">
-              1000
+              100
             </span>
           </span>
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">

@@ -59,7 +59,7 @@ const HomePageFarmer = () => {
         <div className="mt-8">
           <a
             href={`/history`}
-            className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full shadow-md"
+            className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:shadow-md"
           >
             ดูรายการย้อนหลัง
           </a>

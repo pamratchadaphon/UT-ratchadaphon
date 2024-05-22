@@ -7,10 +7,11 @@ import { FaSeedling } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ fname, lname }) => {
+const Navbar = () => {
   const [isOpenToggle, setIsOpenToggle] = useState(false);
   const navigate = useNavigate();
-  const [hovered, setHovered] = useState(false);
+  const [hoveredHome, setHoveredHome] = useState(false);
+  const [hoveredRicecrop, setHoveredRicecrop] = useState(false)
   const ref = useRef(null);
 
   const toggleMenu = () => {
@@ -36,7 +37,7 @@ const Navbar = ({ fname, lname }) => {
         <div className="flex items-center">
           <IoPerson className="text-green-800" />
           <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-green-800 pl-2">
-            {fname} {lname}
+            สมชาย ใจดี
           </span>
         </div>
 
@@ -70,13 +71,13 @@ const Navbar = ({ fname, lname }) => {
                 href="/farmer/index/2"
                 className=" md:hover:rounded-xl  md:hover:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                onMouseEnter={() => setHoveredHome(true)}
+                onMouseLeave={() => setHoveredHome(false)}
               >
                 <div className="hover:bg-green-100 w-32 h-10 flex items-center justify-center rounded-full">
                   <div
                     style={{
-                      width: hovered ? ref.current?.offsetWidth || 0 : 0,
+                      width: hoveredHome ? ref.current?.offsetWidth || 0 : 0,
                     }}
                     className="overflow-x-hidden duration-100 ease-in"
                   >
@@ -93,13 +94,13 @@ const Navbar = ({ fname, lname }) => {
                 href={`/ricecrop/2`}
                 className=" md:hover:rounded-xl  md:hover:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+                onMouseEnter={() => setHoveredRicecrop(true)}
+                onMouseLeave={() => setHoveredRicecrop(false)}
               >
                 <div className="hover:bg-green-100 w-32 h-10 inline-flex items-center justify-center rounded-full">
                   <div
                     style={{
-                      width: hovered ? ref.current?.offsetWidth || 0 : 0,
+                      width: hoveredRicecrop ? ref.current?.offsetWidth || 0 : 0,
                     }}
                     className="overflow-x-hidden duration-100 ease-in"
                   >
@@ -114,10 +115,10 @@ const Navbar = ({ fname, lname }) => {
             <li>
               <a
                 href="/ricevariety"
-                className=" md:hover:rounded-xl  md:hover:text-green-900 md:p-0 flex items-center"
+                className=" md:hover:rounded-xl  md:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
               >
-                <div className="hover:bg-green-100 w-32 h-10 inline-flex items-center justify-center rounded-full">
+                <div className="bg-green-100 w-32 h-10 inline-flex items-center justify-center rounded-full">
                   <RiPlantLine />
                   <span className="pl-2">พันธุ์ข้าว</span>
                 </div>
@@ -147,7 +148,7 @@ const Navbar = ({ fname, lname }) => {
               <li>
                 <a
                   href="/ricevariety"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  className="block py-2 px-3 text-gray-900 rounded bg-gray-200 md:hover:bg-transparent md:hover:text-green-700 md:p-0 md:dark:hover:text-green-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   พันธุ์ข้าว
                 </a>
