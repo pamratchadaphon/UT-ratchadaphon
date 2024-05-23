@@ -95,11 +95,11 @@ const TableRicecrop = () => {
                   <TbClipboardText />
                 </div>
               </a>
-              <div className="border border-sky-200 bg-sky-100 text-sky-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
+              <a href="/detail" className="border border-sky-200 bg-sky-100 text-sky-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
                 <div>
                   <FaEye />
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
