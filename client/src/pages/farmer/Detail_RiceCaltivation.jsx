@@ -22,8 +22,8 @@ const Detail_RiceCaltivationjsx = () => {
         </nav>
         <Info_ricecrop />
         <div className="flex flex-col md:flex-row gap-4">
-          <All_IncomeExpense />
           <IncomeExpensePerMonth/>
+          <All_IncomeExpense />
         </div>
       </div>
     </div>

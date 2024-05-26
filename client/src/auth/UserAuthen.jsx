@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 const UserAuthen = ({ children }) => {
   const navigate = useNavigate();
-  const [authen, setAuthen] = useState(null);
+  const [authen, setAuthen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,7 +24,13 @@ const UserAuthen = ({ children }) => {
           null,
           config
         );
-        setAuthen(authenResponse.data.status == "ok" ? true : false);
+        if (authenResponse.data.status === 'ok') {
+          setAuthen(true)
+        }else{
+          setAuthen(false)
+          alert("Authentication failed")
+          navigate("/")
+        }
       } catch (error) {
         console.log("Error" + error);
         setAuthen(false);

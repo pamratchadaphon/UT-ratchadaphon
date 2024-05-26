@@ -49,14 +49,20 @@ const TableRicecrop = () => {
                 <td className="px-6 py-4 text-center">กข65</td>
                 <td className="px-6 py-4 text-center">21</td>
                 <td className="px-6 py-4">
-                  <a href="/history" className="flex justify-center items-center">
+                  <a
+                    href="/ricecrop/history"
+                    className="flex justify-center items-center"
+                  >
                     <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-16 h-8 flex justify-center items-center border border-orange-200">
                       <TbClipboardText className="w-6 h-6" />
                     </div>
                   </a>
                 </td>
                 <td className="px-6 py-4 ">
-                  <a href="/detail" className="flex justify-center items-center">
+                  <a
+                    href="/ricecrop/detail"
+                    className="flex justify-center items-center"
+                  >
                     <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
                       <FaEye className="w-6 h-6" />
                     </div>
@@ -68,36 +74,45 @@ const TableRicecrop = () => {
         </div>
         <div className="md:hidden">
           <div className="flex flex-col gap-1">
-            <span className="text-center">ปลูกรอบที่ 1</span>
             <div className="flex justify-between items-center text-sm">
               <span>ปี</span>
               <span>2024</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span>วันที่ปลูก</span>
-              <span>2024</span>
+              <span>01/01/2024</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span>วันที่เก็บเกี่ยว</span>
-              <span>2024</span>
+              <span>01/01/2024</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span>พันธุ์ข้าว</span>
-              <span>2024</span>
+              <span>กข65</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span>พื้นที่ (ไร่)</span>
-              <span>2024</span>
+              <span>21</span>
             </div>
-            <div className="flex justify-center gap-4">
-              <a href="/history" className="border border-orange-200 bg-orange-100 text-orange-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
-                <div>
-                  <TbClipboardText />
+            <div className="flex justify-between items-center text-sm">
+              <span>รายการย้อนหลัง</span>
+              <a
+                href="/ricecrop/history"
+                className="flex justify-center items-center"
+              >
+                <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-10 h-6 flex justify-center items-center border border-orange-200">
+                  <TbClipboardText className="w-5 h-5" />
                 </div>
               </a>
-              <a href="/detail" className="border border-sky-200 bg-sky-100 text-sky-600 rounded-full w-10 h-10 flex flex-col justify-center items-center">
-                <div>
-                  <FaEye />
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span>รายละเอียด</span>
+              <a
+                href="/ricecrop/detail"
+                className="flex justify-center items-center"
+              >
+                <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-10 h-6 flex justify-center items-center border border-sky-200">
+                  <FaEye className="w-5 h-5" />
                 </div>
               </a>
             </div>
@@ -108,7 +123,7 @@ const TableRicecrop = () => {
           aria-label="Table navigation"
         >
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-            จำนวนแถวต่อหน้า
+            จำนวนแถวต่อหน้า{" "}
             <span className="font-semibold text-gray-900 dark:text-white">
               1-10
             </span>{" "}

@@ -6,22 +6,22 @@ const TableIncomeExpense = () => {
   const handleDelete = (e) => {
     e.preventDefault();
     Swal.fire({
-      title: "คุณต้องการลบ?",
-      text: "You won't be able to revert this!",
+      title: "ยืนยันการลบ?",
+      text: "คุณต้องการลบรายการ ซื้อปุ๋ยเคมี",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ตกลง",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "ลบสำเร็จ!",
-          text: "Your file has been deleted.",
+          title: "ลบสำเร็จ",
           icon: "success",
         });
       }
-    });
+    })
   };
   return (
     <div className="">
@@ -65,7 +65,7 @@ const TableIncomeExpense = () => {
                       className="flex justify-center items-center cursor-pointer"
                       onClick={handleDelete}
                     >
-                      <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-16 h-8 flex justify-center items-center border border-red-200">
+                      <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-16 h-8 flex justify-center items-center border border-red-300">
                         <IoTrashOutline className="w-6 h-6" />
                       </div>
                     </div>

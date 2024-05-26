@@ -26,11 +26,11 @@ const App = () => {
           <Route path='/' element={<LoginFarmer/>}/>
           <Route path='/register' element={<Register/>}/>
 
-          <Route path='/farmer/index/:farmer_id' element={<UserAuthen><HomepageFarmer/></UserAuthen>}/>
+          <Route path='/farmer/home/:farmer_id' element={<UserAuthen><HomepageFarmer/></UserAuthen>}/>
           <Route path='/ricecrop/:farmer_id' element={<UserAuthen><Ricecrop/></UserAuthen>}/>
           <Route path='/ricevariety' element={<UserAuthen><RiceVariety/></UserAuthen>}/>
-          <Route path='/history' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
-          <Route path='/detail' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
+          <Route path='/ricecrop/history' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
+          <Route path='/ricecrop/detail' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
 
           <Route path='/admin/index' element={<AdminRoute><HomePageAdmin/></AdminRoute>}/>
         </Routes>

@@ -1,7 +1,7 @@
 import Navbar from "../../components/farmer/Navbar";
 import TableIncomeExpense from "../../components/farmer/TableIncomeExpense";
-import BoxIncomeExpense from "./BoxIncomeExpense";
 import { IoIosArrowForward } from "react-icons/io";
+import BoxIncomeExpense from "../../components/farmer/BoxIncomeExpense"
 
 const Income_Expense_History = () => {
   return (
@@ -11,7 +11,7 @@ const Income_Expense_History = () => {
         <nav className="flex mb-4">
           <ol className="flex space-x-1 items-center">
             <li>
-              <a href="ricecrop/2" className="hover:underline hover:text-green-700">
+              <a href="/ricecrop/2" className="hover:underline hover:text-green-700">
                 รอบการปลูก
               </a>
             </li>
@@ -22,14 +22,15 @@ const Income_Expense_History = () => {
           </ol>
         </nav>
 
-        <BoxIncomeExpense />
-        <div className="bg-white p-4 my-4 shadow rounded-lg">
+        <BoxIncomeExpense/>
+
+        <div className="bg-white shadow p-4 my-4 rounded-lg">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
             <div className="flex gap-2">
               <div>
                 <button
                   type="button"
-                  className="bg-red-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700"
+                  className="bg-red-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
                 >
                   บันทึกรายจ่าย
                 </button>
@@ -37,7 +38,7 @@ const Income_Expense_History = () => {
               <div>
                 <button
                   type="button"
-                  className="bg-green-700 px-4 py-2  text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700"
+                  className="bg-green-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200"
                 >
                   บันทึกรายรับ
                 </button>

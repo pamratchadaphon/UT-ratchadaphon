@@ -23,7 +23,7 @@ const Login2 = () => {
         navigator(`/admin/index/`);
       } else {
         localStorage.setItem("token", response.data.token);
-        navigator(`/farmer/index/${id}`);
+        navigator(`/farmer/home/${id}`);
       }
     } catch (error) {
       console.error("Error:", error);
