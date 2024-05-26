@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    rice_price_per_kg: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   });
   return RiceCaltivation;
 };
