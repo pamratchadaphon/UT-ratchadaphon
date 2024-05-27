@@ -47,7 +47,7 @@ const Content = () => {
       <div className="mt-8">
         <a
           href={`/ricecrop/history`}
-          className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-200"
+          className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
         >
           ดูรายการย้อนหลัง
         </a>

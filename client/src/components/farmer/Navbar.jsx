@@ -43,7 +43,7 @@ const Navbar = () => {
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
-            className="text-green-800 bg-green-200 hover:bg-green-600 hover:text-white rounded-full focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm px-4 py-2 text-cente hover:duration-200"
+            className="text-green-800 bg-green-200 hover:bg-green-600 hover:text-white rounded-full focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm px-4 py-2 text-cente hover:duration-500"
             onClick={handleLogout}
           >
             ออกจากระบบ
@@ -52,7 +52,7 @@ const Navbar = () => {
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-sticky"
             aria-expanded="false"
             onClick={toggleMenu}
@@ -68,7 +68,7 @@ const Navbar = () => {
             <li>
               <a
                 href="/farmer/home/2"
-                className=" md:hover:rounded-xl md:hover:text-green-900 md:p-0 flex items-center "
+                className=" md:hover:rounded-xl md:hover:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
                 onMouseEnter={() => setHoveredHome(true)}
                 onMouseLeave={() => setHoveredHome(false)}
@@ -78,7 +78,7 @@ const Navbar = () => {
                     style={{
                       width: hoveredHome ? ref.current?.offsetWidth || 0 : 0,
                     }}
-                    className="overflow-x-hidden duration-100 ease-in"
+                    className="overflow-x-hidden duration-150 ease-in"
                   >
                     <div ref={ref} className="pr-4">
                       <FaHome />
@@ -103,7 +103,7 @@ const Navbar = () => {
                         ? ref.current?.offsetWidth || 0
                         : 0,
                     }}
-                    className="overflow-x-hidden duration-100 ease-in"
+                    className="overflow-x-hidden duration-150 ease-in"
                   >
                     <div ref={ref} className="pr-4">
                       <FaSeedling />
@@ -128,7 +128,7 @@ const Navbar = () => {
                         ? ref.current?.offsetWidth || 0
                         : 0,
                     }}
-                    className="overflow-x-hidden duration-100 ease-in"
+                    className="overflow-x-hidden duration-150 ease-in"
                   >
                     <div ref={ref} className="pr-4">
                       <RiPlantLine />

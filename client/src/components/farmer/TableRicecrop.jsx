@@ -1,7 +1,61 @@
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { TbClipboardText } from "react-icons/tb";
+import axios from "axios";
 
 const TableRicecrop = () => {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const recordsPerPage = 1;
+  const lastIndex = page * recordsPerPage; 
+  const firstIndex = lastIndex - recordsPerPage; 
+  const records = data.slice(firstIndex, lastIndex) 
+  const npage = Math.ceil(data.length / recordsPerPage)
+  const pageNumber = [...Array(npage + 1).keys()].slice(1)
+  
+  // console.log(firstIndex);
+  // console.log(lastIndex);
+  // console.log(page);
+  console.log(npage);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/farmer/riceCaltivation_incomeExpense/2"
+        );
+        setData(res.data[0].riceCaltivation);
+      } catch (error) {
+        console.log("Error" + error);
+      }
+    };
+    fetchData();
+  },[]);
+
+  const formatDate = (string) => {
+    const date = new Date(string);
+    const day = date.getDate()
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear()
+    return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`
+  } 
+
+  const prePage = () => {
+    if (firstIndex !== 0) {
+      setPage(page - 1)
+    }
+  }
+
+  const nextPage = () => {
+    if (lastIndex !== 0) {
+      setPage(page + 1)
+    }
+  }
+
+  const changePage = (id) => {
+    setPage(id)
+  } 
+  
   return (
     <div className="">
       <div>
@@ -36,39 +90,44 @@ const TableRicecrop = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 ">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+              {records.map((d, i) => (
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 "
+                  key={i}
                 >
-                  1
-                </th>
-                <td className="px-6 py-4 text-center">2024</td>
-                <td className="px-6 py-4 text-center">01/01/2024</td>
-                <td className="px-6 py-4 text-center">03/04/2024</td>
-                <td className="px-6 py-4 text-center">กข65</td>
-                <td className="px-6 py-4 text-center">21</td>
-                <td className="px-6 py-4">
-                  <a
-                    href="/ricecrop/history"
-                    className="flex justify-center items-center"
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
                   >
-                    <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-16 h-8 flex justify-center items-center border border-orange-200">
-                      <TbClipboardText className="w-6 h-6" />
-                    </div>
-                  </a>
-                </td>
-                <td className="px-6 py-4 ">
-                  <a
-                    href="/ricecrop/detail"
-                    className="flex justify-center items-center"
-                  >
-                    <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
-                      <FaEye className="w-6 h-6" />
-                    </div>
-                  </a>
-                </td>
-              </tr>
+                    {i+1}
+                  </th>
+                  <td className="px-6 py-4 text-center">{d.year}</td>
+                  <td className="px-6 py-4 text-center">{formatDate(d.startDate)}</td>
+                  <td className="px-6 py-4 text-center">{formatDate(d.endDate)}</td>
+                  <td className="px-6 py-4 text-center">{d.riceVariety}</td>
+                  <td className="px-6 py-4 text-center">{d.area}</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="/ricecrop/history"
+                      className="flex justify-center items-center"
+                    >
+                      <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-16 h-8 flex justify-center items-center border border-orange-200">
+                        <TbClipboardText className="w-6 h-6" />
+                      </div>
+                    </a>
+                  </td>
+                  <td className="px-6 py-4 ">
+                    <a
+                      href="/ricecrop/detail"
+                      className="flex justify-center items-center"
+                    >
+                      <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
+                        <FaEye className="w-6 h-6" />
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -125,67 +184,39 @@ const TableRicecrop = () => {
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
             จำนวนแถวต่อหน้า{" "}
             <span className="font-semibold text-gray-900 dark:text-white">
-              1-10
+              1-{npage}
             </span>{" "}
             of{" "}
             <span className="font-semibold text-gray-900 dark:text-white">
-              100
+              {data.length}
             </span>
           </span>
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
             <li>
               <a
                 href="#"
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+                onClick={prePage}
               >
                 Previous
               </a>
             </li>
-            <li>
+            {pageNumber.map((n,i) => (
+              <li key={i}>
               <a
                 href="#"
                 className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={() => changePage(n)}
               >
-                1
+                {n}
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                2
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-current="page"
-                className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-              >
-                3
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                4
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                5
-              </a>
-            </li>
+            ))}
             <li>
               <a
                 href="#"
                 className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                onClick={nextPage}
               >
                 Next
               </a>

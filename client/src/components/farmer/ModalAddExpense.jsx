@@ -136,11 +136,12 @@ const ModalAddExpense = () => {
                     </label>
                     <button
                       type="button"
-                      className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex justify-between items-center"
+                      className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center gap-2"
                       onClick={clickDropdown}
                     >
-                      {values.detail === "" ? "เลือกรายการ" : values.detail}
                       <IoIosArrowDown />
+                      {values.detail === "" ? "เลือกรายการ" : values.detail}
+                      
                     </button>
                     <div className="relative space-x-2 max-w-md max-h-full w-full flex">
                       {dropdown ? (

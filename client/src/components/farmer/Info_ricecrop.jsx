@@ -1,7 +1,7 @@
 const Info_ricecrop = () => {
   return (
     <div className="flex flex-col md:flex-row gap-2">
-      <div className="bg-white rounded-lg border p-4 space-y-2 flex flex-col md:flex-row gap-2 md:gap-6 w-full md:w-2/3">
+      <div className="bg-white rounded-lg border p-4 space-y-2 flex flex-col md:flex-row gap-2 md:gap-6 w-full">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex justify-between px-4 py-2 rounded-lg bg-green-50 text-green-700   items-center">
             <div className="flex space-x-2 items-center">
@@ -11,24 +11,6 @@ const Info_ricecrop = () => {
               <span className="">ปีที่ทำการปลูก</span>
             </div>
             <span>2024</span>
-          </div>
-          <div className="flex justify-between px-4 py-2 rounded-lg bg-sky-50 text-sky-500 ">
-            <div className="flex space-x-2 items-center">
-              <div className=" w-7 h-7 rounded-md text-center">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFB0lEQVR4nO2dT0wcVRzHx/jnYPRgogeSsjOzpfx504WFZVlgBQSs1Ij/iqTgQRMPTWyiicakSu0KUYugsX+CspRWidpqGsulh8ZEe/FiYjxoDKkxVG2gQPtg252FEtqZn5kJS1hZGnTrvDfzft/ke5h5k8x738/um/ebOTxJQqFQKBQKhUKhUCgUCoVCMdZtHm9zj0Kh0J2ySsZ9KvnGi22uU15h4f2yqoGsaJe92OYaEULu8vkC923aTAqWB0Ot49V2c5vU0HCHxLPy8kJ3y6q2W1a0b61fkj0Ab9vwqdqUTyWjsp88K0ntt0u8SJZLnpJVbXJ1h0uKQxAN10N15YP2sd8fsI9X281tW7aUZQJStF83qVqYNQtJVskrsqqZVqd2dTwP5w6PQLL/U9BjcdsX9hywOxwsrlw554m27iOQ7B+Bnz88Cu3bn14GQxbyFfIEOxh+bYcFw18QgLMH46D3HOEzvNj/12b77WH4ct/+NJR5WSZBx2E8QMg91hxqdeK7Q0PZOxqLw5V9g9AabobdjTs82aan/dYQHO3qsaH4VO0Hx+uW5akKXuh4DlLvDK/b0WRscP1BuNDJm42nbwTqaptsKIqitTgLRNG+t248NvRF1s799NK70FLzMGwuKIWdDa0w/toHzMPUc/BGx3OmfyD9oB9yFog1V6oa6IePZ+1Yc6QRvj71FSwtUXi/7z3Y9Ugb81D1HLzR8UwNnlhedZEfHYNRVFR0r3XTwNYq0LvXPj/o3gEoKgqCcWMOTCMBf/05BtFQHfNQ9f/ofzOeqwc+Tz/cJxwDkn6V0BBpWncQj9Vug+HhOMxMj8PeN7rg5Ud3Mg9Wz8EbHU+y9xNw/DVLGshD1esDGXu1DzobH4dQWQ282PIMTOw5yDxUPQdveDy9x/gEIqx7EQgwh4BA4uyDRyBx9mHzDqQ+0giTrx8SxrNvfmSHfqlrIOux7e6P2QGxqtZAcUgYt0e3w5X9x6AmUJP1OG1mQMoronahhE6sZEDpHwjE5OhHgUAM9hAQiME+eARisA8bgRjsA0YgBvtQEQgHQZoIJHsI86lpSMxdgMVrM1nP/9O8XOfJZe/S0gzURhsgUBaGuvrmlfN6chIKi8uhNBjOMC/XeRPIjQkwF8+AuXAS6MURKK+ozhikfbxwMsO8XOcpIPZ36uu/gXltlLughQNiTQlNzdu4DZqKBoT3oKmIQIIVEUhMf5bh8+fia4Lh+TrPAEnpUxCO1EFpsGqNW1ufdM11ngHiRVMEkmAOwRVAeK+s50Wq1HmvrHXRKnXel6lUtGUv7wFSBMJXgBSB8BUgFREIz5U1Fa1S572yTmGlLo4pj/8QkU15BcJ7ZT2PlTo/lbWOlTpfy1Qq4rKX5wApAuErQIpA+AqQigiE58qaYqXOV2WdwkpdHFMepyyRTXkF4pbK2hQBCPvKuirDN/sGLgQQNy1TTQSCQG658B+SwCmrPIcpK0WPQ1tbm9hTFk+V9eLVUTCNWXGB8FZZd3R2OgKDWyAimyKQBHMICMRgHzwCMdiHjUAM9gEjEIN9qAiEgyBNNwNJ745gvVm1tm9gHYLJkS9O/u787giWZIX8Yt24p6fb3jEg2zcI0Xz50nmIxWLp/UNOOwokXy2pkxVy/RbvDQhesE8hS/n+rZWS07L27fOp5KysarOySuZEt08hM9Z+uapKqhyHgUKhUCgUCoVCoVAoFAoleV5/A+xTXor3iFRnAAAAAElFTkSuQmCC"></img>
-              </div>
-              <span className="">วันที่ปลูก</span>
-            </div>
-            <span>01/01/2024</span>
-          </div>
-          <div className="flex justify-between px-4 py-2 rounded-lg bg-pink-50 text-pink-500 ">
-            <div className="flex space-x-2 items-center">
-              <div className="w-7 h-7 rounded-md text-center">
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACTUlEQVR4nO1WX0/TUBTvB4FnXtnD3vbgKynSYgORhE9h0CkSo/gB5AE+gEZEFm07ZaIRFrNRu/ABVNabPahPtiWML3DM2ZCwtkjPuN3dkvtLTrJ0yfn9uefcVlEkJCTIsKuOalUPftv7B7/MvfqU6D5kIKFddaBT+85P0X3IOCc9K9F9EqFZ2rhq6m9UUz+dtnS4WFHi6P9py76iD3Krpm7N2DMTClX8tKWFSaSqqcWI8RlVPKmPqR+jptQGMPnLiAsbN2LE+IxqgN5HK1EMxMbmX02u5mPEuSd5sgFyH1NvpzbwP+Lcah5e7O6ckz7/UIHcU7qBfvooPAzgMRvPFjvkSGqsLUJhvb8RMoh9uBjARUNyTBALf/e7xAViHy4GRJYiDVgjcgIsbMAwliINhPIEQI5QGgxiVI78r/DYWYHPrbejt8QofrlW7FyNt8rz8LFVGh0DKP5h/V7P/X67sgDf/tSH30AzcOGR86BHvFY2oNx8Kf4ErkowKfnZsgHvvS3xO1BhWzC/swC7re1MkmdZGkDxmGR3IediJrril68tnmVl4H7tbo84vFU+nd0q3bEpXmtsWNYGjnwHirWliIk5qLDX3JJnWe/Ad9+BpS93esTetGYTkn/Vt3iW9S2UdBK8kmeDMHCZCV7i2aBeZBdN8BTPBvkm/uE7nW+dd94mN/FsGD4lpIG0EJ004zBCp6LFskh5gXtCMOBaogWzaAWN7dQGWv7hhBc0jodHvBs0g8aYQoEXHo6z0C2x0G2LE++2MXmyeAkJCWVk8BdCIRUrBKwL1AAAAABJRU5ErkJggg==" />
-              </div>
-              <span className="">วันที่เก็บเกี่ยว</span>
-            </div>
-            <span>01/04/2024</span>
           </div>
           <div className="flex justify-between px-4 py-2 rounded-lg bg-violet-50 text-violet-500 ">
             <div className="flex space-x-2 items-center">
@@ -48,23 +30,39 @@ const Info_ricecrop = () => {
             </div>
             <span>21 ไร่</span>
           </div>
-        </div>
-      </div>
-      <div className="w-full md:w-1/3 ">
-        <div className="bg-white p-4 border rounded-lg h-full">
-          <div className="rounded-lg text-gray-900">
-            <span>ผลผลิต</span>
-            <div className="flex justify-between ">
-              <span className="">น้ำหนักสุทธิ </span>
-              <span>10,000 กก.</span>
+          <div className="flex justify-between px-4 py-2 rounded-lg bg-sky-50 text-sky-500 ">
+            <div className="flex space-x-2 items-center">
+              <div className=" w-7 h-7 rounded-md text-center">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFB0lEQVR4nO2dT0wcVRzHx/jnYPRgogeSsjOzpfx504WFZVlgBQSs1Ij/iqTgQRMPTWyiicakSu0KUYugsX+CspRWidpqGsulh8ZEe/FiYjxoDKkxVG2gQPtg252FEtqZn5kJS1hZGnTrvDfzft/ke5h5k8x738/um/ebOTxJQqFQKBQKhUKhUCgUCoVCMdZtHm9zj0Kh0J2ySsZ9KvnGi22uU15h4f2yqoGsaJe92OYaEULu8vkC923aTAqWB0Ot49V2c5vU0HCHxLPy8kJ3y6q2W1a0b61fkj0Ab9vwqdqUTyWjsp88K0ntt0u8SJZLnpJVbXJ1h0uKQxAN10N15YP2sd8fsI9X281tW7aUZQJStF83qVqYNQtJVskrsqqZVqd2dTwP5w6PQLL/U9BjcdsX9hywOxwsrlw554m27iOQ7B+Bnz88Cu3bn14GQxbyFfIEOxh+bYcFw18QgLMH46D3HOEzvNj/12b77WH4ct/+NJR5WSZBx2E8QMg91hxqdeK7Q0PZOxqLw5V9g9AabobdjTs82aan/dYQHO3qsaH4VO0Hx+uW5akKXuh4DlLvDK/b0WRscP1BuNDJm42nbwTqaptsKIqitTgLRNG+t248NvRF1s799NK70FLzMGwuKIWdDa0w/toHzMPUc/BGx3OmfyD9oB9yFog1V6oa6IePZ+1Yc6QRvj71FSwtUXi/7z3Y9Ugb81D1HLzR8UwNnlhedZEfHYNRVFR0r3XTwNYq0LvXPj/o3gEoKgqCcWMOTCMBf/05BtFQHfNQ9f/ofzOeqwc+Tz/cJxwDkn6V0BBpWncQj9Vug+HhOMxMj8PeN7rg5Ud3Mg9Wz8EbHU+y9xNw/DVLGshD1esDGXu1DzobH4dQWQ282PIMTOw5yDxUPQdveDy9x/gEIqx7EQgwh4BA4uyDRyBx9mHzDqQ+0giTrx8SxrNvfmSHfqlrIOux7e6P2QGxqtZAcUgYt0e3w5X9x6AmUJP1OG1mQMoronahhE6sZEDpHwjE5OhHgUAM9hAQiME+eARisA8bgRjsA0YgBvtQEQgHQZoIJHsI86lpSMxdgMVrM1nP/9O8XOfJZe/S0gzURhsgUBaGuvrmlfN6chIKi8uhNBjOMC/XeRPIjQkwF8+AuXAS6MURKK+ozhikfbxwMsO8XOcpIPZ36uu/gXltlLughQNiTQlNzdu4DZqKBoT3oKmIQIIVEUhMf5bh8+fia4Lh+TrPAEnpUxCO1EFpsGqNW1ufdM11ngHiRVMEkmAOwRVAeK+s50Wq1HmvrHXRKnXel6lUtGUv7wFSBMJXgBSB8BUgFREIz5U1Fa1S572yTmGlLo4pj/8QkU15BcJ7ZT2PlTo/lbWOlTpfy1Qq4rKX5wApAuErQIpA+AqQigiE58qaYqXOV2WdwkpdHFMepyyRTXkF4pbK2hQBCPvKuirDN/sGLgQQNy1TTQSCQG658B+SwCmrPIcpK0WPQ1tbm9hTFk+V9eLVUTCNWXGB8FZZd3R2OgKDWyAimyKQBHMICMRgHzwCMdiHjUAM9gEjEIN9qAiEgyBNNwNJ745gvVm1tm9gHYLJkS9O/u787giWZIX8Yt24p6fb3jEg2zcI0Xz50nmIxWLp/UNOOwokXy2pkxVy/RbvDQhesE8hS/n+rZWS07L27fOp5KysarOySuZEt08hM9Z+uapKqhyHgUKhUCgUCoVCoVAoFAoleV5/A+xTXor3iFRnAAAAAElFTkSuQmCC"></img>
+              </div>
+              <span className="">วันที่ปลูก</span>
             </div>
-            <div className="flex justify-between ">
-              <span className="">ราคา/กก.</span>
-              <span> 15,000 บาท</span>
+            <span>01/01/2024</span>
+          </div>
+          <div className="flex justify-between px-4 py-2 rounded-lg bg-pink-50 text-pink-500 ">
+            <div className="flex space-x-2 items-center">
+              <div className="w-7 h-7 rounded-md text-center">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACTUlEQVR4nO1WX0/TUBTvB4FnXtnD3vbgKynSYgORhE9h0CkSo/gB5AE+gEZEFm07ZaIRFrNRu/ABVNabPahPtiWML3DM2ZCwtkjPuN3dkvtLTrJ0yfn9uefcVlEkJCTIsKuOalUPftv7B7/MvfqU6D5kIKFddaBT+85P0X3IOCc9K9F9EqFZ2rhq6m9UUz+dtnS4WFHi6P9py76iD3Krpm7N2DMTClX8tKWFSaSqqcWI8RlVPKmPqR+jptQGMPnLiAsbN2LE+IxqgN5HK1EMxMbmX02u5mPEuSd5sgFyH1NvpzbwP+Lcah5e7O6ckz7/UIHcU7qBfvooPAzgMRvPFjvkSGqsLUJhvb8RMoh9uBjARUNyTBALf/e7xAViHy4GRJYiDVgjcgIsbMAwliINhPIEQI5QGgxiVI78r/DYWYHPrbejt8QofrlW7FyNt8rz8LFVGh0DKP5h/V7P/X67sgDf/tSH30AzcOGR86BHvFY2oNx8Kf4ErkowKfnZsgHvvS3xO1BhWzC/swC7re1MkmdZGkDxmGR3IediJrril68tnmVl4H7tbo84vFU+nd0q3bEpXmtsWNYGjnwHirWliIk5qLDX3JJnWe/Ad9+BpS93esTetGYTkn/Vt3iW9S2UdBK8kmeDMHCZCV7i2aBeZBdN8BTPBvkm/uE7nW+dd94mN/FsGD4lpIG0EJ004zBCp6LFskh5gXtCMOBaogWzaAWN7dQGWv7hhBc0jodHvBs0g8aYQoEXHo6z0C2x0G2LE++2MXmyeAkJCWVk8BdCIRUrBKwL1AAAAABJRU5ErkJggg==" />
+              </div>
+              <span className="">วันที่เก็บเกี่ยว</span>
             </div>
-            <div className="flex justify-between border-y-2 border-gray-300 py-2 text-lg">
-              <span className="">จำนวนเงิน </span>
-              <span className="text-lg">150,000 บาท</span>
+            <span>01/04/2024</span>
+          </div>
+          <div className="bg-white p-4 border rounded-lg h-full">
+            <div className="rounded-lg text-gray-900">
+              <span>ผลผลิต</span>
+              <div className="flex justify-between ">
+                <span className="">น้ำหนักสุทธิ </span>
+                <span>10,000 กก.</span>
+              </div>
+              <div className="flex justify-between ">
+                <span className="">ราคา/กก.</span>
+                <span> 15,000 บาท</span>
+              </div>
+              <div className="flex justify-between border-y-2 border-gray-300 py-2 text-lg">
+                <span className="">จำนวนเงิน </span>
+                <span className="text-lg">150,000 บาท</span>
+              </div>
             </div>
           </div>
         </div>
