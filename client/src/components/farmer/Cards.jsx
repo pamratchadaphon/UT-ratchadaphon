@@ -35,7 +35,7 @@ const Cards = () => {
             />
 
             <div className="p-5">
-              <h5 className="md:text-2xl font-bold tracking-tight  text-green-600">
+              <h5 className="md:text-2xl font-bold tracking-tight  text-green-700">
                 พันธุ์ กข65
               </h5>
 

@@ -33,7 +33,7 @@ const ModalAddRicecrop = () => {
   return (
     <div>
       <button
-        className="block text-white bg-green-600 hover:bg-green-100 hover:text-green-700 hover:border-green-700 duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-cente lg:mx-0 w-full"
+        className="block text-white bg-green-600 hover:bg-green-100 hover:text-green-700 hover:border-green-700 duration-200 font-medium rounded-lg text-sm px-4 py-2 text-cente lg:mx-0 w-full"
         onClick={handleModal}
       >
         เพิ่มรอบการปลูก

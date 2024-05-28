@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   const iconToggle = () => {
-    if (isOpenToggle === false) {
+    if (!isOpenToggle) {
       return <AiOutlineMenu className="w-20 h-20" />;
     } else {
       return <IoMdClose className="w-20 h-20" />;
@@ -50,21 +50,15 @@ const Navbar = () => {
           </button>
 
           <button
-            data-collapse-toggle="navbar-sticky"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            aria-controls="navbar-sticky"
-            aria-expanded="false"
+            className="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             onClick={toggleMenu}
           >
             {iconToggle()}
           </button>
         </div>
-        <div
-          className="items-center justify-between w-full md:flex md:w-auto md:order-1"
-          id="navbar-sticky"
-        >
-          <ul className="hidden md:flex md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0  md:dark:bg-gray-900">
+        <div className="hidden md:flex items-center justify-between w-full md:w-auto md:order-1">
+          <ul className="md:flex md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0 ">
             <li>
               <a
                 href="/farmer/home/2"
@@ -143,7 +137,7 @@ const Navbar = () => {
             <ul className="md:hidden flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse  dark:bg-gray-800 dark:border-gray-700">
               <li>
                 <a
-                  href="/farmer/index"
+                  href="/farmer/home/2"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500"
                   aria-current="page"
                 >
@@ -152,7 +146,7 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="/s"
+                  href="/ricecrop/2"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500"
                   aria-current="page"
                 >

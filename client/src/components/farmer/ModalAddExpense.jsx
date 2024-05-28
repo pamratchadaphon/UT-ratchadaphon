@@ -3,9 +3,9 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import {PropTypes} from "prop-types"
 
-const ModalAddExpense = () => {
-  const [openModal, setOpenModal] = useState(false);
+const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
   const [values, setValues] = useState({
     date: new Date().toISOString().split("T")[0],
     detail: "",
@@ -48,8 +48,6 @@ const ModalAddExpense = () => {
     ["เมล็ดพันธุ์ข้าว"],
   ];
 
-  const handleModal = () => setOpenModal(!openModal);
-
   const clickDropdown = () => {
     setDropdown(!dropdown);
     setDropdown1(false);
@@ -80,14 +78,7 @@ const ModalAddExpense = () => {
   };
   return (
     <div>
-      <button
-        className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-200"
-        onClick={handleModal}
-      >
-        บันทึกรายจ่าย
-      </button>
-
-      {openModal ? (
+      {showModalExpense ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full ">
             <div className="relative bg-white rounded-lg shadow">
@@ -98,7 +89,7 @@ const ModalAddExpense = () => {
                 <button
                   type="button"
                   className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
-                  onClick={handleModal}
+                  onClick={handleModalExpense}
                 >
                   <IoMdClose className="w-10 h-10" />
                 </button>
@@ -138,10 +129,10 @@ const ModalAddExpense = () => {
                       type="button"
                       className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center gap-2"
                       onClick={clickDropdown}
+                      required
                     >
                       <IoIosArrowDown />
                       {values.detail === "" ? "เลือกรายการ" : values.detail}
-                      
                     </button>
                     <div className="relative space-x-2 max-w-md max-h-full w-full flex">
                       {dropdown ? (
@@ -226,7 +217,7 @@ const ModalAddExpense = () => {
                     </button>
                     <button
                       type="button"
-                      onClick={handleModal}
+                      onClick={handleModalExpense}
                       className="p-3 bg-slate-50 rounded-md text-sm border hover:bg-gray-100"
                     >
                       ยกเลิก
@@ -241,5 +232,10 @@ const ModalAddExpense = () => {
     </div>
   );
 };
+
+ModalAddExpense.propTypes = {
+  showModalExpense: PropTypes.bool,
+  handleModalExpense: PropTypes.node.isRequired
+}
 
 export default ModalAddExpense;

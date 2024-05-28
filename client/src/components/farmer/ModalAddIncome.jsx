@@ -3,8 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-const ModalAddIncome = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
   const [values, setValues] = useState({
     date: new Date().toISOString().split("T")[0],
     detail: "เกี่ยวข้าว",
@@ -12,10 +11,6 @@ const ModalAddIncome = () => {
     rice_price_per_kg: "",
     price: "",
   });
-
-  const handleModal = () => {
-    setIsOpenModal(!isOpenModal);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,13 +26,8 @@ const ModalAddIncome = () => {
   };
   return (
     <div>
-      <button
-        className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-200"
-        onClick={() => handleModal()}
-      >
-        บันทึกรายรับ
-      </button>
-      {isOpenModal ? (
+      
+      {showModalIncome ? (
         <div>
           <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50 h-screen">
             <div className="relative p-4 w-full max-w-md max-h-full">
@@ -49,7 +39,7 @@ const ModalAddIncome = () => {
                   <button
                     type="button"
                     className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
-                    onClick={() => handleModal()}
+                    onClick={handleModalIncome}
                   >
                     <IoMdClose className="w-10 h-10" />
                   </button>
@@ -154,7 +144,7 @@ const ModalAddIncome = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleModal()}
+                        onClick={handleModalIncome}
                         className="p-3 bg-slate-50 rounded-md text-sm border hover:bg-gray-100"
                       >
                         ยกเลิก
@@ -172,7 +162,8 @@ const ModalAddIncome = () => {
 };
 
 ModalAddIncome.propTypes = {
-  modalIncome: PropTypes.bool,
+  showModalIncome: PropTypes.bool,
+  handleModalIncome: PropTypes.node.isRequired
 };
 
 export default ModalAddIncome;

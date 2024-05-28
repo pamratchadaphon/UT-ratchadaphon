@@ -1,8 +1,9 @@
 import axios from "axios";
 import { GoArrowRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"
 
-const Login2 = () => {
+const Login = () => {
   const navigator = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,34 +18,37 @@ const Login2 = () => {
         "http://localhost:8080/farmer/login",
         value
       );
-      const id = response.data.farmer_id
+      const id = response.data.farmer_id;
       if (response.data.role === "admin") {
         localStorage.setItem("token", response.data.token);
-        navigator(`/admin/index/`);
+        navigator(`/admin/riceVariety`);
       } else {
         localStorage.setItem("token", response.data.token);
         navigator(`/farmer/home/${id}`);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while logging in");
+      Swal.fire({
+        title: "เกิดข้อผิดพลาด",
+        text: "ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง",
+        icon: "error"
+      });
     }
   };
 
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-gradient-to-b from-green-300 to-green-50 bg-opacity-20">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 flex justify-between">
-        <div className="hidden lg:flex flex-col justify-center">
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-yellow-600 md:text-5xl lg:text-6xl">
+      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 flex ">
+        <div className="hidden md:flex flex-col justify-center md:w-1/2">
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-yellow-500 md:text-5xl lg:text-6xl">
             บันทึกรายรับรายจ่าย
           </h1>
           <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl">
             Here at Flowbite we focus on markets where technology, innovation,
-            and capital can unlock long-term value and drive economic growth.
           </p>
         </div>
-        <div>
-          <div className="w-full md:w-96 space-y-8 sm:p-8 md:bg-white md:rounded-lg md:shadow-xl">
+        <div className="md:w-1/2">
+          <div className="w-full space-y-8 sm:p-8 md:bg-white md:rounded-lg md:shadow-xl">
             <h2 className="text-2xl font-bold text-green-700 text-center lg:text-start">
               ลงชื่อเข้าใช้
             </h2>
@@ -76,7 +80,7 @@ const Login2 = () => {
 
               <button
                 type="submit"
-                className="w-full md:w-full px-5 py-3 text-base font-medium text-center text-white bg-green-600 hover:bg-green-700 rounded-lg transition duration-150 ease-in-out hover:-translate-y-1 flex items-center justify-center gap-2"
+                className="w-full md:w-full px-5 py-2.5 text-base font-medium text-center text-white bg-green-600 hover:bg-green-100 hover:text-green-700 hover:duration-500 rounded-lg flex items-center justify-center gap-2"
               >
                 <span>เข้าใช้งาน</span>
                 <GoArrowRight />
@@ -98,4 +102,4 @@ const Login2 = () => {
   );
 };
 
-export default Login2;
+export default Login;

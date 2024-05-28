@@ -5,7 +5,7 @@ import LoginFarmer from './pages/Login'
 import Register from './pages/Register'
 
 //Page Admin
-import HomePageAdmin from './pages/admin/HomePageAdmin';
+import ManageRiceVariety from './pages/admin/ManageRiceVariety'
 
 //Page Farmer
 import HomepageFarmer from './pages/farmer/HomePageFarmer'
@@ -15,7 +15,7 @@ import Income_Expense_History from './pages/farmer/Income_Expense_History';
 import Detail_RiceCaltivation from './pages/farmer/Detail_RiceCaltivation';
 
 //Route
-import AdminRoute from './auth/AdminRoute'
+import AdminAuthen from './auth/AdminAuthen'
 import UserAuthen from './auth/UserAuthen';
 
 const App = () => {
@@ -32,7 +32,7 @@ const App = () => {
           <Route path='/ricecrop/history' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
           <Route path='/ricecrop/detail' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
 
-          <Route path='/admin/index' element={<AdminRoute><HomePageAdmin/></AdminRoute>}/>
+          <Route path='/admin/riceVariety' element={<AdminAuthen><ManageRiceVariety/></AdminAuthen>}/>
         </Routes>
       </BrowserRouter>
     </div>

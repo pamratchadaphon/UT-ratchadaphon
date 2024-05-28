@@ -8,6 +8,8 @@ const Content = () => {
   const id = useParams();
   const idAsInt = Number(id.farmer_id);
   const [data, setData] = useState({});
+  const [showModalExpense, setShowModalExpense] = useState(false);
+  const [showModalIncome, setShowModalIncome] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +21,11 @@ const Content = () => {
     };
     fetchData();
   }, [idAsInt]);
+
+  const handleModalExpense = () => setShowModalExpense(!showModalExpense);
+
+  const handleModalIncome = () => setShowModalIncome(!showModalIncome);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
@@ -28,6 +35,7 @@ const Content = () => {
       month < 10 ? "0" + month : month
     }/${year}`;
   };
+
   return (
     <div className="px-4 py-16 border bg-gradient-to-r from-green-100 to-blue-100 h-screen flex flex-col justify-center items-center">
       <h1 className="mb-4 text-4xl font-extrabold text-green-700 tracking-tight leading-none  md:text-5xl lg:text-6xl">
@@ -39,9 +47,27 @@ const Content = () => {
       <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
         วันที่เก็บเกี่ยว : {formatDate(data.endDate)}
       </p>
-      <div className="flex gap-4 md:gap-6 justify-center">
-        <ModalAddExpense />
-        <ModalAddIncome />
+      <div className="flex gap-2 md:gap-3 justify-center items-center">
+        <button
+          className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-200"
+          onClick={handleModalExpense}
+        >
+          บันทึกรายจ่าย
+        </button>
+        <ModalAddExpense
+          showModalExpense={showModalExpense}
+          handleModalExpense={handleModalExpense}
+        />
+        <button
+          className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-200"
+          onClick={handleModalIncome}
+        >
+          บันทึกรายรับ
+        </button>
+        <ModalAddIncome
+          showModalIncome={showModalIncome}
+          handleModalIncome={handleModalIncome}
+        />
       </div>
 
       <div className="mt-8">

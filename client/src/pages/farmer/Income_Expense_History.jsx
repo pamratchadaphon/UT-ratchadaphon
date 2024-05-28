@@ -1,9 +1,18 @@
 import Navbar from "../../components/farmer/Navbar";
 import TableIncomeExpense from "../../components/farmer/TableIncomeExpense";
 import { IoIosArrowForward } from "react-icons/io";
-import BoxIncomeExpense from "../../components/farmer/BoxIncomeExpense"
+import BoxIncomeExpense from "../../components/farmer/BoxIncomeExpense";
+import ModalAddExpense from "../../components/farmer/ModalAddExpense";
+import { useState } from "react";
+import ModalAddIncome from "../../components/farmer/ModalAddIncome";
 
 const Income_Expense_History = () => {
+  const [showModalExpense, setShowModalExpense] = useState(false);
+  const [showModalIncome, setShowModalIncome] = useState(false);
+
+  const handleModalExpense = () => setShowModalExpense(!showModalExpense);
+  const handleModalIncome = () => setShowModalIncome(!showModalIncome);
+
   return (
     <div>
       <Navbar />
@@ -11,7 +20,10 @@ const Income_Expense_History = () => {
         <nav className="flex mb-4">
           <ol className="flex space-x-1 items-center">
             <li>
-              <a href="/ricecrop/2" className="hover:underline hover:text-green-700">
+              <a
+                href="/ricecrop/2"
+                className="hover:underline hover:text-green-700"
+              >
                 รอบการปลูก
               </a>
             </li>
@@ -22,7 +34,7 @@ const Income_Expense_History = () => {
           </ol>
         </nav>
 
-        <BoxIncomeExpense/>
+        <BoxIncomeExpense />
 
         <div className="bg-white shadow p-4 my-4 rounded-lg">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
@@ -31,17 +43,27 @@ const Income_Expense_History = () => {
                 <button
                   type="button"
                   className="bg-red-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
+                  onClick={handleModalExpense}
                 >
                   บันทึกรายจ่าย
                 </button>
+                <ModalAddExpense
+                  showModalExpense={showModalExpense}
+                  handleModalExpense={handleModalExpense}
+                />
               </div>
               <div>
                 <button
                   type="button"
                   className="bg-green-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200"
+                  onClick={handleModalIncome}
                 >
                   บันทึกรายรับ
                 </button>
+                <ModalAddIncome
+                  showModalIncome={showModalIncome}
+                  handleModalIncome={handleModalIncome}
+                />
               </div>
             </div>
             <div>

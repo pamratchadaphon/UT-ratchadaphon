@@ -5,34 +5,42 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    softness: {
+    feature: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    photosensitivity:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    precautions: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    sensitivity: {
+    yield: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    water_requirement: {
+    stability: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
-    growth_period: {
+    height: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
-    yield_variety: {
+    age: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    selling_price: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   });
   return RiceVariety;
 };
