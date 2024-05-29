@@ -36,11 +36,11 @@ const Cards = () => {
 
             <div className="p-5">
               <h5 className="md:text-2xl font-bold tracking-tight  text-green-700">
-                พันธุ์ กข65
+                พันธุ์ {d.name}
               </h5>
 
               <p className="text-sm text-gray-700 mb-3">
-                ผลผลิต : ประมาณ 673 กก./ไร่
+                ผลผลิต : ประมาณ {d.yield} กก./ไร่
               </p>
               <div className="flex items-center">
                 <button
@@ -65,14 +65,14 @@ const Cards = () => {
                   />
                   <div>
                     <span className="font-semibold text-lg text-green-700">
-                      ข้อมูลพันธุ์ข้าว กข65
+                      ข้อมูลพันธุ์ข้าว {dataById.name}
                     </span>
                     <div className="flex items-center">
                       <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
-                        อายุเก็บเกี่ยว{" "}
+                        อายุเก็บเกี่ยว
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        120-130 วัน (หว่านน้ำตม)
+                        {dataById.age} วัน (หว่านน้ำตม)
                       </span>
                     </div>
                     <div className="flex">
@@ -80,7 +80,7 @@ const Cards = () => {
                         คุณสมบัติ
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        พันธุ์ต้านทานโรคและแมลง
+                        {dataById.feature}
                       </span>
                     </div>
                     <div className="flex">
@@ -88,15 +88,7 @@ const Cards = () => {
                         ความไวแสง
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        ไวต่อช่วงแสง
-                      </span>
-                    </div>
-                    <div className="flex">
-                      <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
-                        ความนุ่มนวล
-                      </span>
-                      <span className="w-1/2 text-sm text-gray-600">
-                        เป็นข้าวหอม ข้าวนุ่ม
+                        {dataById.photosensitivity}
                       </span>
                     </div>
                     <div className="flex">
@@ -104,7 +96,7 @@ const Cards = () => {
                         ความสูงเฉลี่ย
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        130 เซนติเมตร
+                        {dataById.height} เซนติเมตร
                       </span>
                     </div>
                     <div className="flex">
@@ -112,7 +104,7 @@ const Cards = () => {
                         ผลผลิต
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        ประมาณ 673 กก./ไร่
+                        ประมาณ {dataById.yield} กก./ไร่
                       </span>
                     </div>
                     <div className="flex">
@@ -120,7 +112,15 @@ const Cards = () => {
                         ความสามารถพิเศษ
                       </span>
                       <span className="w-1/2 text-sm text-gray-600">
-                        ค่อนข้างต้านทานโรคไหม้ในระยะกล้า
+                       {dataById.stability}
+                      </span>
+                    </div>
+                    <div className="flex">
+                      <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
+                        ข้อจำกัด
+                      </span>
+                      <span className="w-1/2 text-sm text-gray-600">
+                       {dataById.precautions}
                       </span>
                     </div>
                   </div>

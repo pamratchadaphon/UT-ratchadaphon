@@ -3,6 +3,7 @@ const { Sequelize} = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
+  port: dbConfig.port,
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -13,7 +14,8 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 sequelize
   .authenticate()
   .then(() => console.log("connected!"))
-  .catch((err) => console.log("Error " + err));
+  .catch((err) => console.log("Error :" + err));
+
 
 const db = {};
 db.Farmer = require("./FarmerModel")(sequelize, Sequelize);

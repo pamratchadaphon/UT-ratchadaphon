@@ -3,6 +3,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import axios from "axios";
 import { FaEye } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Table_RiceVariety = () => {
   const [data, setData] = useState([]);
@@ -17,6 +18,28 @@ const Table_RiceVariety = () => {
     };
     fetchData();
   }, []);
+
+  const deleteRiceVariety = async (id, name) => {
+    Swal.fire({
+      title: "ยืนยันการลบ?",
+      text: `คุณต้องการลบพันธุ์ข้าว ${name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ตกลง",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:8080/riceVariety/${id}`);
+        await Swal.fire({
+          title: "ลบสำเร็จ",
+          icon: "success",
+        });
+        window.location.reload();
+      }
+    });
+  };
   return (
     <div className="hidden lg:flex">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
@@ -47,50 +70,29 @@ const Table_RiceVariety = () => {
         </thead>
         <tbody>
           {data.map((d, i) => (
-            <tr
-              key={i}
-              className="bg-white border-b hover:bg-gray-50 "
-            >
+            <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               >
                 {i + 1}
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal  text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal  text-center">
                 {d.name}
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal text-center">
                 {d.age} วัน
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal text-center">
                 ประมาณ {d.yield} กก./ไร่
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal text-center">
                 {d.height} ซม.
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal text-center">
                 {d.photosensitivity}
               </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-normal text-center"
-              >
+              <th scope="row" className="px-6 py-4 font-normal text-center">
                 <div className="flex justify-center items-center gap-2">
                   <button className="flex justify-center items-center">
                     <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-10 h-7 flex justify-center items-center border border-sky-200">
@@ -102,7 +104,10 @@ const Table_RiceVariety = () => {
                       <FaRegEdit className="w-5 h-5" />
                     </div>
                   </button>
-                  <button className="flex justify-center items-center">
+                  <button
+                    className="flex justify-center items-center"
+                    onClick={() => deleteRiceVariety(d.riceVariety_id, d.name)}
+                  >
                     <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-10 h-7 flex justify-center items-center border border-red-300">
                       <IoTrashOutline className="w-5 h-5" />
                     </div>

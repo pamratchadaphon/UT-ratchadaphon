@@ -1,10 +1,37 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import Swal from "sweetalert2"
 
 const AddRicevariety = () => {
   const [modal, setModal] = useState(false);
+  const [values, setValues] = useState({
+    name: "",
+    age: "",
+    yield: "",
+    height: "",
+    photosensitivity: "",
+    stability: "",
+    precautions: "",
+    image: ""
+  });
 
   const handleModal = () => setModal(!modal);
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('image', values.image)
+    console.log(formData);
+
+    Swal.fire({
+      title: "เพิ่มพันธุ์ข้าวสำเร็จ",
+      icon: "success"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload()
+      }
+    });
+  }
   return (
     <div>
       <button
@@ -30,9 +57,9 @@ const AddRicevariety = () => {
                   <IoMdClose className="w-10 h-10" />
                 </button>
               </div>
-              <form className="p-4 md:p-5 flex flex-col space-y-4">
+              <form className="p-4 md:p-5 flex flex-col space-y-4 " onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="name"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -43,10 +70,13 @@ const AddRicevariety = () => {
                       type="text"
                       name="name"
                       id="name"
+                      required
+                      value={values.name}
+                      onChange={(e) => setValues({...values, name: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="age"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -57,10 +87,13 @@ const AddRicevariety = () => {
                       type="text"
                       name="age"
                       id="age"
+                      required
+                      value={values.age}
+                      onChange={(e) => setValues({...values, age: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="yield"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -71,10 +104,13 @@ const AddRicevariety = () => {
                       type="text"
                       name="yield"
                       id="yield"
+                      required
+                      value={values.yield}
+                      onChange={(e) => setValues({...values, yield: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="heigth"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -85,10 +121,13 @@ const AddRicevariety = () => {
                       type="text"
                       name="heigth"
                       id="heigth"
+                      required
+                      value={values.height}
+                      onChange={(e) => setValues({...values, height: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="photosentitivity"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -99,38 +138,47 @@ const AddRicevariety = () => {
                       type="text"
                       name="photosentitivity"
                       id="photosentitivity"
+                      required
+                      value={values.photosensitivity}
+                      onChange={(e) => setValues({...values, photosensitivity: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
-                      htmlFor="photosentitivity"
+                      htmlFor="stability"
                       className=" text-sm font-medium text-gray-900 mb-2"
                     >
                       ลักษณะเด่น
                     </label>
                     <input
                       type="text"
-                      name="photosentitivity"
-                      id="photosentitivity"
+                      name="stability"
+                      id="stability"
+                      required
+                      value={values.stability}
+                      onChange={(e) => setValues({...values, stability:e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex  items-center">
+                  <div className="flex  items-center md:justify-between">
                     <label
-                      htmlFor="photosentitivity"
+                      htmlFor="precautions"
                       className=" text-sm font-medium text-gray-900 mb-2"
                     >
                       ข้อควรระวัง
                     </label>
                     <input
                       type="text"
-                      name="photosentitivity"
-                      id="photosentitivity"
+                      name="precautions"
+                      id="precautions"
+                      required
+                      value={values.precautions}
+                      onChange={(e) => setValues({...values, precautions: e.target.value})}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center md:justify-between">
                     <label
                       htmlFor="image"
                       className=" text-sm font-medium text-gray-900 mb-2"
@@ -141,7 +189,10 @@ const AddRicevariety = () => {
                       type="file"
                       name="image"
                       id="image"
-                      className=" text-gray-900 text-sm rounded-lg p-2.5"
+                      required
+                      value={values.image}
+                      onChange={(e) => setValues({...values, image: e.target.files[0]})}
+                      className=" text-gray-900 text-sm rounded-lg p-2.5 "
                     />
                   </div>
                 </div>

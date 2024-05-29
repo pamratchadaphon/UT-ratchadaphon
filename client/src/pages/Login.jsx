@@ -25,6 +25,7 @@ const Login = () => {
       } else {
         localStorage.setItem("token", response.data.token);
         navigator(`/farmer/home/${id}`);
+        
       }
     } catch (error) {
       console.error("Error:", error);

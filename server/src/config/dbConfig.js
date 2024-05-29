@@ -4,6 +4,7 @@ module.exports = {
     PASSWORD: '',
     DB: 'RiceCultivationByFarmers',
     dialect: 'mysql',
+    port: 3308,
     pool: {
         max: 5,
         min: 0,

@@ -163,7 +163,7 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
 
 ModalAddIncome.propTypes = {
   showModalIncome: PropTypes.bool,
-  handleModalIncome: PropTypes.node.isRequired
+  handleModalIncome: PropTypes.func
 };
 
 export default ModalAddIncome;

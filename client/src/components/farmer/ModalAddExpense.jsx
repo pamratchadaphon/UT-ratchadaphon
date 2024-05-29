@@ -235,7 +235,7 @@ const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
 
 ModalAddExpense.propTypes = {
   showModalExpense: PropTypes.bool,
-  handleModalExpense: PropTypes.node.isRequired
+  handleModalExpense: PropTypes.func
 }
 
 export default ModalAddExpense;
