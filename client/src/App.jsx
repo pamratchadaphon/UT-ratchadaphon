@@ -6,6 +6,7 @@ import Register from './pages/Register'
 
 //Page Admin
 import ManageRiceVariety from './pages/admin/ManageRiceVariety'
+import ManageRiceCaltivation from './pages/admin/ManageRiceCaltivation'
 
 //Page Farmer
 import HomepageFarmer from './pages/farmer/HomePageFarmer'
@@ -29,10 +30,11 @@ const App = () => {
           <Route path='/farmer/home/:farmer_id' element={<UserAuthen><HomepageFarmer/></UserAuthen>}/>
           <Route path='/ricecrop/:farmer_id' element={<UserAuthen><Ricecrop/></UserAuthen>}/>
           <Route path='/ricevariety' element={<UserAuthen><RiceVariety/></UserAuthen>}/>
-          <Route path='/ricecrop/history' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
-          <Route path='/ricecrop/detail' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
+          <Route path='/ricecrop/history/:farmer_id/:riceCaltivation_id' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
+          <Route path='/ricecrop/detail/:farmer_id/:riceCaltivation_id' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
 
           <Route path='/admin/riceVariety' element={<AdminAuthen><ManageRiceVariety/></AdminAuthen>}/>
+          <Route path='/admin/riceCaltivaion' element={<AdminAuthen><ManageRiceCaltivation/></AdminAuthen>}/>
         </Routes>
       </BrowserRouter>
     </div>

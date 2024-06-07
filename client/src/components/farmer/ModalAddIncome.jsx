@@ -3,17 +3,34 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
-const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
-  const [values, setValues] = useState({
-    date: new Date().toISOString().split("T")[0],
-    detail: "เกี่ยวข้าว",
-    yield: "",
-    rice_price_per_kg: "",
-    price: "",
-  });
+const ModalAddIncome = ({
+  showModalIncome,
+  handleModalIncome,
+  idFarmer,
+  idRiceCaltivation,
+}) => {
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0])
+  const detail = "เกี่ยวข้าว"
+  const [yield_rice, setYield] = useState("")
+  const [rice_price_per_kg, setRice_price_per_kg] = useState("")
+  const [price, setPrice] = useState("")
+  const type = "รายรับ"
+  const farmer_id = idFarmer
+  const riceCaltivation_id = idRiceCaltivation
+  
+
+  const clickChange = (e) => {
+    setRice_price_per_kg(e.target.value)
+    setPrice(Number(rice_price_per_kg) *
+    Number(yield_rice))
+    console.log(Number(rice_price_per_kg) *
+    Number(yield_rice));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    console.log(rice_price_per_kg);
     Swal.fire({
       title: "บันทึกรายรับสำเร็จ",
       icon: "success",
@@ -22,11 +39,9 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
         window.location.reload();
       }
     });
-    console.log(values);
   };
   return (
     <div>
-      
       {showModalIncome ? (
         <div>
           <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50 h-screen">
@@ -57,9 +72,8 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
                         type="date"
                         name="date"
                         id="date"
-                        value={values.date}
-                        onChange={(e) =>
-                          setValues({ ...values, date: e.target.value })
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)
                         }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         required
@@ -73,11 +87,8 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
                         type="text"
                         name="detail"
                         id="detail"
-                        value={values.detail}
+                        value={detail}
                         disabled
-                        onChange={(e) =>
-                          setValues({ ...values, detail: e.target.value })
-                        }
                         className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         required
                       />
@@ -88,10 +99,11 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
                       </label>
                       <input
                         type="number"
-                        name="amount"
-                        id="amount"
+                        name="yield_rice"
+                        id="yield_rice"
+                        value={yield_rice}
                         onChange={(e) =>
-                          setValues({ ...values, yield: e.target.value })
+                          setYield(e.target.value)
                         }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
                         required
@@ -105,12 +117,7 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
                         type="number"
                         name="rice_price_per_kg"
                         id="rice_price_per_kg"
-                        onChange={(e) =>
-                          setValues({
-                            ...values,
-                            rice_price_per_kg: e.target.value,
-                          })
-                        }
+                        onChange={clickChange}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         required
                       />
@@ -124,11 +131,8 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
                         name="price"
                         id="price"
                         value={
-                          Number(values.rice_price_per_kg) *
-                          Number(values.yield)
-                        }
-                        onChange={(e) =>
-                          setValues({ ...values, price: e.target.value })
+                          Number(rice_price_per_kg) *
+                          Number(yield_rice)
                         }
                         disabled
                         className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -163,7 +167,9 @@ const ModalAddIncome = ({showModalIncome, handleModalIncome}) => {
 
 ModalAddIncome.propTypes = {
   showModalIncome: PropTypes.bool,
-  handleModalIncome: PropTypes.func
+  handleModalIncome: PropTypes.func,
+  idFarmer: PropTypes.number,
+  idRiceCaltivation: PropTypes.number,
 };
 
 export default ModalAddIncome;

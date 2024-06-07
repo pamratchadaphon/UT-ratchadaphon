@@ -5,8 +5,10 @@ import { IoMdClose } from "react-icons/io";
 import { FaSeedling } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types'
 
-const Navbar = () => {
+const Navbar = ({id}) => {
+  const farmer_id = Number(id)
   const [isOpenToggle, setIsOpenToggle] = useState(false);
   const navigate = useNavigate();
   const [hoveredHome, setHoveredHome] = useState(false);
@@ -61,9 +63,8 @@ const Navbar = () => {
           <ul className="md:flex md:p-0 mt-4 font-medium md:space-x-8 md:flex-row md:mt-0 ">
             <li>
               <a
-                href="/farmer/home/2"
+                href={`/farmer/home/${farmer_id}`}
                 className=" md:hover:rounded-xl md:hover:text-green-900 md:p-0 flex items-center"
-                aria-current="page"
                 onMouseEnter={() => setHoveredHome(true)}
                 onMouseLeave={() => setHoveredHome(false)}
               >
@@ -84,7 +85,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href={`/ricecrop/2`}
+                href={`/ricecrop/${farmer_id}`}
                 className=" md:hover:rounded-xl  md:hover:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
                 onMouseEnter={() => setHoveredRicecrop(true)}
@@ -133,13 +134,13 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
-          {isOpenToggle ? (
-            <ul className="md:hidden flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse  dark:bg-gray-800 dark:border-gray-700">
+        </div>
+        {isOpenToggle ? (
+            <ul className="md:hidden flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse w-full">
               <li>
                 <a
                   href="/farmer/home/2"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500"
-                  aria-current="page"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   หน้าแรก
                 </a>
@@ -147,8 +148,7 @@ const Navbar = () => {
               <li>
                 <a
                   href="/ricecrop/2"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500"
-                  aria-current="page"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   รอบการปลูก
                 </a>
@@ -156,17 +156,21 @@ const Navbar = () => {
               <li>
                 <a
                   href="/ricevariety"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 md:dark:text-green-500"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   พันธุ์ข้าว
                 </a>
               </li>
             </ul>
-          ) : null}
-        </div>
+          ) : null}  
       </div>
+      
     </nav>
   );
 };
+
+Navbar.propTypes = {
+  id: PropTypes.number
+}
 
 export default Navbar;

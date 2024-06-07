@@ -3,11 +3,14 @@ import IncomeExpensePerMonth from "../../components/farmer/IncomeExpensePerMonth
 import Navbar from "../../components/farmer/Navbar";
 import { IoIosArrowForward } from "react-icons/io";
 import Info_ricecrop from "../../components/farmer/Info_ricecrop";
+import { useParams } from "react-router-dom";
 
 const Detail_RiceCaltivationjsx = () => {
+  const idFarmer = Number(useParams().farmer_id)
+
   return (
     <div>
-      <Navbar />
+      <Navbar id={idFarmer}/>
       <div className="mx-auto max-w-screen-xl p-4 space-y-4 flex flex-col">
         <nav className="flex">
           <ol className="flex space-x-1 items-center">

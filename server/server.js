@@ -19,7 +19,7 @@ app.use('/riceVariety', routeRiceVariety)
 const routeRiceCaltivation = require('./src/routes/riceCaltivationRoute')
 app.use('/riceCaltivation', routeRiceCaltivation)
 
-const routerIncomeExpense = require('./src/routes/incomeExpenseRoure');
+const routerIncomeExpense = require('./src/routes/incomeExpenseRoute');
 app.use('/incomeExpense', routerIncomeExpense)
 
 app.use('/Images', express.static('./Images'))

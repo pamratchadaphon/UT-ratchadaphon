@@ -16,31 +16,20 @@ const chartSetting = {
 };
 const dataset = [
   {
-    london: 59,
-    paris: 57,
-    newYork: 86,
-    seoul: 21,
+    expense: 59,
     month: "มค.",
   },
   {
-    london: 50,
-    paris: 52,
-    newYork: 78,
-    seoul: 28,
+    expense: 50,
     month: "กพ.",
   },
   {
-    london: 47,
-    paris: 53,
-    newYork: 106,
-    seoul: 41,
+    expense: 47,
     month: "มีค.",
   },
   {
-    london: 47,
-    paris: 53,
-    newYork: 106,
-    seoul: 41,
+    expense: 47,
+    income: 53,
     month: "มย.",
   },
 ];
@@ -55,8 +44,8 @@ export default function IncomeExpensePerMonth() {
         dataset={dataset}
         xAxis={[{ scaleType: "band", dataKey: "month" }]}
         series={[
-          { dataKey: "london", label: "รายจ่าย", valueFormatter },
-          { dataKey: "paris", label: "รายรับ", valueFormatter },
+          { dataKey: "expense", label: "รายจ่าย", valueFormatter,color: "#FF9997" },
+          { dataKey: "income", label: "รายรับ", valueFormatter , color: "#92CEA8"},
         ]}
         {...chartSetting}
       />

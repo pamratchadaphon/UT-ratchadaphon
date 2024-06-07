@@ -1,71 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
-import {PropTypes} from "prop-types"
+import { PropTypes } from "prop-types";
+import axios from "axios";
 
-const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
+const ModalAddExpense = ({
+  showModalExpense,
+  handleModalExpense,
+  farmer_id,
+  riceCaltivation_id,
+}) => {
   const [values, setValues] = useState({
     date: new Date().toISOString().split("T")[0],
     detail: "",
     price: "",
     payee: "",
+    type: "รายจ่าย",
+    farmer_id: farmer_id,
+    riceCaltivation_id: riceCaltivation_id,
   });
+  console.log(values.riceCaltivation_id);
   const [dropdown, setDropdown] = useState(false);
-  const [dropdown1, setDropdown1] = useState(false);
-
-  const [dataList, setDataList] = useState([]);
-
-  const dropdownList = [
-    "แรงงาน",
-    "ปุ๋ยและสารเคมี",
-    "เครื่องจักรและอุปกรณ์",
-    "น้ำและการชลประทาน",
-    "เช่าที่ดิน",
-    "เมล็ดพันธุ์ข้าว",
-  ];
-
-  const dropdownData = [
-    [
-      "เก็บเกี่ยวข้าว",
-      "ปลูกข้าว",
-      "หว่านปุ๋ยเคมี",
-      "หว่านเมล็ดพันธุ์ข้าว",
-      "ย่ำนา",
-    ],
-    ["ปุ๋ยเคมี", "ปุ๋ยอินทรีย์", "ยาคุมหญ้า", "ยาฆ่าแมลง", "ยาป้องกันแมลง"],
-    [
-      "เครื่องมือและอุปกรณ์",
-      "รถปั่นนา",
-      "รถเข็นข้าว",
-      "รถเกี่ยวข้าว",
-      "รถดำนา",
-      "รถไถนา",
-    ],
-    ["น้ำมันเชื้อเพลิง"],
-    ["เช่าที่ดิน"],
-    ["เมล็ดพันธุ์ข้าว"],
-  ];
+  const [payees, setPayees] = useState([]);
 
   const clickDropdown = () => {
     setDropdown(!dropdown);
-    setDropdown1(false);
   };
 
-  const clickDropdown1 = (index) => {
-    setDataList(dropdownData[index]);
-    setDropdown1(true);
+  const handleDetail = (e) => {
+    setValues({ ...values, detail: e.target.value });
+    setDropdown(!dropdown);
   };
 
-  const clickDetail = (string) => {
-    setValues({ ...values, detail: string });
-    setDropdown(false);
-    setDropdown1(false);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/riceCaltivation/incomeExpense/7`
+        );
+        const incomeExpense = res.data[0].incomeExpense;
+        const arr = [];
+        incomeExpense.map((data) =>
+          data.type === "รายจ่าย" ? arr.push(data.payee) : null
+        );
+        setPayees(arr);
+      } catch (error) {
+        console.log("Error : " + error);
+      }
+    };
+    fetchData();
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // await axios.post(`http://localhost:8080/incomeExpense`, values);
+    console.log(values);
     Swal.fire({
       title: "บันทึกรายจ่ายสำเร็จ",
       icon: "success",
@@ -74,7 +64,6 @@ const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
         window.location.reload();
       }
     });
-    console.log(values);
   };
   return (
     <div>
@@ -127,47 +116,110 @@ const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
                     </label>
                     <button
                       type="button"
-                      className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center gap-2"
+                      className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center justify-between gap-2"
                       onClick={clickDropdown}
                       required
                     >
-                      <IoIosArrowDown />
                       {values.detail === "" ? "เลือกรายการ" : values.detail}
+                      <IoIosArrowDown />
                     </button>
-                    <div className="relative space-x-2 max-w-md max-h-full w-full flex">
-                      {dropdown ? (
-                        <div className="w-1/2">
-                          <ul className="bg-gray-50 shadow rounded-b-lg">
-                            {dropdownList.map((d, i) => (
-                              <li
-                                className="flex justify-between items-center p-2 cursor-pointer text-sm hover:bg-gray-200 "
-                                onClick={() => clickDropdown1(i)}
-                                key={i}
-                              >
-                                {d}
-                                <IoIosArrowForward />
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : null}
 
-                      {dropdown1 ? (
-                        <div className="w-1/2">
-                          <ul className="bg-gray-50 shadow rounded-lg">
-                            {dataList.map((d, i) => (
-                              <li
-                                className="text-sm p-2 cursor-pointer hover:bg-gray-200"
-                                onClick={() => clickDetail(d)}
-                                key={i}
-                              >
-                                {d}
-                              </li>
-                            ))}
-                          </ul>
+                    {dropdown ? (
+                      <div className="relative max-w-md max-h-full w-full p-4 border rounded-lg shadow-lg">
+                        <div className="text-sm space-y-2">
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">แรงงาน</option>
+                            <option value="เก็บเกี่ยวข้าว">
+                              เก็บเกี่ยวข้าว
+                            </option>
+                            <option value="ฉีดยาคุมหญ้า">ฉีดยาคุมหญ้า</option>
+                            <option value="ฉีดยาฆ่าแมลง">ฉีดยาฆ่าแมลง</option>
+                            <option value="ฉีดยาป้องกันแมลง">
+                              ฉีดยาป้องกันแมลง
+                            </option>
+                            <option value="ตัดหญ้า">ตัดหญ้า</option>
+                            <option value="ปลูกข้าว">ปลูกข้าว</option>
+                            <option value="หว่านปุ๋ยเคมี">หว่านปุ๋ยเคมี</option>
+                            <option value="หว่านเมล็ดพันธุ์ข้าว">
+                              หว่านเมล็ดพันธุ์ข้าว
+                            </option>
+                            <option value="ย่ำนา">ย่ำนา</option>
+                          </select>
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">ปุ๋ยและสารเคมี</option>
+                            <option value="ปุ๋ยเคมี">ปุ๋ยเคมี</option>
+                            <option value="ปุ๋ยอินทรีย์">ปุ๋ยอินทรีย์</option>
+                            <option value="ยาคุมหญ้า">ยาคุมหญ้า</option>
+                            <option value="ยาฆ่าแมลง">ยาฆ่าแมลง</option>
+                            <option value="ยาป้องกันแมลง">ยาป้องกันแมลง</option>
+                          </select>
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">เครื่องจักรและอุปกรณ์</option>
+                            <option value="รถเกี่ยวข้าว">รถเกี่ยวข้าว</option>
+                            <option value="รถเข็นข้าว">รถเข็นข้าว</option>
+                            <option value="รถไถนา">รถไถนา</option>
+                            <option value="รถดำนา">รถดำนา</option>
+                            <option value="รถปั่นนา">รถปั่นนา</option>
+                          </select>
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">น้ำมันเชื้อเพลิง</option>
+                            <option value="น้ำมันเชื้อเพลิง">
+                              น้ำมันเชื้อเพลิง
+                            </option>
+                          </select>
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">เช่าที่ดิน</option>
+                            <option value="เช่าที่ดิน">เช่าที่ดิน</option>
+                          </select>
+                          <select
+                            name=""
+                            id=""
+                            className="w-full"
+                            onChange={handleDetail}
+                          >
+                            <option value="">เมล็ดพันธุ์ข้าว</option>
+                            <option value="เมล็ดพันธุ์ข้าว">
+                              เมล็ดพันธุ์ข้าว
+                            </option>
+                          </select>
+                          <input
+                            type="text"
+                            name="detail"
+                            id="detail"
+                            onChange={(e) =>
+                              setValues({ ...values, detail: e.target.value })
+                            }
+                            placeholder="อื่นๆ"
+                            className="blok bg-gray-100 rounded-lg text-gray-900 p-2.5 text-sm w-full"
+                          />
                         </div>
-                      ) : null}
-                    </div>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div>
@@ -205,8 +257,21 @@ const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
                       onChange={(e) =>
                         setValues({ ...values, payee: e.target.value })
                       }
+                      list="list_values"
                       className="block border w-full p-2.5 rounded-lg text-sm border-gray-300 bg-gray-50 text-gray-900"
                     />
+                    <datalist
+                      id="list_values"
+                      onChange={(e) =>
+                        setValues({ ...values, payee: e.target.value })
+                      }
+                    >
+                      {payees.map((p, i) => (
+                        <option value={p} key={i}>
+                          {p}
+                        </option>
+                      ))}
+                    </datalist>
                   </div>
                   <div className="space-x-2 flex justify-end items-center">
                     <button
@@ -235,7 +300,9 @@ const ModalAddExpense = ({ showModalExpense, handleModalExpense }) => {
 
 ModalAddExpense.propTypes = {
   showModalExpense: PropTypes.bool,
-  handleModalExpense: PropTypes.func
-}
+  handleModalExpense: PropTypes.func,
+  farmer_id: PropTypes.number,
+  riceCaltivation_id: PropTypes.number,
+};
 
 export default ModalAddExpense;

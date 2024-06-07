@@ -1,27 +1,40 @@
 import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
+import axios from "axios";
 
-const TableIncomeExpense = () => {
-  const handleDelete = (e) => {
-    e.preventDefault();
+const TableIncomeExpense = ({ data }) => {
+  const handleDelete = (detail, id) => {
     Swal.fire({
       title: "ยืนยันการลบ?",
-      text: "คุณต้องการลบรายการ ซื้อปุ๋ยเคมี",
+      text: `คุณต้องการลบรายการ ${detail}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       cancelButtonText: "ยกเลิก",
       confirmButtonText: "ตกลง",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
+        await axios.delete(`http://localhost:8080/incomeExpense/${id}`);
         Swal.fire({
           title: "ลบสำเร็จ",
           icon: "success",
         });
+        window.location.reload();
       }
-    })
+    });
+  };
+
+  const formatDate = (string) => {
+    const date = new Date(string);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
   };
   return (
     <div className="">
@@ -31,7 +44,7 @@ const TableIncomeExpense = () => {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3 text-center">
-                  ลำดับที่
+                  วันที่
                 </th>
                 <th scope="col" className="px-6 py-3 text-center">
                   รายการ
@@ -45,62 +58,73 @@ const TableIncomeExpense = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center"
+              {data.map((d, i) => (
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
+                  key={i}
                 >
-                  1
-                </th>
-                <td className="px-6 py-4 text-center">ซื้อปุ๋ยเคมี</td>
-                <td className="px-6 py-4 text-center">300</td>
-                <td className="px-6 py-4">
-                  <div className="flex justify-center items-center gap-2">
-                    <div className="flex justify-center items-center cursor-pointer">
-                      <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-16 h-8 flex justify-center items-center border border-sky-200">
-                        <FaRegEdit className="w-6 h-6" />
+                  <th className="px-6 py-4 text-center font-normal">
+                    {formatDate(d.date)}
+                  </th>
+                  <td className="px-6 py-4 text-center">{d.detail}</td>
+                  <td className="px-6 py-4 text-center">{d.price}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex justify-center items-center gap-2">
+                      <div className="flex justify-center items-center cursor-pointer">
+                        <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-8 h-8 flex justify-center items-center border border-sky-200">
+                          <FaRegEdit className="w-6 h-6" />
+                        </div>
+                      </div>
+                      <div
+                        className="flex justify-center items-center cursor-pointer"
+                        onClick={() =>
+                          handleDelete(d.detail, d.income_expense_id)
+                        }
+                      >
+                        <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
+                          <IoTrashOutline className="w-6 h-6" />
+                        </div>
                       </div>
                     </div>
-                    <div
-                      className="flex justify-center items-center cursor-pointer"
-                      onClick={handleDelete}
-                    >
-                      <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-16 h-8 flex justify-center items-center border border-red-300">
-                        <IoTrashOutline className="w-6 h-6" />
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <div className="md:hidden">
           <div className="flex flex-col gap-1">
-            <div className="flex justify-between items-center text- border p-2 bg-gray-50">
-              <div className="flex flex-col">
-                <span className="text-sm">ซื้อปุ๋ยเคมี</span>
-                <span className="text-xs text-gray-500">01/01/2024</span>
-              </div>
-              <div className="flex gap-1">
-                <span className="text-red-600 font-bold">- 300</span>
-                <span>บาท</span>
-              </div>
-              <div className="flex gap-1">
-                <div className="flex justify-center items-center">
-                  <FaRegEdit className="w-5 h-5 text-sky-400" />
+            {data.map((d, i) => (
+              <div
+                className="flex justify-between items-center text- border p-2 bg-gray-50"
+                key={i}
+              >
+                <div className="flex flex-col">
+                  <span className="text-sm">{d.detail}</span>
+                  <span className="text-xs text-gray-500">
+                    {formatDate(d.date)}
+                  </span>
                 </div>
-                <div
-                  className="flex justify-center items-center cursor-pointer"
-                  onClick={handleDelete}
-                >
-                  <IoTrashOutline className="w-5 h-5 text-red-400" />
+                <div className="flex gap-1">
+                  <span className="text-red-600 font-bold">- {d.price}</span>
+                  <span>บาท</span>
+                </div>
+                <div className="flex gap-1">
+                  <div className="flex justify-center items-center">
+                    <FaRegEdit className="w-5 h-5 text-sky-400" />
+                  </div>
+                  <div
+                    className="flex justify-center items-center cursor-pointer"
+                    onClick={() => handleDelete(d.detail, d.income_expense_id)}
+                  >
+                    <IoTrashOutline className="w-5 h-5 text-red-400" />
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-        <nav
+        {/* <nav
           className="hidden md:flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
           aria-label="Table navigation"
         >
@@ -173,10 +197,14 @@ const TableIncomeExpense = () => {
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
     </div>
   );
+};
+
+TableIncomeExpense.propTypes = {
+  data: PropTypes.array,
 };
 
 export default TableIncomeExpense;

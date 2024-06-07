@@ -1,7 +1,7 @@
 const Info_ricecrop = () => {
   return (
-    <div className="flex flex-col md:flex-row gap-4">
-      <div className="bg-white rounded-lg border p-4 space-y-2 flex flex-col md:flex-row gap-2 md:gap-6 w-full md:w-1/2">
+    <div className="flex gap-4 w-full md:w-1/2">
+      <div className="bg-white rounded-lg border p-4 space-y-2 flex w-full">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex justify-between rounded-lg items-center">
             <div className="flex space-x-2 items-center">
@@ -51,26 +51,6 @@ const Info_ricecrop = () => {
               <span className="">วันที่เก็บเกี่ยว</span>
             </div>
             <span>01/04/2024</span>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white p-4 border rounded-lg  md:w-1/2">
-        <div className="rounded-lg text-gray-900">
-          <div className="mb-3">
-            <span >ผลผลิต</span>
-          </div>
-          <hr/>
-          <div className="flex justify-between mt-3">
-            <span >น้ำหนักสุทธิ </span>
-            <span>1,000 กก.</span>
-          </div>
-          <div className="flex justify-between pb-3">
-            <span >ราคา/กก.</span>
-            <span> 150 บาท</span>
-          </div>
-          <div className="flex justify-between border-t  py-2">
-            <span >จำนวนเงิน </span>
-            <span >150,000 บาท</span>
           </div>
         </div>
       </div>

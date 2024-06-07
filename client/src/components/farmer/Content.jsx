@@ -1,27 +1,29 @@
 import ModalAddIncome from "../../components/farmer/ModalAddIncome";
 import ModalAddExpense from "../../components/farmer/ModalAddExpense";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Content = () => {
   const id = useParams();
-  const idAsInt = Number(id.farmer_id);
+  const farmer_id = Number(id.farmer_id);
   const [data, setData] = useState({});
   const [showModalExpense, setShowModalExpense] = useState(false);
   const [showModalIncome, setShowModalIncome] = useState(false);
+  const [riceCaltivation, setRiceCaltivation] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
-        `http://localhost:8080/farmer/riceCaltivation_incomeExpense/${idAsInt}`
+        `http://localhost:8080/farmer/riceCaltivation_incomeExpense/${farmer_id}`
       );
       const resRiceCaltivation = res.data[0].riceCaltivation;
       setData(resRiceCaltivation[resRiceCaltivation.length - 1]);
+      const riceCaltivation_id = resRiceCaltivation[resRiceCaltivation.length - 1].riceCaltivation_id
+      setRiceCaltivation(riceCaltivation_id);
     };
     fetchData();
-  }, [idAsInt]);
-
+  }, [farmer_id]);
   const handleModalExpense = () => setShowModalExpense(!showModalExpense);
 
   const handleModalIncome = () => setShowModalIncome(!showModalIncome);
@@ -57,6 +59,8 @@ const Content = () => {
         <ModalAddExpense
           showModalExpense={showModalExpense}
           handleModalExpense={handleModalExpense}
+          farmer_id={farmer_id}
+          riceCaltivation_id={riceCaltivation}
         />
         <button
           className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-200"
@@ -67,16 +71,18 @@ const Content = () => {
         <ModalAddIncome
           showModalIncome={showModalIncome}
           handleModalIncome={handleModalIncome}
+          idFarmer={farmer_id}
+          idRiceCaltivation={riceCaltivation}
         />
       </div>
 
       <div className="mt-8">
-        <a
-          href={`/ricecrop/history`}
+        <Link
+          to={`/ricecrop/history/${farmer_id}/${riceCaltivation}`}
           className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
         >
           ดูรายการย้อนหลัง
-        </a>
+        </Link>
       </div>
     </div>
   );

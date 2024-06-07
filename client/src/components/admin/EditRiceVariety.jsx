@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import Swal from "sweetalert2";
+import { FaRegEdit } from "react-icons/fa";
+import PropTypes from "prop-types";
 import axios from "axios";
+import Swal from "sweetalert2";
 
-const AddRicevariety = () => {
+const EditRiceVariety = ({ id }) => {
   const [modal, setModal] = useState(false);
+
+  const [imageURL, setImageURL] = useState("");
+  const [resImg, setResImg] = useState("");
 
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
@@ -16,19 +21,38 @@ const AddRicevariety = () => {
   const [precautions, setPrecautions] = useState("");
   const [feature, setFeature] = useState("");
 
-  const [imageURL, setImageURL] = useState("");
-
   const handleModal = () => {
     setModal(!modal);
-    setImageURL("");
   };
 
-  const handleFileUpload = (event) => {
-    setImage(event.target.files[0]);
-    setImageURL(URL.createObjectURL(event.target.files[0]));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/riceVariety/${id}`);
+        setResImg(res.data.image);
+
+        setName(res.data.name);
+        setAge(res.data.age);
+        setFeature(res.data.feature);
+        setHeight(res.data.height);
+        setPhotosensitivity(res.data.photosensitivity);
+        setPrecautions(res.data.precautions);
+        setStability(res.data.stability);
+        setYield(res.data.yield);
+        setImage(res.data.image);
+      } catch (error) {
+        console.log("Error" + error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const clickChangeImg = (e) => {
+    setImage(e.target.files[0]);
+    setImageURL(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
@@ -41,44 +65,61 @@ const AddRicevariety = () => {
     formData.append("precautions", precautions);
     formData.append("feature", feature);
 
+    const values = {
+      name: name,
+      age: age,
+      yield: yield_rice,
+      height: height,
+      photosensitivity: photosensitivity,
+      stability: stability,
+      precautions: precautions,
+      feature: feature,
+    };
+
     const config = {
       headers: {
         "content-type": "multipart/form-data",
       },
     };
 
-    axios
-      .post("http://localhost:8080/riceVariety", formData, config)
-      .then((response) => {
-        console.log(response.data);
-      });
+    if (image === resImg) {
+      await axios
+        .put(`http://localhost:8080/riceVariety/edit2/${id}`, values)
+        .then((res) => console.log(res.data));
+    } else {
+      await axios
+        .put(`http://localhost:8080/riceVariety/edit1/${id}`, formData, config)
+        .then((response) => {
+          console.log(response.data);
+        });
+    }
 
     Swal.fire({
-      title: "เพิ่มพันธุ์ข้าวสำเร็จ",
+      title: "แก้ไขสำเสร็จ",
       icon: "success",
     }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.reload();
-      }
+      result.isConfirmed ? window.location.reload() : null;
     });
   };
 
   return (
     <div>
       <button
-        className="text-white bg-green-600 px-4 py-2 text-sm hover:text-green-700 hover:bg-green-100 hover:duration-200 rounded-lg"
+        className="flex justify-center items-center"
         onClick={handleModal}
       >
-        เพิ่มพันธุ์ข้าว
+        <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-8 h-8 flex justify-center items-center border border-orange-200">
+          <FaRegEdit className="w-5 h-5" />
+        </div>
       </button>
 
       {modal ? (
-        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50 h-screen">
-          <div className="relative p-4 w-full max-w-3xl max-h-full">
-            <div className="bg-white rounded-lg shadow">
+        <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50 h-screen">
+          <div className="relative p-4 w-full max-w-3xl">
+            <div className="relative bg-white rounded-lg shadow">
               <div className="flex justify-between items-center p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  เพิ่มพันธุ์ข้าว
+                  แก้ไขพันธุ์ข้าว
                 </h3>
                 <button
                   type="button"
@@ -90,49 +131,43 @@ const AddRicevariety = () => {
               </div>
               <form
                 className="p-4 md:p-5 flex flex-col space-y-4"
-                onSubmit={handleSubmit}
                 encType="multipart/form-data"
+                onSubmit={handleSubmit}
               >
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="flex items-center ">
-                    <label
-                      htmlFor="name"
-                      className="text-sm font-medium text-gray-900 mb-2 w-1/3"
-                    >
+                  <div className="flex items-center text-gray-900 text-sm">
+                    <label htmlFor="name" className="font-medium mb-2 w-1/4">
                       ชื่อพันธุ์
                     </label>
                     <input
                       type="text"
                       name="name"
                       id="name"
-                      required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center text-sm">
-                    <label
-                      htmlFor="yield"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
-                    >
+                  <div className="flex items-center text-gray-900 text-sm ">
+                    <label htmlFor="yield" className="font-medium mb-2 w-1/4">
                       ผลผลิต
                     </label>
                     <input
                       type="text"
                       name="yield"
                       id="yield"
-                      required
                       value={yield_rice}
                       onChange={(e) => setYield(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2"
                     />
                     กก./ไร่
                   </div>
-                  <div className="flex items-center text-sm ">
+                  <div className="flex items-center text-gray-900 text-sm">
                     <label
                       htmlFor="photosensitivity"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
+                      className="font-medium mb-2 w-1/4"
                     >
                       ความไวแสง
                     </label>
@@ -140,35 +175,31 @@ const AddRicevariety = () => {
                       type="text"
                       name="photosensitivity"
                       id="photosensitivity"
-                      required
                       value={photosensitivity}
                       onChange={(e) => setPhotosensitivity(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center text-sm">
-                    <label
-                      htmlFor="age"
-                      className=" font-medium text-gray-900 mb-2 w-1/3"
-                    >
+                  <div className="flex items-center text-gray-900 text-sm ">
+                    <label htmlFor="age" className="font-medium  mb-2 w-1/4">
                       อายุเก็บเกี่ยว
                     </label>
                     <input
                       type="text"
                       name="age"
                       id="age"
-                      required
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2"
                     />
                     วัน
                   </div>
-
-                  <div className="flex text-sm items-center">
+                  <div className="flex items-center text-gray-900">
                     <label
                       htmlFor="feature"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
+                      className="font-medium  mb-2 w-1/4 items-center"
                     >
                       คุณสมบัติ
                     </label>
@@ -176,34 +207,31 @@ const AddRicevariety = () => {
                       type="text"
                       name="feature"
                       id="feature"
-                      required
                       value={feature}
                       onChange={(e) => setFeature(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
                     />
                   </div>
-                  <div className="flex items-center text-sm">
-                    <label
-                      htmlFor="height"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
-                    >
+                  <div className="flex items-center text-gray-900 text-sm">
+                    <label htmlFor="height" className="font-medium  mb-2 w-1/4">
                       ความสูงเฉลี่ย
                     </label>
                     <input
                       type="text"
                       name="height"
                       id="height"
-                      required
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
+                      required
+                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2"
                     />
                     ซม.
                   </div>
-                  <div className="flex text-sm">
+                  <div className="flex text-sm text-gray-900">
                     <label
                       htmlFor="stability"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
+                      className="font-medium  mb-2 w-1/4"
                     >
                       ลักษณะเด่น
                     </label>
@@ -211,16 +239,16 @@ const AddRicevariety = () => {
                       type="text"
                       name="stability"
                       id="stability"
-                      required
                       value={stability}
                       onChange={(e) => setStability(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4 h-24"
+                      required
+                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2 h-24"
                     ></textarea>
                   </div>
-                  <div className="flex text-sm">
+                  <div className="flex text-gray-900 text-sm ">
                     <label
                       htmlFor="precautions"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
+                      className="font-medium  mb-2 w-1/4"
                     >
                       ข้อควรระวัง
                     </label>
@@ -231,13 +259,13 @@ const AddRicevariety = () => {
                       required
                       value={precautions}
                       onChange={(e) => setPrecautions(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 w-1/3 md:w-2/4 h-24"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 h-24"
                     ></textarea>
                   </div>
                   <div className="flex items-center">
                     <label
                       htmlFor="image"
-                      className="text-sm font-medium text-gray-900 mb-2 mr-2 w-1/3"
+                      className="text-sm font-medium text-gray-900 mb-2 w-1/4 mr-2"
                     >
                       รูปภาพ
                     </label>
@@ -245,18 +273,22 @@ const AddRicevariety = () => {
                       type="file"
                       name="image"
                       id="image"
-                      required
-                      onChange={handleFileUpload}
-                      className="text-gray-900 text-sm rounded-lg py-2.5 w-3/4"
+                      onChange={clickChangeImg}
+                      className="rounded-lg p-2.5"
                     />
                   </div>
                 </div>
 
-                {imageURL !== "" ? (
-                  <div className="flex justify-center">
-                    <img src={imageURL} alt="" className="w-72 h-48 border" />
-                  </div>
-                ) : null}
+                <div className="flex justify-center">
+                  {imageURL ? (
+                    <img src={`${imageURL}`} className="w-72 h-48" />
+                  ) : (
+                    <img
+                      src={`http://localhost:8080/${image}`}
+                      className="w-72 h-48"
+                    />
+                  )}
+                </div>
 
                 <div className="space-x-2 flex justify-end items-center">
                   <button
@@ -282,4 +314,8 @@ const AddRicevariety = () => {
   );
 };
 
-export default AddRicevariety;
+EditRiceVariety.propTypes = {
+  id: PropTypes.number,
+};
+
+export default EditRiceVariety;

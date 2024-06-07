@@ -1,44 +1,47 @@
 const db = require("../models");
 const multer = require("multer");
-const path = require("path")
+const path = require("path");
 
 const RiceVariety = db.RiceVariety;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'Images')
+    cb(null, "Images");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname))
-  }
-})
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: '1000000' },
+  limits: { fileSize: "1000000" },
   fileFilter: (req, file, cb) => {
-    const fileTypes = /jpeg|jpg|png|gif/
-    const mimeType = fileTypes.test(file.mimetype)
-    const extname = fileTypes.test(path.extname(file.originalname))
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const mimeType = fileTypes.test(file.mimetype);
+    const extname = fileTypes.test(path.extname(file.originalname));
 
     if (mimeType && extname) {
-      return cb(null, true)
+      return cb(null, true);
     }
-    cb('Give proper files formate to upload')
-  }
-}).single('image')
+    cb("Give proper files formate to upload");
+  },
+}).single("image");
 
 module.exports = {
   async create(req, res) {
     const info = {
-      softness: req.body.softness,
-      sensitivity: req.body.sensitivity,
+      precautions: req.body.precautions,
+      photosensitivity: req.body.photosensitivity,
       water_requirement: req.body.water_requirement,
-      growth_period: req.body.growth_period,
-      yield_variety: req.body.yield_variety,
-      selling_price: req.body.selling_price,
-      image: req.file.path
-    }
+      yield: req.body.yield,
+      name: req.body.name,
+      stability: req.body.stability,
+      height: req.body.height,
+      feature: req.body.feature,
+      age: req.body.age,
+      image: req.file.path,
+    };
     const newRiceVariety = await RiceVariety.create(info);
     res.status(201).send(newRiceVariety);
   },
@@ -52,13 +55,46 @@ module.exports = {
     });
     res.status(200).send(riceVariety);
   },
-  async update(req,res) {
-    await RiceVariety.update(req.body, {where: {riceVariety_id: req.params.riceVariety_id}})
-    res.status(200).send(req.body)
+  async update1(req, res) {
+    const info = {
+      precautions: req.body.precautions,
+      photosensitivity: req.body.photosensitivity,
+      water_requirement: req.body.water_requirement,
+      yield: req.body.yield,
+      name: req.body.name,
+      stability: req.body.stability,
+      height: req.body.height,
+      feature: req.body.feature,
+      age: req.body.age,
+      image: req.file.path,
+    };
+    await RiceVariety.update(info, {
+      where: { riceVariety_id: req.params.riceVariety_id },
+    });
+    res.status(200).send(info);
   },
-  async delete(req,res) {
-    await RiceVariety.destroy({ where: {riceVariety_id: req.params.riceVariety_id}})
-    res.status(200).send("ricecrop is deleted!")
+  async update2(req, res) {
+    const info = {
+      precautions: req.body.precautions,
+      photosensitivity: req.body.photosensitivity,
+      water_requirement: req.body.water_requirement,
+      yield: req.body.yield,
+      name: req.body.name,
+      stability: req.body.stability,
+      height: req.body.height,
+      feature: req.body.feature,
+      age: req.body.age,
+    };
+    await RiceVariety.update(info, {
+      where: { riceVariety_id: req.params.riceVariety_id },
+    });
+    res.status(200).send(info);
   },
-  upload
+  async delete(req, res) {
+    await RiceVariety.destroy({
+      where: { riceVariety_id: req.params.riceVariety_id },
+    });
+    res.status(200).send("ricecrop is deleted!");
+  },
+  upload,
 };

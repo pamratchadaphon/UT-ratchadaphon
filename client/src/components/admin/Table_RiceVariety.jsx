@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import axios from "axios";
-import { FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
+import ViewRiceVariety from "./ViewRiceVariety";
+import EditRiceVariety from "./EditRiceVariety";
+import PropTypes from 'prop-types'
 
-const Table_RiceVariety = () => {
+const Table_RiceVariety = ({ search }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/riceVariety/");
-        setData(res.data);
+        const searchName = res.data.filter((data) =>
+          data.name.includes(search)
+        );
+        setData(searchName);
       } catch (error) {
         console.log("Error" + error);
       }
     };
     fetchData();
-  }, []);
+  }, [search]);
 
   const deleteRiceVariety = async (id, name) => {
     Swal.fire({
@@ -49,6 +53,9 @@ const Table_RiceVariety = () => {
               ลำดับที่
             </th>
             <th scope="col" className="px-6 py-3 text-center">
+              รูปภาพ
+            </th>
+            <th scope="col" className="px-6 py-3 text-center">
               ชื่อพันธุ์
             </th>
             <th scope="col" className="px-6 py-3 text-center">
@@ -77,6 +84,15 @@ const Table_RiceVariety = () => {
               >
                 {i + 1}
               </th>
+              <th
+                scope="row"
+                className="px-6 py-4 font-normal flex justify-center"
+              >
+                <img
+                  src={`http://localhost:8080/${d.image}`}
+                  className="w-20"
+                />
+              </th>
               <th scope="row" className="px-6 py-4 font-normal  text-center">
                 {d.name}
               </th>
@@ -94,21 +110,13 @@ const Table_RiceVariety = () => {
               </th>
               <th scope="row" className="px-6 py-4 font-normal text-center">
                 <div className="flex justify-center items-center gap-2">
-                  <button className="flex justify-center items-center">
-                    <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-10 h-7 flex justify-center items-center border border-sky-200">
-                      <FaEye className="w-5 h-5" />
-                    </div>
-                  </button>
-                  <button className="flex justify-center items-center">
-                    <div className="hover:bg-orange-400 rounded-md bg-orange-100 text-orange-500 hover:text-white w-10 h-7 flex justify-center items-center border border-orange-200">
-                      <FaRegEdit className="w-5 h-5" />
-                    </div>
-                  </button>
+                  <ViewRiceVariety id={d.riceVariety_id} />
+                  <EditRiceVariety id={d.riceVariety_id} />
                   <button
                     className="flex justify-center items-center"
                     onClick={() => deleteRiceVariety(d.riceVariety_id, d.name)}
                   >
-                    <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-10 h-7 flex justify-center items-center border border-red-300">
+                    <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
                       <IoTrashOutline className="w-5 h-5" />
                     </div>
                   </button>
@@ -121,5 +129,9 @@ const Table_RiceVariety = () => {
     </div>
   );
 };
+
+Table_RiceVariety.propTypes = {
+  search: PropTypes.string 
+}
 
 export default Table_RiceVariety;

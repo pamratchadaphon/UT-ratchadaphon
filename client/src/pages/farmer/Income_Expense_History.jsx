@@ -3,19 +3,43 @@ import TableIncomeExpense from "../../components/farmer/TableIncomeExpense";
 import { IoIosArrowForward } from "react-icons/io";
 import BoxIncomeExpense from "../../components/farmer/BoxIncomeExpense";
 import ModalAddExpense from "../../components/farmer/ModalAddExpense";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalAddIncome from "../../components/farmer/ModalAddIncome";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import Info_ricecrop from "../../components/farmer/Info_ricecrop";
+import All_IncomeExpense from "../../components/farmer/All_IncomeExpense";
+import IncomeExpensePerMonth from "../../components/farmer/IncomeExpensePerMonth";
+import Yield_rice from "../../components/farmer/Yield_rice";
 
 const Income_Expense_History = () => {
+  const idRiceCalrivition = Number(useParams().riceCaltivation_id);
+  const idFarmer = Number(useParams().farmer_id);
+
   const [showModalExpense, setShowModalExpense] = useState(false);
   const [showModalIncome, setShowModalIncome] = useState(false);
 
   const handleModalExpense = () => setShowModalExpense(!showModalExpense);
   const handleModalIncome = () => setShowModalIncome(!showModalIncome);
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/riceCaltivation/incomeExpense/${idRiceCalrivition}`
+        );
+        setData(res.data[0].incomeExpense);
+      } catch (error) {
+        console.log("Error : " + error);
+      }
+    };
+    fetchData();
+  }, [idRiceCalrivition]);
   return (
     <div>
-      <Navbar />
+      <Navbar id={idFarmer} />
       <div className="mx-auto max-w-screen-xl p-4">
         <nav className="flex mb-4">
           <ol className="flex space-x-1 items-center">
@@ -34,7 +58,16 @@ const Income_Expense_History = () => {
           </ol>
         </nav>
 
-        <BoxIncomeExpense />
+        <div className="flex flex-col md:flex-row gap-4">
+          <Info_ricecrop />
+          <Yield_rice />
+        </div>
+        <div className="flex flex-col md:flex-row gap-4 my-4">
+          <IncomeExpensePerMonth />
+          <All_IncomeExpense />
+        </div>
+
+        <BoxIncomeExpense data={data} />
 
         <div className="bg-white shadow p-4 my-4 rounded-lg">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
@@ -50,6 +83,8 @@ const Income_Expense_History = () => {
                 <ModalAddExpense
                   showModalExpense={showModalExpense}
                   handleModalExpense={handleModalExpense}
+                  farmer_id={idFarmer}
+                  riceCaltivation_id={idRiceCalrivition}
                 />
               </div>
               <div>
@@ -63,6 +98,8 @@ const Income_Expense_History = () => {
                 <ModalAddIncome
                   showModalIncome={showModalIncome}
                   handleModalIncome={handleModalIncome}
+                  farmer_id={idFarmer}
+                  riceCaltivation_id={idRiceCalrivition}
                 />
               </div>
             </div>
@@ -79,7 +116,7 @@ const Income_Expense_History = () => {
             </div>
           </div>
           <div>
-            <TableIncomeExpense />
+            <TableIncomeExpense data={data} />
           </div>
         </div>
       </div>
