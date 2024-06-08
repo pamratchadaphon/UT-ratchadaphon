@@ -1,52 +1,22 @@
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import axios from "axios";
 
-const ModalAddExpense = ({
-  showModalExpense,
+const Edit_Expense = ({
+  edit_Expense,
   handleModalExpense,
-  farmer_id,
+  income_expense_id,
   riceCaltivation_id,
 }) => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
-        );
-        const formatDate = (string) => {
-          const date = new Date(string);
-          const day = date.getDate();
-          const month = date.getMonth() + 1;
-          const year = date.getFullYear();
-          return `${year}-${month < 10 ? "0" + month : month}-${
-            day < 10 ? "0" + day : day
-          }`;
-        };
-        setStartDate(formatDate(res.data[0].startDate));
-        setEndDate(formatDate(res.data[0].endDate));
-      } catch (error) {
-        console.log("Error : " + error);
-      }
-    };
-    fetchData();
-  }, [riceCaltivation_id]);
-  
   const [values, setValues] = useState({
-    date: new Date().toISOString().split("T")[0],
+    date: "",
     detail: "",
     price: "",
     payee: "",
-    type: "รายจ่าย",
-    farmer_id: farmer_id,
-    riceCaltivation_id: riceCaltivation_id,
   });
+
   const [dropdown, setDropdown] = useState(false);
   const [payees, setPayees] = useState([]);
   const [detail, setDetail] = useState("");
@@ -67,49 +37,45 @@ const ModalAddExpense = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
-        );
-        const incomeExpense = res.data[0].incomeExpense;
-        const arr = [];
-        incomeExpense.map((data) =>
-          data.type === "รายจ่าย" ? arr.push(data.payee) : null
-        );
-        setPayees(arr);
-      } catch (error) {
-        console.log("Error : " + error);
-      }
+      const resExpense = await axios.get(
+        `http://localhost:8080/incomeExpense/${income_expense_id}`
+      );
+      const date = new Date(resExpense.data.date);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const formatDate = `${year}-${month < 10 ? "0" + month : month}-${
+        day < 10 ? "0" + day : day
+      }`;
+      setValues({
+        ...values,
+        date: formatDate,
+        detail: resExpense.data.detail,
+        price: resExpense.data.price,
+        payee: resExpense.data.payee,
+      });
+      const res = await axios.get(
+        `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
+      );
+      const incomeExpense = res.data[0].incomeExpense;
+      const arr = [];
+      incomeExpense.map((data) =>
+        data.type === "รายจ่าย" ? arr.push(data.payee) : null
+      );
+      setPayees(arr);
     };
     fetchData();
-  }, [riceCaltivation_id]);
+  }, [income_expense_id]);
 
-  useEffect(() => {
-    setValues({ ...values, riceCaltivation_id: riceCaltivation_id });
-  }, [riceCaltivation_id]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await axios.post(`http://localhost:8080/incomeExpense`, values);
-    console.log(values);
-    Swal.fire({
-      title: "บันทึกรายจ่ายสำเร็จ",
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.reload();
-      }
-    });
-  };
   return (
     <div>
-      {showModalExpense ? (
-        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
+      {edit_Expense ? (
+        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-10 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full ">
             <div className="relative bg-white rounded-lg shadow">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900">
-                  บันทึกรายจ่าย
+                  แก้ไขรายจ่าย {income_expense_id}
                 </h3>
                 <button
                   type="button"
@@ -122,7 +88,7 @@ const ModalAddExpense = ({
               <div className="p-4 md:p-5">
                 <form
                   className="flex flex-col space-y-4"
-                  onSubmit={handleSubmit}
+                  //   onSubmit={handleSubmit}
                 >
                   <div>
                     <label
@@ -140,8 +106,6 @@ const ModalAddExpense = ({
                       onChange={(e) =>
                         setValues({ ...values, date: e.target.value })
                       }
-                      min={startDate}
-                      max={endDate}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 block w-full"
                     />
                   </div>
@@ -344,11 +308,11 @@ const ModalAddExpense = ({
   );
 };
 
-ModalAddExpense.propTypes = {
-  showModalExpense: PropTypes.bool,
+Edit_Expense.propTypes = {
+  edit_Expense: PropTypes.bool,
   handleModalExpense: PropTypes.func,
-  farmer_id: PropTypes.number,
+  income_expense_id: PropTypes.number,
   riceCaltivation_id: PropTypes.number,
 };
 
-export default ModalAddExpense;
+export default Edit_Expense;

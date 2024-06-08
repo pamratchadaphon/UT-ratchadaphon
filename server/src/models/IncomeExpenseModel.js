@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     payee: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     type: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   });
   return IncomeExpense;

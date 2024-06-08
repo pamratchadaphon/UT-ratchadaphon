@@ -1,9 +1,10 @@
 import { PieChart } from "@mui/x-charts/PieChart";
+import PropTypes from "prop-types";
 
-export default function All_IncomeExpense() {
+const All_IncomeExpense = ({ sumExpense, sumIncome }) => {
   const data = [
-    { id: 0, value: 203, label: "รายจ่าย", color: "#FF9997" },
-    { id: 1, value: 53, label: "รายรับ", color: "#92CEA8" },
+    { id: 0, value: sumExpense, label: "รายจ่าย", color: "#FF9997" },
+    { id: 1, value: sumIncome, label: "รายรับ", color: "#92CEA8" },
   ];
 
   return (
@@ -21,4 +22,11 @@ export default function All_IncomeExpense() {
       />
     </div>
   );
+};
+
+All_IncomeExpense.propTypes = {
+  sumExpense: PropTypes.number,
+  sumIncome: PropTypes.number
 }
+
+export default All_IncomeExpense;

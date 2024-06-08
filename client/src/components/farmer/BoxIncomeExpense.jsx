@@ -1,16 +1,6 @@
 import PorpTypes from 'prop-types'
 
-const BoxIncomeExpense = ({ data }) => {
-  const expense = data.filter((data) => (data.type).includes('รายจ่าย'))
-  const income = data.filter((data) => (data.type).includes('รายรับ'))
-
-  let sumExpense = 0
-  expense.map((data) => sumExpense += data.price )
-  
-  let sumIncome = 0
-  income.map((data) => sumIncome += data.price)
-
-
+const BoxIncomeExpense = ({sumExpense, sumIncome}) => {
 
   return (
     <div className="flex flex-wrap gap-4">
@@ -49,7 +39,8 @@ const BoxIncomeExpense = ({ data }) => {
 };
 
 BoxIncomeExpense.propTypes = {
-  data: PorpTypes.array
+  sumExpense: PorpTypes.number,
+  sumIncome: PorpTypes.number
 }
 
 export default BoxIncomeExpense;

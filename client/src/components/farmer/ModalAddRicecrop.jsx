@@ -2,8 +2,10 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const ModalAddRicecrop = () => {
+  const {farmer_id} = useParams()
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [values, setValues] = useState({
     year: "",
@@ -12,7 +14,8 @@ const ModalAddRicecrop = () => {
     riceVariety: "",
     area: "",
     yield: 0,
-    rice_price_per_kg: 0
+    rice_price_per_kg: 0,
+    farmer_id: farmer_id 
   });
 
   const handleModal = () => {
@@ -24,7 +27,7 @@ const ModalAddRicecrop = () => {
     console.log(values);
     await axios.post("http://localhost:8080/riceCaltivation", values)
     Swal.fire({
-      title: "บันทึกรอบการปลูกสำเร็จ",
+      title: "เพิ่มรอบการปลูกสำเร็จ",
       icon: "success",
     }).then((result) => {
       result ? window.location.reload() : null;

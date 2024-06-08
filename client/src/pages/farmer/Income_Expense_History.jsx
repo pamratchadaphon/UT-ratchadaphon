@@ -11,10 +11,12 @@ import Info_ricecrop from "../../components/farmer/Info_ricecrop";
 import All_IncomeExpense from "../../components/farmer/All_IncomeExpense";
 import IncomeExpensePerMonth from "../../components/farmer/IncomeExpensePerMonth";
 import Yield_rice from "../../components/farmer/Yield_rice";
+import SelectMonth from "../../components/farmer/SelectMonth";
 
 const Income_Expense_History = () => {
-  const idRiceCalrivition = Number(useParams().riceCaltivation_id);
-  const idFarmer = Number(useParams().farmer_id);
+  const { riceCaltivation_id, farmer_id } = useParams();
+  const idRiceCaltivation = Number(riceCaltivation_id);
+  const idFarmer = Number(farmer_id);
 
   const [showModalExpense, setShowModalExpense] = useState(false);
   const [showModalIncome, setShowModalIncome] = useState(false);
@@ -23,20 +25,33 @@ const Income_Expense_History = () => {
   const handleModalIncome = () => setShowModalIncome(!showModalIncome);
 
   const [data, setData] = useState([]);
+  const [riceCaltivation, setRiceCaltivation] = useState({});
+
+  const expense = data.filter((data) => data.type.includes("รายจ่าย"));
+  const income = data.filter((data) => data.type.includes("รายรับ"));
+
+  const sumExpense = expense.reduce((total, data) => total + data.price, 0);
+  const sumIncome = income.reduce((total, data) => total + data.price, 0);
+
+  const [selectMonth, setSelectMonth] = useState("");
+
+  const handleMonth = (month) => setSelectMonth(month);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/riceCaltivation/incomeExpense/${idRiceCalrivition}`
+          `http://localhost:8080/riceCaltivation/incomeExpense/${idRiceCaltivation}`
         );
         setData(res.data[0].incomeExpense);
+        setRiceCaltivation(res.data[0]);
       } catch (error) {
         console.log("Error : " + error);
       }
     };
     fetchData();
-  }, [idRiceCalrivition]);
+  }, [idRiceCaltivation]);
+
   return (
     <div>
       <Navbar id={idFarmer} />
@@ -45,7 +60,7 @@ const Income_Expense_History = () => {
           <ol className="flex space-x-1 items-center">
             <li>
               <a
-                href="/ricecrop/2"
+                href={`/ricecrop/${idFarmer}`}
                 className="hover:underline hover:text-green-700"
               >
                 รอบการปลูก
@@ -58,16 +73,19 @@ const Income_Expense_History = () => {
           </ol>
         </nav>
 
-        <div className="flex flex-col md:flex-row gap-4">
-          <Info_ricecrop />
-          <Yield_rice />
+        <BoxIncomeExpense sumExpense={sumExpense} sumIncome={sumIncome} />
+
+        <div className="flex flex-col md:flex-row gap-4 mt-4">
+          <Info_ricecrop riceCaltivation={riceCaltivation} />
+          <Yield_rice riceCaltivation={riceCaltivation} />
         </div>
         <div className="flex flex-col md:flex-row gap-4 my-4">
-          <IncomeExpensePerMonth />
-          <All_IncomeExpense />
+          <IncomeExpensePerMonth
+            incomeExpense={data}
+            riceCaltivation={riceCaltivation}
+          />
+          <All_IncomeExpense sumExpense={sumExpense} sumIncome={sumIncome} />
         </div>
-
-        <BoxIncomeExpense data={data} />
 
         <div className="bg-white shadow p-4 my-4 rounded-lg">
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
@@ -75,7 +93,7 @@ const Income_Expense_History = () => {
               <div>
                 <button
                   type="button"
-                  className="bg-red-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
+                  className="bg-red-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
                   onClick={handleModalExpense}
                 >
                   บันทึกรายจ่าย
@@ -84,13 +102,13 @@ const Income_Expense_History = () => {
                   showModalExpense={showModalExpense}
                   handleModalExpense={handleModalExpense}
                   farmer_id={idFarmer}
-                  riceCaltivation_id={idRiceCalrivition}
+                  riceCaltivation_id={idRiceCaltivation}
                 />
               </div>
               <div>
                 <button
                   type="button"
-                  className="bg-green-600 px-4 py-2  text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200"
+                  className="bg-green-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200"
                   onClick={handleModalIncome}
                 >
                   บันทึกรายรับ
@@ -99,24 +117,22 @@ const Income_Expense_History = () => {
                   showModalIncome={showModalIncome}
                   handleModalIncome={handleModalIncome}
                   farmer_id={idFarmer}
-                  riceCaltivation_id={idRiceCalrivition}
+                  riceCaltivation_id={idRiceCaltivation}
                 />
               </div>
             </div>
             <div>
-              <form className="max-w-sm mx-auto">
-                <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option>เดือน</option>
-                  <option value="1">มกราคม</option>
-                  <option value="2">กุมภาพันธุ์</option>
-                  <option value="3">มีนาคม</option>
-                  <option value="4">เมษายน</option>
-                </select>
-              </form>
+              <SelectMonth
+                riceCaltivation={riceCaltivation}
+                handleMonth={handleMonth}
+              />
             </div>
           </div>
           <div>
-            <TableIncomeExpense data={data} />
+            <TableIncomeExpense
+              incomeExpense={data}
+              selectMonth={selectMonth}
+            />
           </div>
         </div>
       </div>

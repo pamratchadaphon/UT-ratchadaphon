@@ -1,10 +1,18 @@
-import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import axios from "axios";
+import Edit_Expense from "./Edit_Expense";
+import Edit_Income from "./Edit_Income";
+import { useState } from "react";
+import { FaRegEdit } from "react-icons/fa";
 
-const TableIncomeExpense = ({ data }) => {
+const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
+  const [edit_Expense, setEdit_Expense] = useState(false);
+  const [edit_Income, setEdit_Income] = useState(false);
+  const handleModalExpense = () => setEdit_Expense(!edit_Expense);
+  const handleModalIncome = () => setEdit_Income(!edit_Income);
+
   const handleDelete = (detail, id) => {
     Swal.fire({
       title: "ยืนยันการลบ?",
@@ -18,7 +26,7 @@ const TableIncomeExpense = ({ data }) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios.delete(`http://localhost:8080/incomeExpense/${id}`);
-        Swal.fire({
+        await Swal.fire({
           title: "ลบสำเร็จ",
           icon: "success",
         });
@@ -36,6 +44,17 @@ const TableIncomeExpense = ({ data }) => {
       month < 10 ? "0" + month : month
     }/${year}`;
   };
+
+  incomeExpense.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+
+  const month = (date) => new Date(date).getMonth() + 1 + "";
+
+  const data = incomeExpense.filter((data) =>
+    month(data.date).includes(selectMonth)
+  );
+
   return (
     <div className="">
       <div>
@@ -71,11 +90,39 @@ const TableIncomeExpense = ({ data }) => {
                   <td className="px-6 py-4">
                     <div className="flex justify-center items-center gap-2">
                       <div className="flex justify-center items-center cursor-pointer">
-                        <div className="hover:bg-sky-400 rounded-md bg-sky-100 text-sky-500 hover:text-white w-8 h-8 flex justify-center items-center border border-sky-200">
-                          <FaRegEdit className="w-6 h-6" />
-                        </div>
+                        {d.type === "รายจ่าย" ? (
+                          <div>
+                            <button
+                              className="hover:bg-sky-400 hover:text-white rounded-md bg-sky-100 text-sky-500  w-8 h-8 flex justify-center items-center border border-sky-200"
+                              onClick={handleModalExpense}
+                            >
+                              <FaRegEdit className="w-5 h-5" />
+                            </button>
+                            <Edit_Expense
+                              edit_Expense={edit_Expense}
+                              handleModalExpense={handleModalExpense}
+                              income_expense_id={d.income_expense_id}
+                              riceCaltivation_id={d.riceCaltivation_id}
+                            />
+                          </div>
+                        ) : (
+                          <div>
+                            <button
+                              className="hover:bg-sky-400 hover:text-white rounded-md bg-sky-100 text-sky-500  w-8 h-8 flex justify-center items-center border border-sky-200"
+                              onClick={handleModalIncome}
+                            >
+                              <FaRegEdit className="w-5 h-5" />
+                            </button>
+                            <Edit_Income
+                              edit_Income={edit_Income}
+                              handleModalIncome={handleModalIncome}
+                              income_expense_id={d.income_expense_id}
+                              riceCaltivation_id={d.riceCaltivation_id}
+                            />
+                          </div>
+                        )}
                       </div>
-                      <div
+                      <button
                         className="flex justify-center items-center cursor-pointer"
                         onClick={() =>
                           handleDelete(d.detail, d.income_expense_id)
@@ -84,17 +131,24 @@ const TableIncomeExpense = ({ data }) => {
                         <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
                           <IoTrashOutline className="w-6 h-6" />
                         </div>
-                      </div>
+                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
+              {data.length === 0 ? (
+                <tr>
+                  <td className="text-center py-4" colSpan="4">
+                    ไม่พบข้อมูล
+                  </td>
+                </tr>
+              ) : null}
             </tbody>
           </table>
         </div>
         <div className="md:hidden">
           <div className="flex flex-col gap-1">
-            {data.map((d, i) => (
+            {incomeExpense.map((d, i) => (
               <div
                 className="flex justify-between items-center text- border p-2 bg-gray-50"
                 key={i}
@@ -105,14 +159,46 @@ const TableIncomeExpense = ({ data }) => {
                     {formatDate(d.date)}
                   </span>
                 </div>
-                <div className="flex gap-1">
-                  <span className="text-red-600 font-bold">- {d.price}</span>
-                  <span>บาท</span>
+                <div className="flex gap-1 items-center">
+                  {d.type === "รายจ่าย" ? (
+                    <span className="text-red-600 font-bold">{d.price}</span>
+                  ) : (
+                    <span className="text-green-600 font-bold">{d.price}</span>
+                  )}
+                  <span className="text-xs text-gray-800">บาท</span>
                 </div>
                 <div className="flex gap-1">
-                  <div className="flex justify-center items-center">
-                    <FaRegEdit className="w-5 h-5 text-sky-400" />
-                  </div>
+                  {d.type === "รายจ่าย" ? (
+                    <div>
+                      <button
+                        className="flex justify-center items-center"
+                        onClick={handleModalExpense}
+                      >
+                        <FaRegEdit className="w-5 h-5 text-sky-400" />
+                      </button>
+                      <Edit_Expense
+                        edit_Expense={edit_Expense}
+                        handleModalExpense={handleModalExpense}
+                        income_expense_id={d.income_expense_id}
+                        riceCaltivation_id={d.riceCaltivation_id}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <button
+                        className="flex justify-center items-center"
+                        onClick={handleModalIncome}
+                      >
+                        <FaRegEdit className="w-5 h-5 text-sky-400" />
+                      </button>
+                      <Edit_Income
+                        edit_Income={edit_Income}
+                        handleModalIncome={handleModalIncome}
+                        income_expense_id={d.income_expense_id}
+                        riceCaltivation_id={d.riceCaltivation_id}
+                      />
+                    </div>
+                  )}
                   <div
                     className="flex justify-center items-center cursor-pointer"
                     onClick={() => handleDelete(d.detail, d.income_expense_id)}
@@ -124,87 +210,14 @@ const TableIncomeExpense = ({ data }) => {
             ))}
           </div>
         </div>
-        {/* <nav
-          className="hidden md:flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-          aria-label="Table navigation"
-        >
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-            จำนวนแถวต่อหน้า
-            <span className="font-semibold text-gray-900 dark:text-white">
-              1-10
-            </span>{" "}
-            of{" "}
-            <span className="font-semibold text-gray-900 dark:text-white">
-              1000
-            </span>
-          </span>
-          <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Previous
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                1
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                2
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                aria-current="page"
-                className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-              >
-                3
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                4
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                5
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-              >
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav> */}
       </div>
     </div>
   );
 };
 
 TableIncomeExpense.propTypes = {
-  data: PropTypes.array,
+  incomeExpense: PropTypes.array,
+  selectMonth: PropTypes.string,
 };
 
 export default TableIncomeExpense;

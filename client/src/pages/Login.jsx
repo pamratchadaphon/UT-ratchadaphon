@@ -3,7 +3,6 @@ import { GoArrowRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ReactTyped } from "react-typed";
-import { useState } from "react";
 
 const Login = () => {
   const navigator = useNavigate();

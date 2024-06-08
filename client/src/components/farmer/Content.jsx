@@ -10,7 +10,7 @@ const Content = () => {
   const [data, setData] = useState({});
   const [showModalExpense, setShowModalExpense] = useState(false);
   const [showModalIncome, setShowModalIncome] = useState(false);
-  const [riceCaltivation, setRiceCaltivation] = useState(0)
+  const [riceCaltivation_id, setRiceCaltivation_id] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,11 +19,11 @@ const Content = () => {
       );
       const resRiceCaltivation = res.data[0].riceCaltivation;
       setData(resRiceCaltivation[resRiceCaltivation.length - 1]);
-      const riceCaltivation_id = resRiceCaltivation[resRiceCaltivation.length - 1].riceCaltivation_id
-      setRiceCaltivation(riceCaltivation_id);
+      setRiceCaltivation_id(resRiceCaltivation[resRiceCaltivation.length - 1].riceCaltivation_id);
     };
     fetchData();
   }, [farmer_id]);
+
   const handleModalExpense = () => setShowModalExpense(!showModalExpense);
 
   const handleModalIncome = () => setShowModalIncome(!showModalIncome);
@@ -60,7 +60,7 @@ const Content = () => {
           showModalExpense={showModalExpense}
           handleModalExpense={handleModalExpense}
           farmer_id={farmer_id}
-          riceCaltivation_id={riceCaltivation}
+          riceCaltivation_id={riceCaltivation_id}
         />
         <button
           className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-200"
@@ -71,14 +71,14 @@ const Content = () => {
         <ModalAddIncome
           showModalIncome={showModalIncome}
           handleModalIncome={handleModalIncome}
-          idFarmer={farmer_id}
-          idRiceCaltivation={riceCaltivation}
+          farmer_id={farmer_id}
+          riceCaltivation_id={riceCaltivation_id}
         />
       </div>
 
       <div className="mt-8">
         <Link
-          to={`/ricecrop/history/${farmer_id}/${riceCaltivation}`}
+          to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
           className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
         >
           ดูรายการย้อนหลัง

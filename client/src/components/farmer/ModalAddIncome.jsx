@@ -1,36 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const ModalAddIncome = ({
   showModalIncome,
   handleModalIncome,
-  idFarmer,
-  idRiceCaltivation,
+  farmer_id,
+  riceCaltivation_id,
 }) => {
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0])
-  const detail = "เกี่ยวข้าว"
-  const [yield_rice, setYield] = useState("")
-  const [rice_price_per_kg, setRice_price_per_kg] = useState("")
-  const [price, setPrice] = useState("")
-  const type = "รายรับ"
-  const farmer_id = idFarmer
-  const riceCaltivation_id = idRiceCaltivation
-  
 
-  const clickChange = (e) => {
-    setRice_price_per_kg(e.target.value)
-    setPrice(Number(rice_price_per_kg) *
-    Number(yield_rice))
-    console.log(Number(rice_price_per_kg) *
-    Number(yield_rice));
-  };
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
+        );
+        const formatDate = (string) => {
+          const date = new Date(string);
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+          return `${year}-${month < 10 ? "0" + month : month}-${
+            day < 10 ? "0" + day : day
+          }`;
+        };
+        setStartDate(formatDate(res.data[0].startDate));
+        setEndDate(formatDate(res.data[0].endDate));
+      } catch (error) {
+        console.log("Error : " + error);
+      }
+    };
+    fetchData();
+  }, [riceCaltivation_id]);
+
+  const [values, setValues] = useState({
+    date: new Date().toISOString().split("T")[0],
+    detail: "เกี่ยวข้าว",
+    price: "",
+    type: 'รายรับ',
+    farmer_id: farmer_id,
+    riceCaltivation_id: riceCaltivation_id,
+  });
+  const [yield_rice, setYield] = useState({
+    yield: "",
+    rice_price_per_kg: "",
+  });
+
+  useEffect(() => {
+    setValues({ ...values, riceCaltivation_id: riceCaltivation_id });
+  }, [riceCaltivation_id]);
+
+  useEffect(() => {
+    setValues({...values, price: Number(yield_rice.yield) * Number(yield_rice.rice_price_per_kg)})
+  }, [yield_rice.yield, yield_rice.rice_price_per_kg]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log(rice_price_per_kg);
+    await axios.post("http://localhost:8080/incomeExpense", values);
+    await axios.put(`http://localhost:8080/riceCaltivation/${riceCaltivation_id}`, yield_rice)
     Swal.fire({
       title: "บันทึกรายรับสำเร็จ",
       icon: "success",
@@ -53,7 +85,7 @@ const ModalAddIncome = ({
                   </h3>
                   <button
                     type="button"
-                    className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
+                    className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
                     onClick={handleModalIncome}
                   >
                     <IoMdClose className="w-10 h-10" />
@@ -72,9 +104,10 @@ const ModalAddIncome = ({
                         type="date"
                         name="date"
                         id="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)
-                        }
+                        value={values.date}
+                        onChange={(e) => setValues({...values, date: e.target.value})}
+                        min={startDate}
+                        max={endDate}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         required
                       />
@@ -87,7 +120,7 @@ const ModalAddIncome = ({
                         type="text"
                         name="detail"
                         id="detail"
-                        value={detail}
+                        value={values.detail}
                         disabled
                         className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                         required
@@ -101,10 +134,8 @@ const ModalAddIncome = ({
                         type="number"
                         name="yield_rice"
                         id="yield_rice"
-                        value={yield_rice}
-                        onChange={(e) =>
-                          setYield(e.target.value)
-                        }
+                        value={yield_rice.yield}
+                        onChange={(e) => setYield({...yield_rice, yield: e.target.value})}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 "
                         required
                       />
@@ -117,7 +148,8 @@ const ModalAddIncome = ({
                         type="number"
                         name="rice_price_per_kg"
                         id="rice_price_per_kg"
-                        onChange={clickChange}
+                        value={yield_rice.rice_price_per_kg}
+                        onChange={(e) => setYield({...yield_rice, rice_price_per_kg: e.target.value})}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         required
                       />
@@ -130,10 +162,7 @@ const ModalAddIncome = ({
                         type="number"
                         name="price"
                         id="price"
-                        value={
-                          Number(rice_price_per_kg) *
-                          Number(yield_rice)
-                        }
+                        value={values.price}
                         disabled
                         className="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         required
@@ -168,8 +197,8 @@ const ModalAddIncome = ({
 ModalAddIncome.propTypes = {
   showModalIncome: PropTypes.bool,
   handleModalIncome: PropTypes.func,
-  idFarmer: PropTypes.number,
-  idRiceCaltivation: PropTypes.number,
+  farmer_id: PropTypes.number,
+  riceCaltivation_id: PropTypes.number,
 };
 
 export default ModalAddIncome;

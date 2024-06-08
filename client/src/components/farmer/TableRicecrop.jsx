@@ -63,6 +63,10 @@ const TableRicecrop = ({ farmer_id }) => {
       setLastRow(firstIndex + records.length);
     }
   }, [firstIndex, records]);
+
+  records.sort((a,b) => {
+    return b.riceCaltivation_id - a.riceCaltivation_id
+  })
   return (
     <div>
       <div className="hidden md:flex">
@@ -88,10 +92,10 @@ const TableRicecrop = ({ farmer_id }) => {
                 พื้นที่ (ไร่)
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                รายการย้อนหลัง
+                รายงานค่าใช้จ่าย
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                รายละเอียด
+                รายงานแปลงปลูก
               </th>
             </tr>
           </thead>

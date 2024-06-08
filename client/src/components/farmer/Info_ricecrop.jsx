@@ -1,4 +1,14 @@
-const Info_ricecrop = () => {
+import PropTypes from 'prop-types'
+
+const Info_ricecrop = ({riceCaltivation}) => {
+  const formatDate = (string) => {
+    const date = new Date(string)
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`
+  }
+
   return (
     <div className="flex gap-4 w-full md:w-1/2">
       <div className="bg-white rounded-lg border p-4 space-y-2 flex w-full">
@@ -10,7 +20,7 @@ const Info_ricecrop = () => {
               </div>
               <span className="">ปีที่ทำการปลูก</span>
             </div>
-            <span>2024</span>
+            <span>{riceCaltivation.year}</span>
           </div>
           <hr />
           <div className="flex justify-between items-center rounded-lg">
@@ -20,7 +30,7 @@ const Info_ricecrop = () => {
               </div>
               <span className="">พันธุ์ข้าว</span>
             </div>
-            <span>กข65</span>
+            <span>{riceCaltivation.riceVariety}</span>
           </div>
           <hr />
           <div className="flex justify-between items-center rounded-lg">
@@ -30,7 +40,7 @@ const Info_ricecrop = () => {
               </div>
               <span className="">พื้นที่</span>
             </div>
-            <span>21 ไร่</span>
+            <span>{riceCaltivation.area} ไร่</span>
           </div>
           <hr />
           <div className="flex justify-between items-center rounded-lg">
@@ -40,7 +50,7 @@ const Info_ricecrop = () => {
               </div>
               <span className="">วันที่ปลูก</span>
             </div>
-            <span>01/01/2024</span>
+            <span>{formatDate(riceCaltivation.startDate)}</span>
           </div>
           <hr />
           <div className="flex justify-between items-center rounded-lg">
@@ -50,7 +60,7 @@ const Info_ricecrop = () => {
               </div>
               <span className="">วันที่เก็บเกี่ยว</span>
             </div>
-            <span>01/04/2024</span>
+            <span>{formatDate(riceCaltivation.endDate)}</span>
           </div>
         </div>
       </div>
@@ -58,4 +68,8 @@ const Info_ricecrop = () => {
   );
 };
 
+Info_ricecrop.propTypes = {
+  riceCaltivation: PropTypes.object
+}
+ 
 export default Info_ricecrop;
