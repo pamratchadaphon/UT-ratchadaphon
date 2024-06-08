@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const Yield_rice = ({ riceCaltivation }) => {
   return (
-    <div className="bg-white p-4 border rounded-lg w-full md:w-1/2">
+    <div className="bg-white p-4 border rounded-lg w-full">
       <div className="rounded-lg text-gray-900">
         <div className="mb-3">
           <span>ผลผลิต</span>

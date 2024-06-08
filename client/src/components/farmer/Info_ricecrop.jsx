@@ -10,7 +10,7 @@ const Info_ricecrop = ({riceCaltivation}) => {
   }
 
   return (
-    <div className="flex gap-4 w-full md:w-1/2">
+    <div className="flex gap-4 w-full">
       <div className="bg-white rounded-lg border p-4 space-y-2 flex w-full">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex justify-between rounded-lg items-center">

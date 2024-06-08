@@ -35,13 +35,13 @@ const TableRicecrop = ({ farmer_id }) => {
   };
 
   const [page, setPage] = useState(1);
-  const recordsPerPage = 3;
+  const recordsPerPage = 10;
   const lastIndex = page * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data.length / recordsPerPage);
   const [lastRow, setLastRow] = useState(0);
- 
+
   const prePage = () => {
     if (page > 1) {
       setPage(page - 1);
@@ -64,9 +64,9 @@ const TableRicecrop = ({ farmer_id }) => {
     }
   }, [firstIndex, records]);
 
-  records.sort((a,b) => {
-    return b.riceCaltivation_id - a.riceCaltivation_id
-  })
+  records.sort((a, b) => {
+    return b.riceCaltivation_id - a.riceCaltivation_id;
+  });
   return (
     <div>
       <div className="hidden md:flex">
@@ -95,7 +95,7 @@ const TableRicecrop = ({ farmer_id }) => {
                 รายงานค่าใช้จ่าย
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                รายงานแปลงปลูก
+                รายงานแปลงนา
               </th>
             </tr>
           </thead>

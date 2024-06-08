@@ -3,13 +3,9 @@ import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
+import { FaRegEdit } from "react-icons/fa";
 
-const Edit_Income = ({
-  edit_Income,
-  handleModalIncome,
-  income_expense_id,
-  riceCaltivation_id,
-}) => {
+const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
   const [values, setValues] = useState({
     date: "",
     detail: "",
@@ -20,6 +16,9 @@ const Edit_Income = ({
     yield: "",
     rice_price_per_kg: "",
   });
+
+  const [modal, setModal] = useState(false);
+  const handleModal = () => setModal(!modal);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,16 +35,16 @@ const Edit_Income = ({
       const formatDate = `${year}-${month < 10 ? "0" + month : month}-${
         day < 10 ? "0" + day : day
       }`;
+      setYield({
+        ...yield_rice,
+        yield: resYield.data.yield,
+        rice_price_per_kg: resYield.data.rice_price_per_kg,
+      });
       setValues({
         ...values,
         date: formatDate,
         detail: resIncome.data.detail,
         price: resIncome.data.price,
-      });
-      setYield({
-        ...yield_rice,
-        yield: resYield.data.yield,
-        rice_price_per_kg: resYield.data.rice_price_per_kg,
       });
     };
     fetchData();
@@ -81,8 +80,15 @@ const Edit_Income = ({
 
   return (
     <div>
-      {edit_Income ? (
-        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-15 h-screen">
+      <button
+        className="flex justify-center items-center w-8 h-8"
+        onClick={handleModal}
+      >
+        <FaRegEdit className="w-5 h-5" />
+      </button>
+
+      {modal ? (
+        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full">
             <div className="relative bg-white rounded-lg shadow">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
@@ -91,8 +97,8 @@ const Edit_Income = ({
                 </h3>
                 <button
                   type="button"
-                  className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
-                  onClick={handleModalIncome}
+                  className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 rounded-lg w-8 h-8 ms-auto inline-flex justify-center items-center"
+                  onClick={handleModal}
                 >
                   <IoMdClose className="w-10 h-10" />
                 </button>
@@ -190,8 +196,8 @@ const Edit_Income = ({
                     </button>
                     <button
                       type="button"
-                      onClick={handleModalIncome}
-                      className="p-3 bg-slate-50 rounded-md text-sm border hover:bg-gray-100"
+                      onClick={handleModal}
+                      className="p-3 bg-slate-50 rounded-md text-sm border hover:bg-gray-100 text-gray-900"
                     >
                       ยกเลิก
                     </button>

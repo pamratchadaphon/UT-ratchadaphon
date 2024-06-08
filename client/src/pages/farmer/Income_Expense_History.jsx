@@ -75,9 +75,12 @@ const Income_Expense_History = () => {
 
         <BoxIncomeExpense sumExpense={sumExpense} sumIncome={sumIncome} />
 
-        <div className="flex flex-col md:flex-row gap-4 mt-4">
+        <div className="flex flex-col md:flex-row gap-4 mt-4 justify-between">
           <Info_ricecrop riceCaltivation={riceCaltivation} />
           <Yield_rice riceCaltivation={riceCaltivation} />
+          <div className="w-full border-2 bg-white ">
+            a
+          </div>
         </div>
         <div className="flex flex-col md:flex-row gap-4 my-4">
           <IncomeExpensePerMonth

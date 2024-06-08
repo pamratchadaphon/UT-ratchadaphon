@@ -110,7 +110,7 @@ const Navbar = ({id}) => {
             </li>
             <li>
               <a
-                href="/ricevariety"
+                href={`/ricevariety/${farmer_id}`}
                 className=" md:hover:rounded-xl  md:hover:text-green-900 md:p-0 flex items-center"
                 aria-current="page"
                 onMouseEnter={() => setHoverRicetyVariety(true)}
@@ -139,7 +139,7 @@ const Navbar = ({id}) => {
             <ul className="md:hidden flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse w-full">
               <li>
                 <a
-                  href="/farmer/home/2"
+                  href={`/farmer/home/${farmer_id}`}
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   หน้าแรก
@@ -147,7 +147,7 @@ const Navbar = ({id}) => {
               </li>
               <li>
                 <a
-                  href="/ricecrop/2"
+                  href={`/ricecrop/${farmer_id}`}
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   รอบการปลูก
@@ -155,7 +155,7 @@ const Navbar = ({id}) => {
               </li>
               <li>
                 <a
-                  href="/ricevariety"
+                  href={`/ricevariety/${farmer_id}`}
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
                 >
                   พันธุ์ข้าว

@@ -29,7 +29,7 @@ const App = () => {
 
           <Route path='/farmer/home/:farmer_id' element={<UserAuthen><HomepageFarmer/></UserAuthen>}/>
           <Route path='/ricecrop/:farmer_id' element={<UserAuthen><Ricecrop/></UserAuthen>}/>
-          <Route path='/ricevariety' element={<UserAuthen><RiceVariety/></UserAuthen>}/>
+          <Route path='/ricevariety/:farmer_id' element={<UserAuthen><RiceVariety/></UserAuthen>}/>
           <Route path='/ricecrop/history/:farmer_id/:riceCaltivation_id' element={<UserAuthen><Income_Expense_History/></UserAuthen>} />
           <Route path='/ricecrop/detail/:farmer_id/:riceCaltivation_id' element={<UserAuthen><Detail_RiceCaltivation/></UserAuthen>} />
 

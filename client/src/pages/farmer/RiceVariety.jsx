@@ -1,12 +1,14 @@
+import { useParams } from "react-router-dom";
 import Cards from "../../components/farmer/Cards";
 import Navbar from "../../components/farmer/Navbar";
 import { motion } from "framer-motion"
 
 const RiceVariety = () => {
+  const {farmer_id} = useParams()
 
   return (
     <div>
-      <Navbar id={2} />
+      <Navbar id={Number(farmer_id)} />
       <div className="mx-auto max-w-screen-xl h-screen flex flex-col items-center">
       
         <motion.div
