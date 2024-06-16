@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
 
-const SelectMonth = ({ riceCaltivation, handleMonth }) => {
-  const startMonth = new Date(riceCaltivation.startDate).getMonth() + 1;
-  const endMonth = new Date(riceCaltivation.endDate).getMonth() + 1;
+const SelectMonth = ({ handleMonth, startMonth_IncomeExpense, endMonth_IncomeExpense}) => {
 
   const [month, setMonth] = useState("");
 
@@ -23,7 +21,7 @@ const SelectMonth = ({ riceCaltivation, handleMonth }) => {
     "ธันวาคม",
   ];
 
-  for (let i = startMonth - 1; i < endMonth; i++) {
+  for (let i = startMonth_IncomeExpense - 1; i < endMonth_IncomeExpense; i++) {
     for (let j = 0; j < monthString.length; j++) {
       if (i === j) {
         monthArr[i + 1] = monthString[j];
@@ -55,8 +53,9 @@ const SelectMonth = ({ riceCaltivation, handleMonth }) => {
 };
 
 SelectMonth.propTypes = {
-    riceCaltivation: PropTypes.object,
-    handleMonth: PropTypes.func
+    handleMonth: PropTypes.func,
+    startMonth_IncomeExpense: PropTypes.number,
+    endMonth_IncomeExpense: PropTypes.number
 }
 
 export default SelectMonth;

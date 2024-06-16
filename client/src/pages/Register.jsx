@@ -1,197 +1,284 @@
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import { GoArrowRight } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
+import { ReactTyped } from "react-typed";
+import { useEffect, useState } from "react";
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+const Register = () => {
+  const navigator = useNavigate();
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    fname: "",
+    lname: "",
+    phone: "",
+    subdistrict: "",
+    district: "",
+    province: "",
+  });
 
-function Copyright(props) {
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+  const [fname, setFname] = useState(false);
+  const [lname, setLname] = useState(false);
+  const [phone, setPhone] = useState(false);
+  const [subdistrict, setSubdistrict] = useState(false);
+  const [district, setDistrict] = useState(false);
+  const [province, setProvince] = useState(false);
+
+  const check = () => {
+    values.email === "" ? setEmail(true) : null;
+    values.password === "" ? setPassword(true) : null;
+    values.fname === "" ? setFname(true) : null;
+    values.lname === "" ? setLname(true) : null;
+    values.phone === "" ? setPhone(true) : null;
+    values.subdistrict === "" ? setSubdistrict(true) : null;
+    values.district === "" ? setDistrict(true) : null;
+    values.province === "" ? setProvince(true) : null;
+  };
+
+  useEffect(() => setEmail(false), [values.email]);
+  useEffect(() => setPassword(false), [values.password]);
+  useEffect(() => setFname(false), [values.fname]);
+  useEffect(() => setLname(false), [values.lname]);
+  useEffect(() => setPhone(false), [values.phone]);
+  useEffect(() => setSubdistrict(false), [values.subdistrict]);
+  useEffect(() => setDistrict(false), [values.district]);
+  useEffect(() => setProvince(false), [values.province]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    check();
+    if (
+      values.email !== "" &&
+      values.password !== "" &&
+      values.fname !== "" &&
+      values.lname !== "" &&
+      values.phone !== "" &&
+      values.subdistrict !== "" &&
+      values.district !== "" &&
+      values.province !== ""
+    ) {
+      try {
+        await axios
+          .post("http://localhost:8080/farmer/", values)
+          .then((result) => console.log(result.data));
+        navigator("/");
+      } catch (error) {
+        console.log("Error : " + error);
+      }
+    }
+  };
+
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+    <div className="flex h-screen w-screen bg-gradient-to-r from-green-50 to-sky-50">
+      <div className="w-full flex flex-col md:flex-row items-center">
+        <div className="w-full h-1/3 flex items-center justify-center">
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-green-500 md:text-5xl lg:text-6xl">
+            <ReactTyped
+              strings={[
+                "จดบันทึกการปลูกข้าว",
+                "ตรวจสอบผลผลิต",
+                "เลือกพันธุ์ข้าว",
+              ]}
+              typeSpeed={100}
+              loop
+              backSpeed={50}
+              showCursor={false}
+            />
+          </h1>
+        </div>
+        <div className="w-full flex justify-center items-center bg-white h-screen">
+          <div className="flex flex-col p-6 md:p-4 w-screen md:w-2/3 h-96 justify-center">
+            <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">
+              สร้างบัญชี
+            </h3>
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    อีเมล
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={values.email}
+                    onChange={(e) =>
+                      setValues({ ...values, email: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5 hover:border-green-700 hover:border-2"
+                  />
+                  {email ? (
+                    <span className="text-sm text-red-500">กรุณากรอกอีเมล</span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    รหัสผ่าน
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={values.password}
+                    onChange={(e) =>
+                      setValues({ ...values, password: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {password ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกรหัสผ่าน
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    ชื่อ
+                  </label>
+                  <input
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    value={values.fname}
+                    onChange={(e) =>
+                      setValues({ ...values, fname: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {fname ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกชื่อ
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    นามสกุล
+                  </label>
+                  <input
+                    type="text"
+                    name="lname"
+                    id="lname"
+                    value={values.lname}
+                    onChange={(e) =>
+                      setValues({ ...values, lname: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {lname ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกนามสกุล
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    เบอร์โทรศัพท์
+                  </label>
+                  <input
+                    type="number"
+                    name="phone"
+                    id="phone"
+                    value={values.phone}
+                    onChange={(e) =>
+                      setValues({ ...values, phone: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {phone ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกเบอร์โทรศัพท์
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    ตำบล
+                  </label>
+                  <input
+                    type="text"
+                    name="subdistrict"
+                    id="subdistrict"
+                    value={values.subdistrict}
+                    onChange={(e) =>
+                      setValues({ ...values, subdistrict: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {subdistrict ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกตำบล
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    อำเภอ
+                  </label>
+                  <input
+                    type="text"
+                    name="district"
+                    id="district"
+                    value={values.district}
+                    onChange={(e) =>
+                      setValues({ ...values, district: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {district ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกอำเภอ
+                    </span>
+                  ) : null}
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                    จังหวัด
+                  </label>
+                  <input
+                    type="text"
+                    name="province"
+                    id="province"
+                    value={values.province}
+                    onChange={(e) =>
+                      setValues({ ...values, province: e.target.value })
+                    }
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
+                  />
+                  {province ? (
+                    <span className="text-sm text-red-500">
+                      กรุณากรอกจังหวัด
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full md:w-full px-5 py-2.5 text-base font-medium text-center text-white bg-green-600 hover:bg-green-100 hover:text-green-700 hover:duration-500 rounded-full flex items-center justify-center gap-2 shadow mt-4"
+              >
+                <span>เข้าใช้งาน</span>
+                <GoArrowRight />
+              </button>
+            </form>
+            <div className="flex justify-end items-center pt-4">
+              <div className="text-sm font-medium text-gray-900 flex space-x-2">
+                <div>หากมีบัญชีอยู่แล้ว</div>
+                <a
+                  href="/"
+                  className="text-blue-600 hover:underline cursor:pointer animate-bounce"
+                >
+                  ลงชื่อเข้าใช้
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
-
-export default function SignUp() {
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        const jsonData = {
-          email: formData.get('email'),
-          password: formData.get('password'),
-          fname: formData.get('fname'),
-          lname: formData.get('lname'),
-          subdistrict: formData.get('subdistrict'),
-          district: formData.get('district'),
-          province: formData.get('province'),
-          phone: formData.get('phone')
-        };
-      
-        try {
-          const response = await fetch("http://localhost:8080/farmer/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(jsonData),
-          });
-          const data = await response.json();
-          if (response.ok) {
-            alert('register success')
-            window.location = '/'
-          } else {
-            alert(data.error);
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          alert('An error occurred while logging in');
-        }
-      };
-
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="fname"
-                  label="name"
-                  type="text"
-                  id="fname"
-                  autoComplete="fname"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="lname"
-                  label="lname"
-                  type="text"
-                  id="lname"
-                  autoComplete="lname"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="subdistrict"
-                  label="subdistrict"
-                  type="text"
-                  id="subdistrict"
-                  autoComplete="subdistrict"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="district"
-                  label="district"
-                  type="text"
-                  id="district"
-                  autoComplete="district"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="province"
-                  label="province"
-                  type="text"
-                  id="province"
-                  autoComplete="province"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="phone"
-                  label="phone"
-                  type="number"
-                  id="phone"
-                  autoComplete="phone"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onSubmit={handleSubmit}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
-  );
-}
+export default Register;

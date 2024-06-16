@@ -31,11 +31,23 @@ const Content = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate();
-    const month = date.getMonth() + 1;
+    const month = date.getMonth();
     const year = date.getFullYear();
-    return `${day < 10 ? "0" + day : day}/${
-      month < 10 ? "0" + month : month
-    }/${year}`;
+    const monthString = [
+      "มกราคม",
+      "กุมภาพันธ์",
+      "มีนาคม",
+      "เมษายน",
+      "พฤษภาคม",
+      "มิถุนายน",
+      "กรกฎาคม",
+      "สิงหาคม",
+      "กันยายน",
+      "ตุลาคม",
+      "พฤศจิกายน",
+      "ธันวาคม",
+    ];
+    return `${day} ${monthString[month]} ${year}`;
   };
 
   return (
@@ -51,7 +63,7 @@ const Content = () => {
       </p>
       <div className="flex gap-2 md:gap-3 justify-center items-center">
         <button
-          className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-200"
+          className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-200 shadow-md"
           onClick={handleModalExpense}
         >
           บันทึกรายจ่าย
@@ -81,7 +93,7 @@ const Content = () => {
           to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
           className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
         >
-          ดูรายการย้อนหลัง
+          ดูรายการค่าใช้จ่าย
         </Link>
       </div>
     </div>

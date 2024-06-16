@@ -8,7 +8,7 @@ const HomePageFarmer = () => {
 
   return (
     <div className="h-screen flex flex-col justify-between">
-      <Navbar id={farmer_id}/>
+      <Navbar id={farmer_id} page={'home'}/>
       <Content />
       <NewsService/>
     </div>

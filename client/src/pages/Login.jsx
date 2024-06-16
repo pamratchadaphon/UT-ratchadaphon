@@ -3,37 +3,52 @@ import { GoArrowRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ReactTyped } from "react-typed";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const navigator = useNavigate();
 
+  const [values, setValues] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
+
+  const check = () => {
+    values.email === '' ? setEmail(true) : null;
+    values.password === '' ? setPassword(true) : null;
+  }
+
+  useEffect(() => setEmail(false), [values.email])
+  useEffect(() => setPassword(false), [values.password])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const value = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/farmer/login",
-        value
-      );
-      const id = response.data.farmer_id;
-      if (response.data.role === "admin") {
-        localStorage.setItem("token", response.data.token);
-        navigator(`/admin/riceVariety`);
-      } else {
-        localStorage.setItem("token", response.data.token);
-        navigator(`/farmer/home/${id}`);
+    check();
+    if (values.email !== '' && values.password !== '') {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/farmer/login",
+          values
+        );
+        const id = response.data.farmer_id;
+        if (response.data.role === "admin") {
+          localStorage.setItem("token", response.data.token);
+          navigator(`/admin/dashboard`);
+        } else {
+          localStorage.setItem("token", response.data.token);
+          navigator(`/farmer/home/${id}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        Swal.fire({
+          title: "เกิดข้อผิดพลาด",
+          text: "อีเมล หรือ รหัสผ่านไม่ถูกต้อง",
+          icon: "error",
+        });
       }
-    } catch (error) {
-      console.error("Error:", error);
-      Swal.fire({
-        title: "เกิดข้อผิดพลาด",
-        text: "อีเมล หรือ รหัสผ่านไม่ถูกต้อง",
-        icon: "error",
-      });
     }
   };
 
@@ -52,7 +67,7 @@ const Login = () => {
           </h1>
         </div>
         <div className="w-full flex justify-center items-center bg-white h-screen">
-          <div className="flex flex-col p-4 w-2/3 h-96 justify-center">
+          <div className="flex flex-col p-6 md:p-4 w-full md:w-2/3 h-96 justify-center">
             <h3 className="text-xl font-semibold text-gray-900 text-center">
               ลงชื่อเข้าใช้
             </h3>
@@ -68,9 +83,16 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
+                  value={values.email}
+                  onChange={(e) => setValues({...values, email: e.target.value})}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5 hover:border-green-700 hover:border-2"
-                  required
+                  
                 />
+                {email ? (
+                  <span className="text-sm text-red-500">
+                    กรุณากรอกอีเมล
+                  </span>
+                ) : null}
               </div>
               <div>
                 <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
@@ -80,9 +102,15 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
+                  value={values.password}
+                  onChange={(e) => setValues({...values, password: e.target.value})}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
-                  required
                 />
+                {password ? (
+                  <span className="text-sm text-red-500">
+                    กรุณากรอกรหัสผ่าน
+                  </span>
+                ) : null}
               </div>
               <button
                 type="submit"

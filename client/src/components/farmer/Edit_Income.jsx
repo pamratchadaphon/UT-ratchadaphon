@@ -15,6 +15,8 @@ const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
   const [yield_rice, setYield] = useState({
     yield: "",
     rice_price_per_kg: "",
+    rice_consumption: "",
+    seed_rice: ""
   });
 
   const [modal, setModal] = useState(false);
@@ -39,6 +41,8 @@ const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
         ...yield_rice,
         yield: resYield.data.yield,
         rice_price_per_kg: resYield.data.rice_price_per_kg,
+        rice_consumption: resYield.data.rice_consumption,
+        seed_rice: resYield.data.seed_rice
       });
       setValues({
         ...values,
@@ -187,6 +191,44 @@ const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
                       required
                     />
                   </div>
+                  <div className="flex flex-col md:flex-row gap-2">
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                          เก็บไว้บริโภค (กิโลกรัม)
+                        </label>
+                        <input
+                          type="number"
+                          name="rice_consumption"
+                          id="rice_consumption"
+                          value={yield_rice.rice_consumption}
+                          onChange={(e) =>
+                            setYield({
+                              ...yield_rice,
+                              rice_consumption: e.target.value,
+                            })
+                          }
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        />
+                      </div>
+                      <div>
+                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                          เก็บไว้ทำเมล็ดพันธ์ุ (กิโลกรัม)
+                        </label>
+                        <input
+                          type="number"
+                          name="seed_rice"
+                          id="seed_rice"
+                          value={yield_rice.seed_rice}
+                          onChange={(e) =>
+                            setYield({
+                              ...yield_rice,
+                              seed_rice: e.target.value,
+                            })
+                          }
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        />
+                      </div>
+                    </div>
                   <div className="space-x-2 flex justify-end items-center">
                     <button
                       type="submit"

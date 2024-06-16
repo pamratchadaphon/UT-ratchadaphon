@@ -2,12 +2,7 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 import PropTypes from "prop-types";
 
-const IncomeExpensePerMonth = ({ incomeExpense, riceCaltivation }) => {
-  const startDate = new Date(riceCaltivation.startDate);
-  const startMonth = startDate.getMonth() + 1;
-
-  const endDate = new Date(riceCaltivation.endDate);
-  const endMonth = endDate.getMonth() + 1;
+const IncomeExpensePerMonth = ({ incomeExpense, startMonth_IncomeExpense, endMonth_IncomeExpense}) => {
 
   const priceExpense = Array.from({ length: 12 }, () => 0);
   const priceIncome = Array.from({ length: 12 }, () => 0)
@@ -51,17 +46,8 @@ const IncomeExpensePerMonth = ({ incomeExpense, riceCaltivation }) => {
     "ธันวาคม",
   ];
 
-  const monthArr = [];
-  for (let i = startMonth - 1; i < endMonth; i++) {
-    for (let j = 0; j < monthString.length; j++) {
-      if (i === j) {
-        monthArr[i + 1] = j + 1;
-      }
-    }
-  }
-
   const dataset = [];
-  for (let i = startMonth - 1; i < endMonth; i++) {
+  for (let i = startMonth_IncomeExpense - 1; i < endMonth_IncomeExpense; i++) {
     const monthData = {
       expense: priceExpense[i] || 0,
       income: priceIncome[i] || 0,
@@ -71,11 +57,6 @@ const IncomeExpensePerMonth = ({ incomeExpense, riceCaltivation }) => {
   }
 
   const chartSetting = {
-    yAxis: [
-      {
-        label: "จำนวนเงิน (บาท)",
-      },
-    ],
     height: 250,
     sx: {
       [`.${axisClasses.left} .${axisClasses.label}`]: {
@@ -84,11 +65,11 @@ const IncomeExpensePerMonth = ({ incomeExpense, riceCaltivation }) => {
     },
   };
 
-  const valueFormatter = (value) => `${value} บาท`;
+  const valueFormatter = (value) => `${value.toLocaleString()} บาท`;
 
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-2/3">
-      <span>กราฟแสดงรายรับรายจ่ายต่อเดือน</span>
+      <span>กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
       <BarChart
         dataset={dataset}
         xAxis={[{ scaleType: "band", dataKey: "month" }]}
@@ -114,7 +95,8 @@ const IncomeExpensePerMonth = ({ incomeExpense, riceCaltivation }) => {
 
 IncomeExpensePerMonth.propTypes = {
   incomeExpense: PropTypes.array,
-  riceCaltivation: PropTypes.object,
+  startMonth_IncomeExpense: PropTypes.number,
+  endMonth_IncomeExpense: PropTypes.number
 };
 
 export default IncomeExpensePerMonth;

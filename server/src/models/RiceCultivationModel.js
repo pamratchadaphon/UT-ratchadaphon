@@ -31,8 +31,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     rice_price_per_kg: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    }
+      allowNull: false,
+    },
+    rice_consumption: {
+      type: DataTypes.INTEGER,
+    },
+    seed_rice: {
+      type: DataTypes.INTEGER,
+    },
   });
   return RiceCaltivation;
 };

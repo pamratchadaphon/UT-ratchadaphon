@@ -64,9 +64,9 @@ const TableRicecrop = ({ farmer_id }) => {
     }
   }, [firstIndex, records]);
 
-  records.sort((a, b) => {
-    return b.riceCaltivation_id - a.riceCaltivation_id;
-  });
+  // records.sort((a, b) => {
+  //   return b.riceCaltivation_id - a.riceCaltivation_id;
+  // });
   return (
     <div>
       <div className="hidden md:flex">

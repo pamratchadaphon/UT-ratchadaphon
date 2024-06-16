@@ -8,7 +8,7 @@ const Ricecrop = () => {
 
   return (
     <div>
-      <Navbar id={farmer_id} />
+      <Navbar id={farmer_id} page={'riceCaltivation'}/>
       <div className="mx-auto max-w-screen-xl h-screen flex flex-col gap-4 pt-4 px-4">
         <div className="w-full md:hidden">
           <ModalAddRicecrop />

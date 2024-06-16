@@ -52,7 +52,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
   );
 
   const [page, setPage] = useState(1);
-  const recordsPerPage = 10;
+  const recordsPerPage = 5;
   const lastIndex = page * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);

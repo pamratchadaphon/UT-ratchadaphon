@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import axios from "axios";
+import PropTypes from 'prop-types'
 
-const Cards = () => {
-  const [data, setData] = useState([]);
+const Cards = ({data}) => {
   const [modal, setModal] = useState(false);
   const [dataById, setDataById] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get("http://localhost:8080/riceVariety/");
-      setData(res.data);
-    };
-    fetchData();
-  });
 
   const handleModal = async (id) => {
     setModal(!modal);
@@ -143,5 +135,9 @@ const Cards = () => {
     </div>
   );
 };
+
+Cards.propTypes = {
+  data: PropTypes.array
+}
 
 export default Cards;

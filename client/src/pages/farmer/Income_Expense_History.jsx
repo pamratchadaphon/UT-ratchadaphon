@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import ModalAddIncome from "../../components/farmer/ModalAddIncome";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Info_ricecrop from "../../components/farmer/Info_ricecrop";
+// import Info_ricecrop from "../../components/farmer/Info_ricecrop";
 import All_IncomeExpense from "../../components/farmer/All_IncomeExpense";
 import IncomeExpensePerMonth from "../../components/farmer/IncomeExpensePerMonth";
-import Yield_rice from "../../components/farmer/Yield_rice";
+// import Yield_rice from "../../components/farmer/Yield_rice";
 import SelectMonth from "../../components/farmer/SelectMonth";
+// import Chart from "../../components/farmer/chart";
+// import Stored_Rice from "../../components/farmer/Stored_Rice";
 
 const Income_Expense_History = () => {
   const { riceCaltivation_id, farmer_id } = useParams();
@@ -24,18 +26,8 @@ const Income_Expense_History = () => {
   const handleModalExpense = () => setShowModalExpense(!showModalExpense);
   const handleModalIncome = () => setShowModalIncome(!showModalIncome);
 
-  const [data, setData] = useState([]);
+  const [incomeExpense, setIncomeExpense] = useState([]);
   const [riceCaltivation, setRiceCaltivation] = useState({});
-
-  const expense = data.filter((data) => data.type.includes("รายจ่าย"));
-  const income = data.filter((data) => data.type.includes("รายรับ"));
-
-  const sumExpense = expense.reduce((total, data) => total + data.price, 0);
-  const sumIncome = income.reduce((total, data) => total + data.price, 0);
-
-  const [selectMonth, setSelectMonth] = useState("");
-
-  const handleMonth = (month) => setSelectMonth(month);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +35,7 @@ const Income_Expense_History = () => {
         const res = await axios.get(
           `http://localhost:8080/riceCaltivation/incomeExpense/${idRiceCaltivation}`
         );
-        setData(res.data[0].incomeExpense);
+        setIncomeExpense(res.data[0].incomeExpense);
         setRiceCaltivation(res.data[0]);
       } catch (error) {
         console.log("Error : " + error);
@@ -52,42 +44,75 @@ const Income_Expense_History = () => {
     fetchData();
   }, [idRiceCaltivation]);
 
+  const expense = incomeExpense.filter((data) => data.type.includes("รายจ่าย"));
+  const income = incomeExpense.filter((data) => data.type.includes("รายรับ"));
+
+  const sumExpense = expense.reduce((total, data) => total + data.price, 0);
+  const sumIncome = income.reduce((total, data) => total + data.price, 0);
+
+  const [selectMonth, setSelectMonth] = useState("");
+
+  const handleMonth = (month) => setSelectMonth(month);
+
+  const [startMonth_IncomeExpense, setStartMonth_IncomeExpense] = useState(0);
+  const [endMonth_IncomeExpense, setEndMonth_IncomeExpense] = useState(0);
+
+  useEffect(() => {
+    if (incomeExpense != "") {
+      const month = (string) => {
+        return new Date(string).getMonth() + 1;
+      };
+      setStartMonth_IncomeExpense(month(incomeExpense[0].date));
+      setEndMonth_IncomeExpense(
+        month(incomeExpense[incomeExpense.length - 1].date)
+      );
+    }
+  }, [incomeExpense]);
+
   return (
     <div>
       <Navbar id={idFarmer} />
       <div className="mx-auto max-w-screen-xl p-4">
-        <nav className="flex mb-4">
-          <ol className="flex space-x-1 items-center">
-            <li>
-              <a
-                href={`/ricecrop/${idFarmer}`}
-                className="hover:underline hover:text-green-700"
-              >
-                รอบการปลูก
-              </a>
-            </li>
-            <li>
-              <IoIosArrowForward />
-            </li>
-            <li className="text-green-700">รายการย้อนหลัง</li>
-          </ol>
-        </nav>
+        {/* <div className="flex justify-between">
+          <nav className="flex mb-4">
+            <ol className="flex space-x-1 items-center">
+              <li>
+                <a
+                  href={`/ricecrop/${idFarmer}`}
+                  className="hover:underline hover:text-green-700"
+                >
+                  รอบการปลูก
+                </a>
+              </li>
+              <li>
+                <IoIosArrowForward />
+              </li>
+              <li className="text-green-700">
+                รายงานค่าใช้จ่ายรอบการปลูกที่ {riceCaltivation_id}
+              </li>
+            </ol>
+          </nav>
+        </div> */}
 
         <BoxIncomeExpense sumExpense={sumExpense} sumIncome={sumIncome} />
 
-        <div className="flex flex-col md:flex-row gap-4 mt-4 justify-between">
+        {/* <div className="flex flex-col md:flex-row gap-4 mt-4 justify-between">
           <Info_ricecrop riceCaltivation={riceCaltivation} />
           <Yield_rice riceCaltivation={riceCaltivation} />
-          <div className="w-full border-2 bg-white ">
-            a
-          </div>
-        </div>
+          <Stored_Rice riceCaltivation={riceCaltivation}/>
+        </div> */}
         <div className="flex flex-col md:flex-row gap-4 my-4">
           <IncomeExpensePerMonth
-            incomeExpense={data}
-            riceCaltivation={riceCaltivation}
+            incomeExpense={incomeExpense}
+            startMonth_IncomeExpense={startMonth_IncomeExpense}
+            endMonth_IncomeExpense={endMonth_IncomeExpense}
           />
-          <All_IncomeExpense sumExpense={sumExpense} sumIncome={sumIncome} />
+          <All_IncomeExpense
+            sumExpense={sumExpense}
+            sumIncome={sumIncome}
+            incomeExpense={incomeExpense}
+          />
+          {/* <Chart/> */}
         </div>
 
         <div className="bg-white shadow p-4 my-4 rounded-lg">
@@ -128,12 +153,14 @@ const Income_Expense_History = () => {
               <SelectMonth
                 riceCaltivation={riceCaltivation}
                 handleMonth={handleMonth}
+                startMonth_IncomeExpense={startMonth_IncomeExpense}
+                endMonth_IncomeExpense={endMonth_IncomeExpense}
               />
             </div>
           </div>
           <div>
             <TableIncomeExpense
-              incomeExpense={data}
+              incomeExpense={incomeExpense}
               selectMonth={selectMonth}
             />
           </div>

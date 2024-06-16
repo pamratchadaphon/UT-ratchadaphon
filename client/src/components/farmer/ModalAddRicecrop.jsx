@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const ModalAddRicecrop = () => {
-  const {farmer_id} = useParams()
+  const { farmer_id } = useParams();
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [values, setValues] = useState({
     year: "",
@@ -15,23 +15,47 @@ const ModalAddRicecrop = () => {
     area: "",
     yield: 0,
     rice_price_per_kg: 0,
-    farmer_id: farmer_id 
+    farmer_id: farmer_id,
   });
 
   const handleModal = () => {
     setIsOpenModal(!isOpenModal);
   };
 
+  const [year, setYear] = useState(false);
+  const [endDate, setEndDate] = useState(false);
+  const [riceVariety, setRiceVariety] = useState(false);
+  const [area, setArea] = useState(false);
+
+  const check = () => {
+    values.year === "" ? setYear(true) : null;
+    values.endDate === "" ? setEndDate(true) : null;
+    values.riceVariety === "" ? setRiceVariety(true) : null;
+    values.area === "" ? setArea(true) : null;
+  };
+
+  useEffect(() => setYear(false), [values.year]);
+  useEffect(() => setEndDate(false), [values.endDate]);
+  useEffect(() => setRiceVariety(false), [values.riceVariety]);
+  useEffect(() => setArea(false), [values.area]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
-    await axios.post("http://localhost:8080/riceCaltivation", values)
-    Swal.fire({
-      title: "เพิ่มรอบการปลูกสำเร็จ",
-      icon: "success",
-    }).then((result) => {
-      result ? window.location.reload() : null;
-    });
+    check();
+    if (
+      values.year !== "" &&
+      values.endDate !== "" &&
+      values.riceVariety !== "" &&
+      values.area !== ""
+    ) {
+      await axios.post("http://localhost:8080/riceCaltivation", values);
+      Swal.fire({
+        title: "เพิ่มรอบการปลูกสำเร็จ",
+        icon: "success",
+      }).then((result) => {
+        result ? window.location.reload() : null;
+      });
+    }
   };
   return (
     <div>
@@ -74,8 +98,12 @@ const ModalAddRicecrop = () => {
                         setValues({ ...values, year: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                      required
                     />
+                    {year ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกปีที่ปลูก
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="grid gap-4 mb-4 grid-cols-2">
@@ -92,7 +120,6 @@ const ModalAddRicecrop = () => {
                         setValues({ ...values, startDate: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      required
                     />
                   </div>
                 </div>
@@ -110,8 +137,12 @@ const ModalAddRicecrop = () => {
                         setValues({ ...values, endDate: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      required
                     />
+                    {endDate ? (
+                      <span className="text-sm text-red-500">
+                        เลือกวันที่เก็บเกี่ยว
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="grid gap-4 mb-4 grid-cols-2">
@@ -128,8 +159,12 @@ const ModalAddRicecrop = () => {
                         setValues({ ...values, riceVariety: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      required
                     />
+                    {riceVariety ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกพันธุ์ข้าว
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 <div className="grid gap-4 mb-4 grid-cols-2">
@@ -146,8 +181,12 @@ const ModalAddRicecrop = () => {
                         setValues({ ...values, area: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      required
                     />
+                    {area ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกขนาดพื้นที่
+                      </span>
+                    ) : null}
                   </div>
                 </div>
 

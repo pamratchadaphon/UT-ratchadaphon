@@ -1,21 +1,40 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import price from "../../images/price.png";
+import weight from "../../images/weight.png";
+import money from "../../images/money.png";
+import sack_rice from "../../images/sack_rice.png";
 
 const Yield_rice = ({ riceCaltivation }) => {
   return (
-    <div className="bg-white p-4 border rounded-lg w-full">
-      <div className="rounded-lg text-gray-900">
+    <div>
+      <div className="md:hidden bg-white p-4 border rounded-lg w-full">
         <div className="mb-3">
-          <span>ผลผลิต</span>
+          <div className="flex space-x-2 items-center">
+            <div className="w-5 h-5 text-center">
+              <img src={sack_rice} />
+            </div>
+            <span>ผลผลิต</span>
+          </div>
         </div>
         <hr />
         <div className="flex justify-between mt-3">
-          <span>น้ำหนักสุทธิ </span>
+          <div className="flex space-x-2 items-center">
+            <div className="w-5 h-5 text-center">
+              <img src={weight} />
+            </div>
+            <span>น้ำหนักสุทธิ </span>
+          </div>
           <span>
             {riceCaltivation.yield === "0" ? 0 : riceCaltivation.yield} กก.
           </span>
         </div>
         <div className="flex justify-between pb-3">
-          <span>ราคา/กก.</span>
+          <div className="flex space-x-2 items-center">
+            <div className="w-5 h-5 text-center">
+              <img src={price} alt="" />
+            </div>
+            <span>ราคา/กก.</span>
+          </div>
           <span>
             {riceCaltivation.rice_price_per_kg === 0
               ? 0
@@ -23,9 +42,16 @@ const Yield_rice = ({ riceCaltivation }) => {
             บาท
           </span>
         </div>
-        <div className="flex justify-between border-t  py-2">
-          <span>จำนวนเงิน </span>
-          <span>{riceCaltivation.yield * riceCaltivation.rice_price_per_kg} บาท</span>
+        <div className="flex justify-between border-t pt-2">
+          <div className="flex space-x-2 items-center">
+            <div className="w-5 h-5 text-center">
+              <img src={money} />
+            </div>
+            <span>จำนวนเงิน </span>
+          </div>
+          <span>
+            {riceCaltivation.yield * riceCaltivation.rice_price_per_kg} บาท
+          </span>
         </div>
       </div>
     </div>
@@ -33,7 +59,7 @@ const Yield_rice = ({ riceCaltivation }) => {
 };
 
 Yield_rice.propTypes = {
-  riceCaltivation: PropTypes.object
-}
+  riceCaltivation: PropTypes.object,
+};
 
 export default Yield_rice;

@@ -21,9 +21,6 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
   const [modal, setModal] = useState(false);
   const handleModal = () => setModal(!modal);
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
   const clickDropdown = () => {
     setDropdown(!dropdown);
   };
@@ -64,31 +61,75 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
         `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
       );
       const incomeExpense = res.data[0].incomeExpense;
-      const arr = [];
+      const payee = [];
       incomeExpense.map((data) =>
-        data.type === "รายจ่าย" ? arr.push(data.payee) : null
+        data.type === "รายจ่าย" ? payee.push(data.payee) : null
       );
-
-      setStartDate(formatDate(res.data[0].startDate));
-      setEndDate(formatDate(res.data[0].endDate));
-      setPayees(arr);
+      setPayees([...new Set(payee)]);
     };
     fetchData();
   }, [income_expense_id]);
 
+  const data_labor = [
+    "กำจัดวัชพืช",
+    "เก็บเกี่ยวข้าว",
+    "ฉีดยาคุมหญ้า",
+    "ฉีดยาฆ่าแมลง",
+    "ฉีดยาป้องกันแมลง",
+    "ตัดหญ้า",
+    "ปลูกข้าว",
+    "หว่านปุ๋ยเคมี",
+    "หว่านเมล็ดพันธุ์ข้าว",
+    "ย่ำนา",
+  ];
+
+  const data_chemicals = [
+    "ปุ๋ยเกล็ด",
+    "ปุ๋ยเคมี",
+    "ปุ๋ยอินทรีย์",
+    "ยาคุมหญ้า",
+    "ยาฆ่าแมลง",
+    "ยาป้องกันแมลง",
+  ];
+
+  const data_machinery = [
+    "รถเกี่ยวข้าว",
+    "รถเข็นข้าว",
+    "รถไถนา",
+    "รถดำนา",
+    "รถปั่นนา",
+  ];
+
+  const [detail_input, setDetail1_input] = useState(false);
+  const [price, setPrice] = useState(false);
+  const [payee, setPayee] = useState(false);
+
+  useEffect(() => {setDetail1_input(false)}, [values.detail])
+  useEffect(() => {setPrice(false)}, [values.price])
+  useEffect(() => setPayee(false), [values.payee])
+
+  const check = () => {
+    values.detail === '' ? setDetail1_input(true) : null
+    values.price === '' ? setPrice(true) : null
+    values.payee === '' ? setPayee(true) : null
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .put(`http://localhost:8080/incomeExpense/${income_expense_id}`, values)
-      .then((res) => console.log(res.data));
-    Swal.fire({
-      title: "แก้ไขสำเร็จ",
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.reload();
-      }
-    });
+    check()
+    if (values.detail !== "" && values.price !== "" && values.payee !== "") {
+      await axios
+        .put(`http://localhost:8080/incomeExpense/${income_expense_id}`, values)
+        .then((res) => console.log(res.data));
+      Swal.fire({
+        title: "แก้ไขสำเร็จ",
+        icon: "success",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    }
   };
 
   return (
@@ -133,15 +174,13 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                       name="date"
                       id="date"
                       value={values.date}
-                      required
-                      min={startDate}
-                      max={endDate}
                       onChange={(e) =>
                         setValues({ ...values, date: e.target.value })
                       }
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 block w-full"
                     />
                   </div>
+
                   <div>
                     <label
                       htmlFor="detail"
@@ -153,7 +192,6 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                       type="button"
                       className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center justify-between gap-2 text-gray-900"
                       onClick={clickDropdown}
-                      required
                     >
                       {values.detail === "" ? "เลือกรายการ" : values.detail}
                       <IoIosArrowDown />
@@ -169,21 +207,11 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             onChange={handleDetail}
                           >
                             <option value="">แรงงาน</option>
-                            <option value="เก็บเกี่ยวข้าว">
-                              เก็บเกี่ยวข้าว
-                            </option>
-                            <option value="ฉีดยาคุมหญ้า">ฉีดยาคุมหญ้า</option>
-                            <option value="ฉีดยาฆ่าแมลง">ฉีดยาฆ่าแมลง</option>
-                            <option value="ฉีดยาป้องกันแมลง">
-                              ฉีดยาป้องกันแมลง
-                            </option>
-                            <option value="ตัดหญ้า">ตัดหญ้า</option>
-                            <option value="ปลูกข้าว">ปลูกข้าว</option>
-                            <option value="หว่านปุ๋ยเคมี">หว่านปุ๋ยเคมี</option>
-                            <option value="หว่านเมล็ดพันธุ์ข้าว">
-                              หว่านเมล็ดพันธุ์ข้าว
-                            </option>
-                            <option value="ย่ำนา">ย่ำนา</option>
+                            {data_labor.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -192,11 +220,11 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             onChange={handleDetail}
                           >
                             <option value="">ปุ๋ยและสารเคมี</option>
-                            <option value="ปุ๋ยเคมี">ปุ๋ยเคมี</option>
-                            <option value="ปุ๋ยอินทรีย์">ปุ๋ยอินทรีย์</option>
-                            <option value="ยาคุมหญ้า">ยาคุมหญ้า</option>
-                            <option value="ยาฆ่าแมลง">ยาฆ่าแมลง</option>
-                            <option value="ยาป้องกันแมลง">ยาป้องกันแมลง</option>
+                            {data_chemicals.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -205,11 +233,11 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             onChange={handleDetail}
                           >
                             <option value="">เครื่องจักรและอุปกรณ์</option>
-                            <option value="รถเกี่ยวข้าว">รถเกี่ยวข้าว</option>
-                            <option value="รถเข็นข้าว">รถเข็นข้าว</option>
-                            <option value="รถไถนา">รถไถนา</option>
-                            <option value="รถดำนา">รถดำนา</option>
-                            <option value="รถปั่นนา">รถปั่นนา</option>
+                            {data_machinery.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -263,6 +291,12 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                         </div>
                       </div>
                     ) : null}
+
+                    {detail_input ? (
+                      <span className="text-sm text-red-500">
+                        กรุณาเลือกรายการ
+                      </span>
+                    ) : null}
                   </div>
 
                   <div>
@@ -276,13 +310,17 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                       type="number"
                       name="price"
                       id="price"
-                      required
                       value={values.price}
                       onChange={(e) =>
                         setValues({ ...values, price: e.target.value })
                       }
                       className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full"
                     />
+                    {price ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกจำนวนเงิน
+                      </span>
+                    ) : null}
                   </div>
                   <div>
                     <label
@@ -295,7 +333,6 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                       type="text"
                       name="payee"
                       id="payee"
-                      required
                       value={values.payee}
                       onChange={(e) =>
                         setValues({ ...values, payee: e.target.value })
@@ -315,6 +352,11 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                         </option>
                       ))}
                     </datalist>
+                    {payee ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกผู้รับเงิน
+                      </span>
+                    ) : null}
                   </div>
                   <div className="space-x-2 flex justify-end items-center">
                     <button

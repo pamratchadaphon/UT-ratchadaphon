@@ -11,33 +11,6 @@ const ModalAddExpense = ({
   farmer_id,
   riceCaltivation_id,
 }) => {
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
-        );
-        const formatDate = (string) => {
-          const date = new Date(string);
-          const day = date.getDate();
-          const month = date.getMonth() + 1;
-          const year = date.getFullYear();
-          return `${year}-${month < 10 ? "0" + month : month}-${
-            day < 10 ? "0" + day : day
-          }`;
-        };
-        setStartDate(formatDate(res.data[0].startDate));
-        setEndDate(formatDate(res.data[0].endDate));
-      } catch (error) {
-        console.log("Error : " + error);
-      }
-    };
-    fetchData();
-  }, [riceCaltivation_id]);
-  
   const [values, setValues] = useState({
     date: new Date().toISOString().split("T")[0],
     detail: "",
@@ -49,7 +22,7 @@ const ModalAddExpense = ({
   });
   const [dropdown, setDropdown] = useState(false);
   const [payees, setPayees] = useState([]);
-  const [detail, setDetail] = useState("");
+  const [detail_input, setDetail_Input] = useState("");
 
   const clickDropdown = () => {
     setDropdown(!dropdown);
@@ -65,6 +38,36 @@ const ModalAddExpense = ({
     setDropdown(!dropdown);
   };
 
+  const data_labor = [
+    "กำจัดวัชพืช",
+    "เก็บเกี่ยวข้าว",
+    "ฉีดยาคุมหญ้า",
+    "ฉีดยาฆ่าแมลง",
+    "ฉีดยาป้องกันแมลง",
+    "ตัดหญ้า",
+    "ปลูกข้าว",
+    "หว่านปุ๋ยเคมี",
+    "หว่านเมล็ดพันธุ์ข้าว",
+    "ย่ำนา",
+  ];
+
+  const data_chemicals = [
+    "ปุ๋ยเกล็ด",
+    "ปุ๋ยเคมี",
+    "ปุ๋ยอินทรีย์",
+    "ยาคุมหญ้า",
+    "ยาฆ่าแมลง",
+    "ยาป้องกันแมลง",
+  ];
+
+  const data_machinery = [
+    "รถเกี่ยวข้าว",
+    "รถเข็นข้าว",
+    "รถไถนา",
+    "รถดำนา",
+    "รถปั่นนา",
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,11 +75,12 @@ const ModalAddExpense = ({
           `http://localhost:8080/riceCaltivation/incomeExpense/${riceCaltivation_id}`
         );
         const incomeExpense = res.data[0].incomeExpense;
-        const arr = [];
+
+        const payee = [];
         incomeExpense.map((data) =>
-          data.type === "รายจ่าย" ? arr.push(data.payee) : null
+          data.type === "รายจ่าย" ? payee.push(data.payee) : null
         );
-        setPayees(arr);
+        setPayees([...new Set(payee)]);
       } catch (error) {
         console.log("Error : " + error);
       }
@@ -88,18 +92,41 @@ const ModalAddExpense = ({
     setValues({ ...values, riceCaltivation_id: riceCaltivation_id });
   }, [riceCaltivation_id]);
 
+  const [detail, setDetail] = useState(false);
+  const [price, setPrice] = useState(false);
+  const [payee, setPayee] = useState(false);
+
+  const check = () => {
+    values.detail === "" ? setDetail(true) : setDetail(false);
+    values.price === "" ? setPrice(true) : setPrice(false);
+    values.payee === "" ? setPayee(true) : setPayee(false);
+  };
+
+  useEffect(() => setDetail(false), [values.detail]);
+  useEffect(() => setPrice(false), [values.price]);
+  useEffect(() => setPayee(false), [values.payee]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(`http://localhost:8080/incomeExpense`, values);
-    console.log(values);
-    Swal.fire({
-      title: "บันทึกรายจ่ายสำเร็จ",
-      icon: "success",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.reload();
-      }
-    });
+    check();
+    if (
+      values.date !== "" &&
+      values.detail !== "" &&
+      values.payee !== "" &&
+      values.price !== ""
+    ) {
+      await axios
+        .post(`http://localhost:8080/incomeExpense`, values)
+        .then((result) => console.log(result.data));
+      Swal.fire({
+        title: "บันทึกรายจ่ายสำเร็จ",
+        icon: "success",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    }
   };
   return (
     <div>
@@ -140,8 +167,6 @@ const ModalAddExpense = ({
                       onChange={(e) =>
                         setValues({ ...values, date: e.target.value })
                       }
-                      min={startDate}
-                      max={endDate}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 block w-full"
                     />
                   </div>
@@ -152,6 +177,7 @@ const ModalAddExpense = ({
                     >
                       รายการ
                     </label>
+
                     <button
                       type="button"
                       className="border border-gray-300 rounded-lg p-2.5 text-sm bg-gray-50 w-full text-start flex  items-center justify-between gap-2"
@@ -172,21 +198,11 @@ const ModalAddExpense = ({
                             onChange={handleDetail}
                           >
                             <option value="">แรงงาน</option>
-                            <option value="เก็บเกี่ยวข้าว">
-                              เก็บเกี่ยวข้าว
-                            </option>
-                            <option value="ฉีดยาคุมหญ้า">ฉีดยาคุมหญ้า</option>
-                            <option value="ฉีดยาฆ่าแมลง">ฉีดยาฆ่าแมลง</option>
-                            <option value="ฉีดยาป้องกันแมลง">
-                              ฉีดยาป้องกันแมลง
-                            </option>
-                            <option value="ตัดหญ้า">ตัดหญ้า</option>
-                            <option value="ปลูกข้าว">ปลูกข้าว</option>
-                            <option value="หว่านปุ๋ยเคมี">หว่านปุ๋ยเคมี</option>
-                            <option value="หว่านเมล็ดพันธุ์ข้าว">
-                              หว่านเมล็ดพันธุ์ข้าว
-                            </option>
-                            <option value="ย่ำนา">ย่ำนา</option>
+                            {data_labor.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -195,11 +211,11 @@ const ModalAddExpense = ({
                             onChange={handleDetail}
                           >
                             <option value="">ปุ๋ยและสารเคมี</option>
-                            <option value="ปุ๋ยเคมี">ปุ๋ยเคมี</option>
-                            <option value="ปุ๋ยอินทรีย์">ปุ๋ยอินทรีย์</option>
-                            <option value="ยาคุมหญ้า">ยาคุมหญ้า</option>
-                            <option value="ยาฆ่าแมลง">ยาฆ่าแมลง</option>
-                            <option value="ยาป้องกันแมลง">ยาป้องกันแมลง</option>
+                            {data_chemicals.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -208,11 +224,11 @@ const ModalAddExpense = ({
                             onChange={handleDetail}
                           >
                             <option value="">เครื่องจักรและอุปกรณ์</option>
-                            <option value="รถเกี่ยวข้าว">รถเกี่ยวข้าว</option>
-                            <option value="รถเข็นข้าว">รถเข็นข้าว</option>
-                            <option value="รถไถนา">รถไถนา</option>
-                            <option value="รถดำนา">รถดำนา</option>
-                            <option value="รถปั่นนา">รถปั่นนา</option>
+                            {data_machinery.map((data, index) => (
+                              <option value={data} key={index}>
+                                {data}
+                              </option>
+                            ))}
                           </select>
                           <select
                             name=""
@@ -250,21 +266,26 @@ const ModalAddExpense = ({
                               type="text"
                               name="detail"
                               id="detail"
-                              value={detail}
-                              onChange={(e) => setDetail(e.target.value)}
+                              value={detail_input}
+                              onChange={(e) => setDetail_Input(e.target.value)}
                               placeholder="อื่นๆ"
                               className="blok bg-gray-100 rounded-lg text-gray-900 p-2.5 text-sm w-full"
                             />
                             <button
                               type="button"
                               className="p-2.5 bg-slate-100 rounded-md text-sm border hover:bg-gray-200"
-                              onClick={() => Detail(detail)}
+                              onClick={() => Detail(detail_input)}
                             >
                               ตกลง
                             </button>
                           </div>
                         </div>
                       </div>
+                    ) : null}
+                    {detail ? (
+                      <span className="text-sm text-red-500">
+                        กรุณาเลือกรายการ
+                      </span>
                     ) : null}
                   </div>
 
@@ -275,17 +296,22 @@ const ModalAddExpense = ({
                     >
                       จำนวนเงิน (บาท)
                     </label>
+
                     <input
                       type="number"
                       name="price"
                       id="price"
-                      required
                       value={values.price}
                       onChange={(e) =>
                         setValues({ ...values, price: e.target.value })
                       }
                       className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full"
                     />
+                    {price ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกจำนวนเงิน
+                      </span>
+                    ) : null}
                   </div>
                   <div>
                     <label
@@ -294,11 +320,11 @@ const ModalAddExpense = ({
                     >
                       ไปยัง
                     </label>
+
                     <input
                       type="text"
                       name="payee"
                       id="payee"
-                      required
                       value={values.payee}
                       onChange={(e) =>
                         setValues({ ...values, payee: e.target.value })
@@ -306,6 +332,12 @@ const ModalAddExpense = ({
                       list="list_values"
                       className="block border w-full p-2.5 rounded-lg text-sm border-gray-300 bg-gray-50 text-gray-900"
                     />
+                    {payee ? (
+                      <span className="text-sm text-red-500">
+                        กรุณากรอกผู้รับเงิน
+                      </span>
+                    ) : null}
+
                     <datalist
                       id="list_values"
                       onChange={(e) =>
