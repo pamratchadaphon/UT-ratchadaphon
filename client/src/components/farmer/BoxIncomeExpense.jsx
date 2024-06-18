@@ -1,25 +1,51 @@
 import PorpTypes from "prop-types";
+import expense from "../../images/expense.png";
+import income from "../../images/income.png";
 
 const BoxIncomeExpense = ({ sumExpense, sumIncome }) => {
   return (
     <div className="flex flex-wrap gap-4">
-      <div className="border border-red-300 bg-red-100 p-4 rounded-lg w-full md:w-60  flex items-center justify-between">
-        <span className="text-xl font-semibold text-red-700">รายจ่าย</span>
-        <span className="text-red-800">
-          {sumExpense.toLocaleString()} บาท
-        </span>
+      <div className=" bg-gradient-to-br from-red-300 to-rose-200 rounded-lg  p-4 w-full md:w-60  flex items-center justify-between shadow-md">
+        <div className="flex flex-col">
+          <span className="text-gray-700">รายจ่าย</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-xl font-semibold ">
+              {sumExpense.toLocaleString()}
+            </span>
+            <span className="text-gray-700">บาท</span>
+          </div>
+        </div>
+        <div>
+          <img src={expense} width={50} />
+        </div>
       </div>
-      <div className="border border-green-400 bg-green-100 p-4 rounded-lg w-full md:w-60 flex items-center justify-between">
-        <span className="text-xl font-semibold text-green-700">รายรับ</span>
-        <span className="text-green-800 ">
-          {sumIncome.toLocaleString()} บาท
-        </span>
+      <div className="bg-gradient-to-br from-green-300 to-green-200 p-4 rounded-lg w-full md:w-60 flex items-center justify-between shadow-md">
+        <div className="flex flex-col">
+          <span className="text-gray-700">รายรับ</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-xl  font-semibold ">
+              {sumIncome.toLocaleString()}
+            </span>
+            <span className="text-gray-700">บาท</span>
+          </div>
+        </div>
+        <div>
+          <img src={income} alt="" width={50} />
+        </div>
       </div>
-      <div className="border border-gray-300 bg-gray-100 p-4 rounded-lg w-full md:w-60  flex justify-between items-center">
-        <span className="text-xl font-semibold text-gray-700">คงเหลือ</span>
-        <span className="text-gray-800">
-          {(sumIncome - sumExpense).toLocaleString()} บาท
-        </span>
+      <div className=" bg-gradient-to-br from-slate-300 to-zinc-200 p-4 rounded-lg w-full md:w-60  flex justify-between items-center shadow-md">
+        <div className="flex flex-col">
+          <span className="text-gray-800">คงเหลือ</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-xl  font-semibold ">
+              {(sumIncome - sumExpense).toLocaleString()}
+            </span>
+            <span className="text-gray-800">บาท</span>
+          </div>
+        </div>
+        <div>
+          <img src={expense} alt="" width={50} />
+        </div>
       </div>
     </div>
   );

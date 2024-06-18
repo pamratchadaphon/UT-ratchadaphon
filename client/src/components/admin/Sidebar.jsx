@@ -30,11 +30,11 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
 
   return (
     <div>
-      <div className="hidden lg:flex basis-1/6 border-r h-screen px-5 bg-white flex-col justify-between">
+      <div className="hidden lg:flex border-r h-screen px-5 bg-white flex-col justify-between">
         <div>
           <div className="text-center py-7">
             <a href="/dashboard" className="text-green-700 font-bold text-2xl">
-              RiceProsper
+              Admin
             </a>
           </div>
           <div className="flex flex-col">
@@ -66,14 +66,14 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                   <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                     <a href="#" className="flex items-center gap-2">
                       <IoMdPerson />
-                      จัดการข้อมูลชาวนา
+                      จัดการชาวนา
                     </a>
                   </li>
                 ) : (
                   <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
                     <a href="/admin/farmer" className="flex items-center gap-2">
                       <IoMdPerson />
-                      จัดการข้อมูลชาวนา
+                      จัดการชาวนา
                     </a>
                   </li>
                 )}
@@ -85,7 +85,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                       className="flex items-center gap-2"
                     >
                       <FaRegFileAlt />
-                      จัดการข้อมูลรอบการปลูก
+                      จัดการรอบการปลูก
                     </a>
                   </li>
                 ) : (
@@ -95,7 +95,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                       className="flex items-center gap-2"
                     >
                       <FaRegFileAlt />
-                      จัดการข้อมูลรอบการปลูก
+                      จัดการรอบการปลูก
                     </a>
                   </li>
                 )}
@@ -107,7 +107,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                       className="flex items-center gap-2"
                     >
                       <FaSeedling />
-                      จัดการข้อมูลพันธุ์ข้าว
+                      จัดการพันธุ์ข้าว
                     </a>
                   </li>
                 ) : (
@@ -117,7 +117,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                       className="flex items-center gap-2"
                     >
                       <FaSeedling />
-                      จัดการข้อมูลพันธุ์ข้าว
+                      จัดการพันธุ์ข้าว
                     </a>
                   </li>
                 )}
@@ -153,7 +153,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                 href="/dashboard"
                 className="text-green-700 font-bold text-2xl"
               >
-                RiceProsper
+                Admin
               </a>
             </div>
             <div className="flex flex-col">
@@ -184,7 +184,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                     <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                       <a href="#" className="flex items-center gap-2">
                         <IoMdPerson />
-                        จัดการข้อมูลชาวนา
+                        จัดการชาวนา
                       </a>
                     </li>
                   ) : (
@@ -194,7 +194,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                         className="flex items-center gap-2"
                       >
                         <IoMdPerson />
-                        จัดการข้อมูลชาวนา
+                        จัดการชาวนา
                       </a>
                     </li>
                   )}
@@ -205,7 +205,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                         className="flex items-center gap-2"
                       >
                         <FaRegFileAlt />
-                        จัดการข้อมูลรอบการปลูก
+                        จัดการรอบการปลูก
                       </a>
                     </li>
                   ) : (
@@ -215,7 +215,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                         className="flex items-center gap-2"
                       >
                         <FaRegFileAlt />
-                        จัดการข้อมูลรอบการปลูก
+                        จัดการรอบการปลูก
                       </a>
                     </li>
                   )}
@@ -226,7 +226,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                         className="flex items-center gap-2"
                       >
                         <FaSeedling />
-                        จัดการข้อมูลพันธุ์ข้าว
+                        จัดการพันธุ์ข้าว
                       </a>
                     </li>
                   ) : (
@@ -236,7 +236,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                         className="flex items-center gap-2"
                       >
                         <FaSeedling />
-                        จัดการข้อมูลพันธุ์ข้าว
+                        จัดการพันธุ์ข้าว
                       </a>
                     </li>
                   )}

@@ -4,6 +4,7 @@ import { GoArrowRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { ReactTyped } from "react-typed";
 import { useEffect, useState } from "react";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 const Register = () => {
   const navigator = useNavigate();
@@ -111,7 +112,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5 hover:border-green-700 hover:border-2"
                   />
                   {email ? (
-                    <span className="text-sm text-red-500">กรุณากรอกอีเมล</span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกอีเมล</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -129,9 +133,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {password ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกรหัสผ่าน
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกรหัสผ่าน</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -149,9 +154,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {fname ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกชื่อ
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกชื่อ</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -169,9 +175,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {lname ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกนามสกุล
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span> กรุณากรอกนามสกุล</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -189,9 +196,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {phone ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกเบอร์โทรศัพท์
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกเบอร์โทรศัพท์</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -209,9 +217,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {subdistrict ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกตำบล
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกตำบล</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -229,9 +238,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {district ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกอำเภอ
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกอำเภอ</span>
+                    </div>
                   ) : null}
                 </div>
                 <div>
@@ -249,9 +259,10 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                   />
                   {province ? (
-                    <span className="text-sm text-red-500">
-                      กรุณากรอกจังหวัด
-                    </span>
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกจังหวัด</span>
+                    </div>
                   ) : null}
                 </div>
               </div>
@@ -259,7 +270,7 @@ const Register = () => {
                 type="submit"
                 className="w-full md:w-full px-5 py-2.5 text-base font-medium text-center text-white bg-green-600 hover:bg-green-100 hover:text-green-700 hover:duration-500 rounded-full flex items-center justify-center gap-2 shadow mt-4"
               >
-                <span>เข้าใช้งาน</span>
+                <span>สร้างบัญชี</span>
                 <GoArrowRight />
               </button>
             </form>

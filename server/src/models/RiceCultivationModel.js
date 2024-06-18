@@ -25,8 +25,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    total_yield: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     yield: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     rice_price_per_kg: {
@@ -35,9 +39,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     rice_consumption: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     seed_rice: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   });
   return RiceCaltivation;

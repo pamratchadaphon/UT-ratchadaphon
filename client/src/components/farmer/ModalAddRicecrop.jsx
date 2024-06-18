@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 const ModalAddRicecrop = () => {
   const { farmer_id } = useParams();
@@ -13,8 +14,11 @@ const ModalAddRicecrop = () => {
     endDate: "",
     riceVariety: "",
     area: "",
+    total_yield: 0,
     yield: 0,
     rice_price_per_kg: 0,
+    rice_consumption: 0,
+    seed_rice: 0,
     farmer_id: farmer_id,
   });
 
@@ -100,9 +104,10 @@ const ModalAddRicecrop = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                     />
                     {year ? (
-                      <span className="text-sm text-red-500">
-                        กรุณากรอกปีที่ปลูก
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณากรอกปีที่ปลูก</span>
+                      </div>
                     ) : null}
                   </div>
                 </div>
@@ -139,9 +144,10 @@ const ModalAddRicecrop = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     />
                     {endDate ? (
-                      <span className="text-sm text-red-500">
-                        เลือกวันที่เก็บเกี่ยว
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณาเลือกวันที่เก็บเกี่ยว</span>
+                      </div>
                     ) : null}
                   </div>
                 </div>
@@ -161,9 +167,10 @@ const ModalAddRicecrop = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     />
                     {riceVariety ? (
-                      <span className="text-sm text-red-500">
-                        กรุณากรอกพันธุ์ข้าว
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณากรอกพันธุ์ข้าว</span>
+                      </div>
                     ) : null}
                   </div>
                 </div>
@@ -183,9 +190,10 @@ const ModalAddRicecrop = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     />
                     {area ? (
-                      <span className="text-sm text-red-500">
-                        กรุณากรอกขนาดพื้นที่
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณากรอกขนาดพื้นที่</span>
+                      </div>
                     ) : null}
                   </div>
                 </div>

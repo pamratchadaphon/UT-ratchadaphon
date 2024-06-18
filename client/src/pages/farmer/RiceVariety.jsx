@@ -4,8 +4,7 @@ import Navbar from "../../components/farmer/Navbar";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ReactPaginate from "react-paginate";
-import { GrNext, GrPrevious } from "react-icons/gr";
+import Pagination from "../../components/farmer/Pagination";
 
 const RiceVariety = () => {
   const { farmer_id } = useParams();
@@ -21,31 +20,8 @@ const RiceVariety = () => {
     fetchData();
   });
 
-  const [page, setPage] = useState(1);
-  const recordsPerPage = 8;
-  const lastIndex = page * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(data.length / recordsPerPage);
-  const [lastRow, setLastRow] = useState(0);
+  const [records, setRecords] = useState([]);
 
-  const nextPage = () => {
-    page < nextPage ? setPage(page + 1) : null;
-  };
-
-  const prePage = () => {
-    page > 1 ? setPage(page - 1) : null;
-  };
-
-  const changePage = (e) => {
-    setPage(e.selected + 1);
-  };
-
-  useEffect(() => {
-    if (records.length > 0) {
-      setLastRow(firstIndex + records.length)
-    }
-  }, [firstIndex, records])
   return (
     <div>
       <Navbar id={Number(farmer_id)} page={"riceVariety"} />
@@ -77,54 +53,13 @@ const RiceVariety = () => {
           }}
         >
           <Cards data={records} />
-          <nav
-            className="flex items-center flex-column flex-wrap md:flex-row justify-between mx-4 mb-10"
-          >
-            <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-              จำนวนแถวต่อหน้า{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                {firstIndex + 1}-{lastRow}
-              </span>{" "}
-              จาก{" "}
-              <span className="font-semibold text-gray-900 dark:text-white">
-                {data.length}
-              </span>
-            </span>
-            <ReactPaginate
-              breakLabel={
-                <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
-                  ...
-                </span>
-              }
-              nextLabel={
-                page < npage ? (
-                  <span
-                    className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-                    onClick={nextPage}
-                  >
-                    <GrNext />
-                  </span>
-                ) : null
-              }
-              onPageChange={changePage}
-              pageRangeDisplayed={5}
-              pageCount={npage}
-              previousLabel={
-                firstIndex > 0 ? (
-                  <span
-                    className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-                    onClick={prePage}
-                  >
-                    <GrPrevious />
-                  </span>
-                ) : null
-              }
-              renderOnZeroPageCount={null}
-              containerClassName="flex space-x-1 justify-center items-center"
-              pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
-              activeClassName="bg-green-100 text-green-700"
+          <div className="px-4 pb-4">
+            <Pagination
+              data={data}
+              setRecords={setRecords}
+              recodesPerPage={20}
             />
-          </nav>
+          </div>
         </motion.div>
       </div>
     </div>

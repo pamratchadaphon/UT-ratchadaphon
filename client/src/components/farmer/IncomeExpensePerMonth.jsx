@@ -2,10 +2,13 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import { axisClasses } from "@mui/x-charts/ChartsAxis";
 import PropTypes from "prop-types";
 
-const IncomeExpensePerMonth = ({ incomeExpense, startMonth_IncomeExpense, endMonth_IncomeExpense}) => {
-
+const IncomeExpensePerMonth = ({
+  incomeExpense,
+  startMonth_IncomeExpense,
+  endMonth_IncomeExpense,
+}) => {
   const priceExpense = Array.from({ length: 12 }, () => 0);
-  const priceIncome = Array.from({ length: 12 }, () => 0)
+  const priceIncome = Array.from({ length: 12 }, () => 0);
 
   const arrMonthIncome = [];
   const arrMonthExpense = [];
@@ -27,8 +30,7 @@ const IncomeExpensePerMonth = ({ incomeExpense, startMonth_IncomeExpense, endMon
   }
 
   for (let i = 0; i < arrMonthIncome.length; i++) {
-    priceIncome[arrMonthIncome[i] - 1] += arrPriceIncome[i]
-    
+    priceIncome[arrMonthIncome[i] - 1] += arrPriceIncome[i];
   }
 
   const monthString = [
@@ -68,8 +70,10 @@ const IncomeExpensePerMonth = ({ incomeExpense, startMonth_IncomeExpense, endMon
   const valueFormatter = (value) => `${value.toLocaleString()} บาท`;
 
   return (
-    <div className="bg-white border rounded-lg p-4 space-y-4 md:w-2/3">
-      <span>กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
+    <div className="bg-white border rounded-lg p-4 space-y-4 md:w-2/3 shadow-md">
+      <div className="border-b pb-4">
+        <span >กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
+      </div>{" "}
       <BarChart
         dataset={dataset}
         xAxis={[{ scaleType: "band", dataKey: "month" }]}
@@ -96,7 +100,7 @@ const IncomeExpensePerMonth = ({ incomeExpense, startMonth_IncomeExpense, endMon
 IncomeExpensePerMonth.propTypes = {
   incomeExpense: PropTypes.array,
   startMonth_IncomeExpense: PropTypes.number,
-  endMonth_IncomeExpense: PropTypes.number
+  endMonth_IncomeExpense: PropTypes.number,
 };
 
 export default IncomeExpensePerMonth;

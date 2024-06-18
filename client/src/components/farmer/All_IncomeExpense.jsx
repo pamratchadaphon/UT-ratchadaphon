@@ -1,12 +1,12 @@
 import { PieChart } from "@mui/x-charts/PieChart";
 import PropTypes from "prop-types";
 
-const All_IncomeExpense = ({ sumExpense, sumIncome, incomeExpense }) => {
+const All_IncomeExpense = ({ incomeExpense }) => {
   const expense = [];
   incomeExpense.map((data) =>
     data.type === "รายจ่าย" ? expense.push(data) : null
   );
-  const value = Array.from({ length: 6 }, () => 0);
+  const value = Array.from({ length: 7 }, () => 0);
 
   for (let i = 0; i < expense.length; i++) {
     if (
@@ -45,6 +45,8 @@ const All_IncomeExpense = ({ sumExpense, sumIncome, incomeExpense }) => {
       value[4] += expense[i].price;
     } else if (expense[i].detail === "เมล็ดพันธุ์ข้าว") {
       value[5] += expense[i].price;
+    } else {
+      value[6] += expense[i].price;
     }
   }
 
@@ -60,12 +62,15 @@ const All_IncomeExpense = ({ sumExpense, sumIncome, incomeExpense }) => {
     { id: 3, value: value[3], label: "น้ำมันเชื้อเพลิง", color: "#E22427" },
     { id: 4, value: value[4], label: "เช่าที่ดิน", color: "#996633" },
     { id: 5, value: value[5], label: "เมล็ดพันธุ์ข้าว", color: "#FCCF55" },
+    { id: 6, value: value[6], label: "อื่นๆ", color: "#DCDCDC" },
   ];
 
   return (
-    <div className="bg-white border rounded-lg p-4 space-y-4 md:w-1/2">
-      <span>สัดส่วนค่าใช้จ่ายในแต่ละหมวดหมู่</span>
-      <div className="flex">
+    <div className="bg-white border rounded-lg p-4 space-y-4 md:w-1/2 shadow-md">
+      <div className="border-b pb-4">
+        <span>สัดส่วนค่าใช้จ่ายในแต่ละหมวดหมู่</span>
+      </div>
+      <div className="">
         <PieChart
           series={[
             {
@@ -76,10 +81,11 @@ const All_IncomeExpense = ({ sumExpense, sumIncome, incomeExpense }) => {
                 additionalRadius: -30,
                 color: "gray",
               },
+             
             },
           ]}
           width={500}
-          height={200}
+          height={250}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Chart, PieController, ArcElement, Tooltip, Legend } from "chart.js";
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
@@ -18,11 +18,12 @@ const All_IncomeExpense = () => {
           "น้ำมันเชื้อเพลิง",
           "เช่าที่ดิน",
           "เมล็ดพันธุ์ข้าว",
+          "อื่นๆ",
         ],
         datasets: [
           {
             label: "Expense Categories",
-            data: [20, 49, 36, 67, 23, 77],
+            data: [20, 49, 36, 67, 23, 77, 99],
             backgroundColor: [
               "#7f7fff",
               "#78A3D4",
@@ -30,6 +31,7 @@ const All_IncomeExpense = () => {
               "#E22427",
               "#76BC43",
               "#FCCF55",
+              "#DCDCDC",
             ],
           },
         ],
@@ -47,6 +49,8 @@ const All_IncomeExpense = () => {
             },
           },
         },
+
+
       },
     });
 
@@ -58,7 +62,7 @@ const All_IncomeExpense = () => {
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-1/3">
       <div className="">สัดส่วนค่าใช้จ่ายในแต่ละหมวดหมู่</div>
-      <canvas ref={chartRef}></canvas>
+      <canvas ref={chartRef} width="400" height="200"></canvas>
     </div>
   );
 };

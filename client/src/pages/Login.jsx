@@ -4,30 +4,31 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ReactTyped } from "react-typed";
 import { useEffect, useState } from "react";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 const Login = () => {
   const navigator = useNavigate();
 
   const [values, setValues] = useState({
-    email: '',
-    password: ''
-  })
+    email: "",
+    password: "",
+  });
 
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
 
   const check = () => {
-    values.email === '' ? setEmail(true) : null;
-    values.password === '' ? setPassword(true) : null;
-  }
+    values.email === "" ? setEmail(true) : null;
+    values.password === "" ? setPassword(true) : null;
+  };
 
-  useEffect(() => setEmail(false), [values.email])
-  useEffect(() => setPassword(false), [values.password])
+  useEffect(() => setEmail(false), [values.email]);
+  useEffect(() => setPassword(false), [values.password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
-    if (values.email !== '' && values.password !== '') {
+    if (values.email !== "" && values.password !== "") {
       try {
         const response = await axios.post(
           "http://localhost:8080/farmer/login",
@@ -58,7 +59,11 @@ const Login = () => {
         <div className="w-full h-1/3 flex items-center justify-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-green-500 md:text-5xl lg:text-6xl">
             <ReactTyped
-              strings={["จดบันทึกการปลูกข้าว", "ตรวจสอบผลผลิต", "เลือกพันธุ์ข้าว"]}
+              strings={[
+                "จดบันทึกการปลูกข้าว",
+                "ตรวจสอบผลผลิต",
+                "เลือกพันธุ์ข้าว",
+              ]}
               typeSpeed={100}
               loop
               backSpeed={50}
@@ -84,14 +89,16 @@ const Login = () => {
                   name="email"
                   id="email"
                   value={values.email}
-                  onChange={(e) => setValues({...values, email: e.target.value})}
+                  onChange={(e) =>
+                    setValues({ ...values, email: e.target.value })
+                  }
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full block w-full p-2.5 hover:border-green-700 hover:border-2"
-                  
                 />
                 {email ? (
-                  <span className="text-sm text-red-500">
-                    กรุณากรอกอีเมล
-                  </span>
+                  <div className="text-sm text-red-500 flex items-center gap-1">
+                    <RiErrorWarningLine />
+                    <span>กรุณากรอกอีเมล</span>
+                  </div>
                 ) : null}
               </div>
               <div>
@@ -103,13 +110,16 @@ const Login = () => {
                   name="password"
                   id="password"
                   value={values.password}
-                  onChange={(e) => setValues({...values, password: e.target.value})}
+                  onChange={(e) =>
+                    setValues({ ...values, password: e.target.value })
+                  }
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-full hover:border-green-700 hover:border-2 w-full p-2.5"
                 />
                 {password ? (
-                  <span className="text-sm text-red-500">
-                    กรุณากรอกรหัสผ่าน
-                  </span>
+                  <div className="text-sm text-red-500 flex items-center gap-1">
+                    <RiErrorWarningLine />
+                    <span>กรุณากรอกรหัสผ่าน</span>
+                  </div>
                 ) : null}
               </div>
               <button

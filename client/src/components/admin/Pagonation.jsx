@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
 
-const Pagonation = ({ data }) => {
+const Pagonation = ({ data, setRecords, setFirstIndex}) => {
   const [page, setPage] = useState(1);
   const recodesPerPage = 5;
   const lastIndex = page * recodesPerPage;
@@ -11,6 +11,13 @@ const Pagonation = ({ data }) => {
   const records = data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data.length / recodesPerPage);
   const [lastRow, setLastRow] = useState(0);
+
+  useEffect(() => {
+    setRecords(records);
+    if (setFirstIndex) {
+      setFirstIndex(firstIndex)
+    }
+  }, [lastRow, npage]);
 
   const nextPage = () => {
     page < npage ? setPage(page + 1) : null;
@@ -29,6 +36,7 @@ const Pagonation = ({ data }) => {
       setLastRow(firstIndex + records.length);
     }
   }, [firstIndex, records]);
+
   return (
     <nav
       className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
@@ -84,6 +92,8 @@ const Pagonation = ({ data }) => {
 
 Pagonation.propTypes = {
   data: PropTypes.array,
+  setRecords: PropTypes.func,
+  setFirstIndex: PropTypes.func
 };
 
 export default Pagonation;

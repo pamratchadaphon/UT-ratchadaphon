@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { IoIosArrowDown } from "react-icons/io";
 import { PropTypes } from "prop-types";
 import axios from "axios";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 const ModalAddExpense = ({
   showModalExpense,
@@ -283,9 +284,10 @@ const ModalAddExpense = ({
                       </div>
                     ) : null}
                     {detail ? (
-                      <span className="text-sm text-red-500">
-                        กรุณาเลือกรายการ
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณาเลือกรายการ</span>
+                      </div>
                     ) : null}
                   </div>
 
@@ -308,9 +310,10 @@ const ModalAddExpense = ({
                       className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full"
                     />
                     {price ? (
-                      <span className="text-sm text-red-500">
-                        กรุณากรอกจำนวนเงิน
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณากรอกจำนวนเงิน</span>
+                      </div>
                     ) : null}
                   </div>
                   <div>
@@ -333,9 +336,10 @@ const ModalAddExpense = ({
                       className="block border w-full p-2.5 rounded-lg text-sm border-gray-300 bg-gray-50 text-gray-900"
                     />
                     {payee ? (
-                      <span className="text-sm text-red-500">
-                        กรุณากรอกผู้รับเงิน
-                      </span>
+                      <div className="text-sm text-red-500 flex items-center gap-1">
+                        <RiErrorWarningLine />
+                        <span>กรุณากรอกผู้รับเงิน</span>
+                      </div>
                     ) : null}
 
                     <datalist

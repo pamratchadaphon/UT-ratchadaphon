@@ -4,9 +4,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import ViewRiceVariety from "./ViewRiceVariety";
 import EditRiceVariety from "./EditRiceVariety";
-import PropTypes from 'prop-types'
-import { GrNext, GrPrevious } from "react-icons/gr";
-import ReactPaginate from "react-paginate";
+import PropTypes from "prop-types";
+import Pagonation from "./Pagonation";
 
 const Table_RiceVariety = ({ search }) => {
   const [data, setData] = useState([]);
@@ -24,6 +23,9 @@ const Table_RiceVariety = ({ search }) => {
     };
     fetchData();
   }, [search]);
+
+  const [records, setRecords] = useState([]);
+  const [firstIndex, setFirstIndex] = useState(0);
 
   const deleteRiceVariety = async (id, name) => {
     Swal.fire({
@@ -46,32 +48,6 @@ const Table_RiceVariety = ({ search }) => {
       }
     });
   };
-
-  const [page, setPage] = useState(1);
-  const recodesPerPage = 5;
-  const lastIndex = page * recodesPerPage;
-  const firstIndex = lastIndex - recodesPerPage;
-  const records = data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(data.length / recodesPerPage);
-  const [lastRow, setLastRow] = useState(0);
-
-  const nextPage = () => {
-    page < npage ? setPage(page + 1) : null;
-  }
-
-  const prePage = () => {
-    page > 1 ? setPage(page - 1) : null
-  }
-
-  const changePage = (even) => {
-    setPage(even.selected + 1)
-  }
-
-  useEffect(() => {
-    if (records.length > 0) {
-      setLastRow(firstIndex + records.length)
-    }
-  },[firstIndex, records])
 
   return (
     <div className="hidden lg:block">
@@ -111,7 +87,7 @@ const Table_RiceVariety = ({ search }) => {
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               >
-                {i + 1}
+                {firstIndex + i + 1}
               </th>
               <th
                 scope="row"
@@ -119,7 +95,7 @@ const Table_RiceVariety = ({ search }) => {
               >
                 <img
                   src={`http://localhost:8080/${d.image}`}
-                  className="h-16 w-24" 
+                  className="h-16 w-24"
                 />
               </th>
               <th scope="row" className="px-6 py-4 font-normal  text-center">
@@ -153,63 +129,26 @@ const Table_RiceVariety = ({ search }) => {
               </th>
             </tr>
           ))}
+          {records.length === 0 ? (
+            <tr>
+              <td className="text-center py-4" colSpan="8">
+                ไม่พบข้อมูล
+              </td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
-      <nav
-        className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-        aria-label="Table navigation"
-      >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-          จำนวนแถวต่อหน้า{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {firstIndex + 1}-{lastRow}
-          </span>{" "}
-          จาก{" "}
-          <span className="font-semibold text-gray-900 dark:text-white">
-            {data.length}
-          </span>
-        </span>
-        <ReactPaginate
-          breakLabel={
-            <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
-              ...
-            </span>
-          }
-          nextLabel={
-            page < npage ? (
-              <span
-                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-                onClick={nextPage}
-              >
-                <GrNext />
-              </span>
-            ) : null
-          }
-          onPageChange={changePage}
-          pageRangeDisplayed={5}
-          pageCount={npage}
-          previousLabel={
-            firstIndex > 0 ? (
-              <span
-                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-                onClick={prePage}
-              >
-                <GrPrevious />
-              </span>
-            ) : null
-          }
-          renderOnZeroPageCount={null}
-          containerClassName="flex space-x-1 justify-center items-center"
-          pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
-          activeClassName="bg-green-100 text-green-700"
-        />
-      </nav>
+      <Pagonation
+        data={data}
+        setRecords={setRecords}
+        setFirstIndex={setFirstIndex}
+      />
     </div>
   );
 };
 
 Table_RiceVariety.propTypes = {
-  search: PropTypes.string 
-}
+  search: PropTypes.string,
+};
 
 export default Table_RiceVariety;

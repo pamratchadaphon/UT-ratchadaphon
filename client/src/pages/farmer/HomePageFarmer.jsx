@@ -7,7 +7,7 @@ const HomePageFarmer = () => {
   const farmer_id = Number(useParams().farmer_id)
 
   return (
-    <div className="h-screen flex flex-col justify-between">
+    <div className="h-screen flex flex-col justify-between bg-gradient-to-r from-green-100 to-blue-100">
       <Navbar id={farmer_id} page={'home'}/>
       <Content />
       <NewsService/>
