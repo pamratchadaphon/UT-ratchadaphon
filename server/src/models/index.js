@@ -22,6 +22,7 @@ db.Farmer = require("./FarmerModel")(sequelize, Sequelize);
 db.RiceCaltivation = require("./RiceCultivationModel")(sequelize, Sequelize);
 db.IncomeExpense = require("./IncomeExpenseModel")(sequelize, Sequelize);
 db.RiceVariety = require("./RiceVarietyModel")(sequelize, Sequelize);
+db.NewsService = require('./NewsServicesModel')(sequelize, Sequelize)
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;

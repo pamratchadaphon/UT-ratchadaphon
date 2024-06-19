@@ -43,7 +43,7 @@ const Detail_RiceCaltivationjsx = () => {
     <div className="h-screen flex flex-col">
       <Navbar id={farmer_id} />
       <Bg_header text={'รายงานแปลงนา'}/>
-      <div className="mx-auto max-w-screen-xl px-4  pb-4 space-y-4 flex flex-col mt-8">
+      <div className="mx-auto max-w-screen-xl px-4  pb-4 space-y-4 flex flex-col mt-4 md:mt-8">
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}

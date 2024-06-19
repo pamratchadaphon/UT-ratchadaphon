@@ -1,7 +1,7 @@
 import { IoSearch } from "react-icons/io5";
 import PropTypes from 'prop-types'
 
-const Search_RiceVariety = ({search, searchName}) => {
+const Search= ({search, searchName, text}) => {
   return (
     <div>
       <div className="border rounded-lg flex items-center">
@@ -14,7 +14,7 @@ const Search_RiceVariety = ({search, searchName}) => {
           id="search"
           value={search}
           onChange={(e) => searchName(e.target.value)}
-          placeholder="ค้นหาพันธุ์ข้าว"
+          placeholder={`${text}`}
           className="h-full rounded-r-lg p-2 text-sm bg-gray-50"
         />
       </div>
@@ -22,9 +22,10 @@ const Search_RiceVariety = ({search, searchName}) => {
   )
 }
 
-Search_RiceVariety.propTypes = {
+Search.propTypes = {
   search: PropTypes.string,
-  searchName: PropTypes.func
+  searchName: PropTypes.func,
+  text: PropTypes.string
 }
 
-export default Search_RiceVariety
+export default Search

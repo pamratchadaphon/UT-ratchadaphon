@@ -9,6 +9,7 @@ import ManageRiceVariety from './pages/admin/ManageRiceVariety'
 import ManageRiceCaltivation from './pages/admin/ManageRiceCaltivation'
 import ManageFarmer from './pages/admin/ManageFarmer'
 import Dashboard from './pages/admin/Dashboard'
+import ManageNewsService from './pages/admin/ManageNewsService'
 
 //Page Farmer
 import HomepageFarmer from './pages/farmer/HomePageFarmer'
@@ -39,6 +40,7 @@ const App = () => {
           <Route path='/admin/riceCaltivaion' element={<AdminAuthen><ManageRiceCaltivation/></AdminAuthen>}/>
           <Route path='/admin/farmer' element={<AdminAuthen><ManageFarmer/></AdminAuthen>}/>
           <Route path='/admin/dashboard' element={<AdminAuthen><Dashboard/></AdminAuthen>}/>
+          <Route path='/admin/newsService' element={<AdminAuthen><ManageNewsService/></AdminAuthen>}/>
         </Routes>
       </BrowserRouter>
     </div>

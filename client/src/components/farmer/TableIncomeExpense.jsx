@@ -52,7 +52,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
   );
 
   const [page, setPage] = useState(1);
-  const recodesPerPage = 5
+  const recodesPerPage = 5;
   const lastIndex = page * recodesPerPage;
   const firstIndex = lastIndex - recodesPerPage;
   const records = data.slice(firstIndex, lastIndex);
@@ -89,7 +89,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
               <th scope="col" className="px-6 py-3 text-center">
                 รายการ
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
+              <th scope="col" className="px-6 py-3 text-end">
                 ราคา (บาท)
               </th>
               <th scope="col" className="px-6 py-3 text-center">
@@ -107,7 +107,9 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
                   {formatDate(d.date)}
                 </th>
                 <td className="px-6 py-4 text-center">{d.detail}</td>
-                <td className="px-6 py-4 text-center">{d.price}</td>
+                <td className="px-6 py-4 text-end">
+                  {d.price.toLocaleString()}
+                </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-center items-center gap-2">
                     <div className="flex justify-center items-center cursor-pointer">
@@ -162,15 +164,16 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
                   {formatDate(d.date)}
                 </span>
               </div>
-              <div className="flex gap-1 items-center">
-                {d.type === "รายจ่าย" ? (
-                  <span className="text-red-600 font-bold">{d.price}</span>
-                ) : (
-                  <span className="text-green-600 font-bold">{d.price}</span>
-                )}
-                <span className="text-xs text-gray-800">บาท</span>
-              </div>
+
               <div className="flex gap-1">
+                <div className="flex gap-1 items-center mr-7">
+                  {d.type === "รายจ่าย" ? (
+                    <span className="text-red-600 font-bold">{d.price.toLocaleString()}</span>
+                  ) : (
+                    <span className="text-green-600 font-bold">{d.price.toLocaleString()}</span>
+                  )}
+                  <span className="text-xs text-gray-800">บาท</span>
+                </div>
                 {d.type === "รายจ่าย" ? (
                   <div className="text-sky-400">
                     <Edit_Expense
@@ -201,54 +204,54 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
         </div>
       </div>
       <nav
-      className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
-      aria-label="Table navigation"
-    >
-      <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-        จำนวนแถวต่อหน้า{" "}
-        <span className="font-semibold text-gray-900 dark:text-white">
-          {firstIndex + 1}-{lastRow}
-        </span>{" "}
-        จาก{" "}
-        <span className="font-semibold text-gray-900 dark:text-white">
-          {data.length}
-        </span>
-      </span>
-      <ReactPaginate
-        breakLabel={
-          <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
-            ...
+        className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+        aria-label="Table navigation"
+      >
+        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+          จำนวนแถวต่อหน้า{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {firstIndex + 1}-{lastRow}
+          </span>{" "}
+          จาก{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {data.length}
           </span>
-        }
-        nextLabel={
-          page < npage ? (
-            <span
-              className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-              onClick={nextPage}
-            >
-              <GrNext />
+        </span>
+        <ReactPaginate
+          breakLabel={
+            <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
+              ...
             </span>
-          ) : null
-        }
-        onPageChange={changePage}
-        pageRangeDisplayed={5}
-        pageCount={npage}
-        previousLabel={
-          firstIndex > 0 ? (
-            <span
-              className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
-              onClick={prePage}
-            >
-              <GrPrevious />
-            </span>
-          ) : null
-        }
-        renderOnZeroPageCount={null}
-        containerClassName="flex space-x-1 justify-center items-center"
-        pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
-        activeClassName="bg-green-100 text-green-700"
-      />
-    </nav>
+          }
+          nextLabel={
+            page < npage ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={nextPage}
+              >
+                <GrNext />
+              </span>
+            ) : null
+          }
+          onPageChange={changePage}
+          pageRangeDisplayed={5}
+          pageCount={npage}
+          previousLabel={
+            firstIndex > 0 ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={prePage}
+              >
+                <GrPrevious />
+              </span>
+            ) : null
+          }
+          renderOnZeroPageCount={null}
+          containerClassName="flex space-x-1 justify-center items-center"
+          pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
+          activeClassName="bg-green-100 text-green-700"
+        />
+      </nav>
     </div>
   );
 };

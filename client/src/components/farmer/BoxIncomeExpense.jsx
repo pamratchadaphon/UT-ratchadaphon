@@ -16,7 +16,7 @@ const BoxIncomeExpense = ({ sumExpense, sumIncome }) => {
           </div>
         </div>
         <div>
-          <img src={expense} width={50} />
+          {/* <img src={expense} width={50} /> */}
         </div>
       </div>
       <div className="bg-gradient-to-br from-green-300 to-green-200 p-4 rounded-lg w-full md:w-60 flex items-center justify-between shadow-md">
@@ -30,7 +30,7 @@ const BoxIncomeExpense = ({ sumExpense, sumIncome }) => {
           </div>
         </div>
         <div>
-          <img src={income} alt="" width={50} />
+          {/* <img src={income} alt="" width={50} /> */}
         </div>
       </div>
       <div className=" bg-gradient-to-br from-slate-300 to-zinc-200 p-4 rounded-lg w-full md:w-60  flex justify-between items-center shadow-md">
@@ -44,7 +44,7 @@ const BoxIncomeExpense = ({ sumExpense, sumIncome }) => {
           </div>
         </div>
         <div>
-          <img src={expense} alt="" width={50} />
+          {/* <img src={expense} alt="" width={50} /> */}
         </div>
       </div>
     </div>

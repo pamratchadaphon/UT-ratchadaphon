@@ -267,7 +267,7 @@ const EditRiceVariety = ({ id }) => {
                       htmlFor="image"
                       className="text-sm font-medium text-gray-900 mb-2 w-1/4 mr-2"
                     >
-                      รูปภาพ
+                      รูปภาพใหม่
                     </label>
                     <input
                       type="file"

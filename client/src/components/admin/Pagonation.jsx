@@ -5,7 +5,7 @@ import ReactPaginate from "react-paginate";
 
 const Pagonation = ({ data, setRecords, setFirstIndex}) => {
   const [page, setPage] = useState(1);
-  const recodesPerPage = 5;
+  const recodesPerPage = 7;
   const lastIndex = page * recodesPerPage;
   const firstIndex = lastIndex - recodesPerPage;
   const records = data.slice(firstIndex, lastIndex);

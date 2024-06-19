@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { IoMdPerson } from "react-icons/io";
 import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
+import { LuNewspaper } from "react-icons/lu";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
   const navigator = useNavigate();
@@ -15,12 +17,14 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
   const [riceVariety, setRiceVariety] = useState(false);
   const [farmer, setFarmer] = useState(false);
   const [riceCaltivaion, setRiceCalrivation] = useState(false);
+  const [newsService, setNewsService] = useState(false);
 
   useEffect(() => {
     page === "riceVariety" ? setRiceVariety(true) : null;
     page === "farmer" ? setFarmer(true) : null;
     page === "riceCaltivation" ? setRiceCalrivation(true) : null;
     page === "dashboard" ? setDashboard(true) : null;
+    page === "newsService" ? setNewsService(true) : null;
   }, [page]);
 
   const Logout = () => {
@@ -100,6 +104,28 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                   </li>
                 )}
 
+                {riceCaltivaion ? (
+                  <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
+                    <a
+                      href="/admin/riceCaltivaion"
+                      className="flex items-center gap-2"
+                    >
+                      <FaRegMoneyBillAlt />
+                      จัดการรายรับรายจ่าย
+                    </a>
+                  </li>
+                ) : (
+                  <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
+                    <a
+                      href="/admin/riceCaltivaion"
+                      className="flex items-center gap-2"
+                    >
+                      <FaRegMoneyBillAlt />
+                      จัดการรายรับรายจ่าย
+                    </a>
+                  </li>
+                )}
+
                 {riceVariety ? (
                   <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                     <a
@@ -118,6 +144,28 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                     >
                       <FaSeedling />
                       จัดการพันธุ์ข้าว
+                    </a>
+                  </li>
+                )}
+
+                {newsService ? (
+                  <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
+                    <a
+                      href="/admin/newsService"
+                      className="flex items-center gap-2"
+                    >
+                      <LuNewspaper />
+                      จัดการบริการข่าวสาร
+                    </a>
+                  </li>
+                ) : (
+                  <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
+                    <a
+                      href="/admin/newsService"
+                      className="flex items-center gap-2"
+                    >
+                      <LuNewspaper />
+                      จัดการบริการข่าวสาร
                     </a>
                   </li>
                 )}
@@ -145,7 +193,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                 type="button"
                 onClick={() => setShowSideBar(!showSidebar)}
               >
-                <IoMdClose/>
+                <IoMdClose />
               </button>
             </div>
             <div className="text-center pb-7">
@@ -263,7 +311,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
 Sidebar.propTypes = {
   page: PropTypes.string,
   showSidebar: PropTypes.bool,
-  setShowSideBar: PropTypes.func
+  setShowSideBar: PropTypes.func,
 };
 
 export default Sidebar;

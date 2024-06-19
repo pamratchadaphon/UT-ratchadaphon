@@ -5,8 +5,8 @@ import seed_rice from "../../images/seed_rice.png";
 
 const Stored_Rice = ({ riceCaltivation }) => {
   return (
-    <div className="w-full lg:w-1/3 flex flex-col rounded-2xl px-10 py-16 bg-gradient-to-b from-blue-200 to-sky-200 text-gray-700 shadow-xl border border-blue-300">
-      <div className="border-b-2 pb-8 mb-8 border-blue-400">
+    <div className="w-full lg:w-1/3 flex flex-col rounded-2xl p-4 md:px-10 md:py-16 bg-gradient-to-b from-blue-200 to-sky-200 text-gray-700 shadow-xl border border-blue-300">
+      <div className="border-b-2 pb-2 mb-4 md:pb-8 md:mb-8 border-blue-400">
         <div className="flex gap-2 justify-between items-center">
           <div>
             <span className="pb-4 text-xl text-gray-800">ข้าวที่เก็บไว้</span>
