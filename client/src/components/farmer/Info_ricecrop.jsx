@@ -5,7 +5,7 @@ import area from "../../images/map.png";
 import strtDate from "../../images/calendar.png";
 import endDate from "../../images/date.png";
 import location from "../../images/location.png";
-import { FaRegEdit } from "react-icons/fa";
+import Edit_Info_Ricecrop from "./Edit_Info_Ricecrop";
 
 const Info_ricecrop = ({
   riceCaltivation,
@@ -28,11 +28,11 @@ const Info_ricecrop = ({
       <div className="border-b-2 pb-2 mb-4 md:pb-8 md:mb-8 border-violet-400">
         <div className="flex gap-2 justify-between items-center">
           <div>
-            <span className="pb-4 text-xl text-gray-800">รายละเอียดรอบการปลูก</span>
+            <span className="pb-4 text-xl text-gray-800">
+              รายละเอียดรอบการปลูก
+            </span>
           </div>
-          <button type="button" className="p-2 rounded-lg bg-violet-400 text-white hover:bg-violet-500">
-            <FaRegEdit/>
-          </button>
+          <Edit_Info_Ricecrop riceCaltivation_id={riceCaltivation.riceCaltivation_id} farmer_id={riceCaltivation.farmer_id}/>
         </div>
       </div>
       <div className="flex gap-2">

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { FaRegEdit } from "react-icons/fa";
 import rice_consumption from "../../images/rice_consumption.png";
 import seed_rice from "../../images/seed_rice.png";
+import Edit_Stored from "./Edit_Stored";
 
 const Stored_Rice = ({ riceCaltivation }) => {
   return (
@@ -11,9 +11,7 @@ const Stored_Rice = ({ riceCaltivation }) => {
           <div>
             <span className="pb-4 text-xl text-gray-800">ข้าวที่เก็บไว้</span>
           </div>
-          <button type="button" className="p-2 rounded-lg bg-blue-400 text-white hover:bg-blue-500">
-            <FaRegEdit/>
-          </button>
+          <Edit_Stored riceCaltivation_id={riceCaltivation.riceCaltivation_id}/>
         </div>
       </div>
       <div className="flex gap-2">

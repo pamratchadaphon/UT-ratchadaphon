@@ -89,7 +89,7 @@ const Income_Expense_History = () => {
           {/* <All_IncomeExpense
             incomeExpense={incomeExpense}
           /> */}
-          <Chart />
+          <Chart incomeExpense={incomeExpense}/>
         </div>
 
         <div className="bg-white p-4 my-4 rounded-lg shadow-md">

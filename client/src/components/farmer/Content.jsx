@@ -104,7 +104,7 @@ const Content = () => {
               to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
               className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
             >
-              ดูรายการค่าใช้จ่าย
+              ดูรายงานค่าใช้จ่าย
             </Link>
           </div>
         </div>

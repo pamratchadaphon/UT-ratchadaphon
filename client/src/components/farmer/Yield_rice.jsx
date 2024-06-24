@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { FaRegEdit } from "react-icons/fa";
 import price from "../../images/price.png";
 import weight from "../../images/weight.png";
 import money from "../../images/money.png";
 import sack_rice from "../../images/sack_rice.png";
+import Edit_Yield from "./Edit_Yield";
 
 const Yield_rice = ({ riceCaltivation }) => {
   return (
@@ -13,9 +13,7 @@ const Yield_rice = ({ riceCaltivation }) => {
           <div>
             <span className="pb-4 text-xl text-gray-800">ผลผลิตจากการเก็บเกี่ยว</span>
           </div>
-          <button type="button" className="p-2 rounded-lg bg-pink-400 text-white hover:bg-pink-500">
-            <FaRegEdit/>
-          </button>
+          <Edit_Yield riceCaltivation_id={riceCaltivation.riceCaltivation_id}/>
         </div>
       </div>
       <div className="flex gap-2">

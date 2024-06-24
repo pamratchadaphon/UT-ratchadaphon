@@ -56,6 +56,7 @@ const ModalAddExpense = ({
     "ปุ๋ยเกล็ด",
     "ปุ๋ยเคมี",
     "ปุ๋ยอินทรีย์",
+    "ยาฆ่าหญ้า",
     "ยาคุมหญ้า",
     "ยาฆ่าแมลง",
     "ยาป้องกันแมลง",
@@ -193,9 +194,9 @@ const ModalAddExpense = ({
                       <div className="relative max-w-md max-h-full w-full p-4 border rounded-lg shadow-lg">
                         <div className="text-sm space-y-2">
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="labor"
+                            id="labor"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">แรงงาน</option>
@@ -206,9 +207,9 @@ const ModalAddExpense = ({
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="chemicals"
+                            id="chemicals"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">ปุ๋ยและสารเคมี</option>
@@ -219,9 +220,9 @@ const ModalAddExpense = ({
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="mechinery"
+                            id="mechinery"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">เครื่องจักรและอุปกรณ์</option>
@@ -232,9 +233,9 @@ const ModalAddExpense = ({
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="fuel"
+                            id="fuel"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">น้ำมันเชื้อเพลิง</option>
@@ -243,18 +244,18 @@ const ModalAddExpense = ({
                             </option>
                           </select>
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="land_rent"
+                            id="land_rent"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">เช่าที่ดิน</option>
                             <option value="เช่าที่ดิน">เช่าที่ดิน</option>
                           </select>
                           <select
-                            name=""
-                            id=""
-                            className="w-full"
+                            name="seed"
+                            id="seed"
+                            className="w-full hover:bg-gray-100"
                             onChange={handleDetail}
                           >
                             <option value="">เมล็ดพันธุ์ข้าว</option>

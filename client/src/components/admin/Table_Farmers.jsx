@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import Pagonation from "./Pagonation";
 import PropTypes from "prop-types";
 import axios from "axios";
 import EditFarmer from "./EditFarmer";
 import Swal from "sweetalert2";
+import ReactPaginate from "react-paginate";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 const Table_Farmers = ({ search }) => {
   const [data, setData] = useState([]);
@@ -14,9 +15,9 @@ const Table_Farmers = ({ search }) => {
       try {
         const res = await axios.get(`http://localhost:8080/farmer`);
         const searchName = res.data.filter((data) =>
-          data.fname.includes(search)
+          data.email.includes(search)
         );
-        setData(searchName)
+        setData(searchName.filter((data) => data.role === "user"));
       } catch (error) {
         console.log("Error : " + error);
       }
@@ -24,8 +25,31 @@ const Table_Farmers = ({ search }) => {
     fetchData();
   }, [search]);
 
-  const [records, setRecords] = useState([]);
-  const [firstIndex, setFirstIndex] = useState(0);
+  const [page, setPage] = useState(1);
+  const recodesPerPage = 10;
+  const lastIndex = page * recodesPerPage;
+  const firstIndex = lastIndex - recodesPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recodesPerPage);
+  const [lastRow, setLastRow] = useState(0);
+
+  const nextPage = () => {
+    page < npage ? setPage(page + 1) : null;
+  };
+
+  const prePage = () => {
+    page > 1 ? setPage(page - 1) : null;
+  };
+
+  const changePage = (even) => {
+    setPage(even.selected + 1);
+  };
+
+  useEffect(() => {
+    if (records.length > 0) {
+      setLastRow(firstIndex + records.length);
+    }
+  }, [firstIndex, records]);
 
   const deleteFarmer = async (id, fname, lname) => {
     try {
@@ -58,28 +82,31 @@ const Table_Farmers = ({ search }) => {
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4">
               ลำดับที่
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
               ชื่อ
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
               นามสกุล
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
+              อีเมล
+            </th>
+            <th scope="col" className="px-2 py-4 text-start">
               เบอร์โทรศัพท์
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
               ตำบล
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
               อำเภอ
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4 text-start">
               จังหวัด
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-2 py-4">
               action
             </th>
           </tr>
@@ -94,25 +121,28 @@ const Table_Farmers = ({ search }) => {
                 {firstIndex + i + 1}
               </th>
 
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 {d.fname}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 {d.lname}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
+                {d.email}
+              </th>
+              <th scope="row" className="p-2 font-normal text-start">
                 0{d.phone}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 {d.subdistrict}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 {d.district}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 {d.province}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal">
+              <th scope="row" className="p-2 font-normal text-start">
                 <div className="flex justify-center items-center gap-2">
                   <EditFarmer id={d.farmer_id} />
                   <button
@@ -136,11 +166,55 @@ const Table_Farmers = ({ search }) => {
           ) : null}
         </tbody>
       </table>
-      <Pagonation
-        data={data}
-        setRecords={setRecords}
-        setFirstIndex={setFirstIndex}
-      />
+      <nav
+        className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 w-full"
+        aria-label="Table navigation"
+      >
+        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+          จำนวนแถวต่อหน้า{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {firstIndex + 1}-{lastRow}
+          </span>{" "}
+          จาก{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {data.length}
+          </span>
+        </span>
+        <ReactPaginate
+          breakLabel={
+            <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
+              ...
+            </span>
+          }
+          nextLabel={
+            page < npage ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={nextPage}
+              >
+                <GrNext />
+              </span>
+            ) : null
+          }
+          onPageChange={changePage}
+          pageRangeDisplayed={5}
+          pageCount={npage}
+          previousLabel={
+            firstIndex > 0 ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={prePage}
+              >
+                <GrPrevious />
+              </span>
+            ) : null
+          }
+          renderOnZeroPageCount={null}
+          containerClassName="flex space-x-1 justify-center items-center"
+          pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
+          activeClassName="bg-green-100 text-green-700"
+        />
+      </nav>
     </div>
   );
 };

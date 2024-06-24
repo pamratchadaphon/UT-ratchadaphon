@@ -44,11 +44,18 @@ const Login = () => {
         }
       } catch (error) {
         console.error("Error:", error);
-        Swal.fire({
-          title: "เกิดข้อผิดพลาด",
-          text: "อีเมล หรือ รหัสผ่านไม่ถูกต้อง",
-          icon: "error",
-        });
+        if (error.response.data.error === "Incorrect password") {
+          Swal.fire({
+            title: "รหัสผ่านไม่ถูกต้อง",
+            icon: "error",
+          });
+        } else if (error.response.data.error === "Farmer not found") {
+          Swal.fire({
+            title: "ยังไม่มีบัญชี",
+            text: 'กรุณาสร้างบัญชีก่อนลงชื่อเข้าใช้',
+            icon: "error",
+          });
+        }
       }
     }
   };

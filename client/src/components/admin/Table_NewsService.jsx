@@ -3,7 +3,7 @@ import Pagonation from "./Pagonation";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { IoTrashOutline } from "react-icons/io5";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import EditNewService from "./EditNewService";
 
 const Table_NewsService = ({ data }) => {
@@ -48,7 +48,7 @@ const Table_NewsService = ({ data }) => {
               หัวข้อ
             </th>
             <th scope="col" className="px-6 py-3  w-1/4 ">
-            ลิงค์ของข้อมูล
+              ลิงค์ไปยังข้อมูล
             </th>
             <th scope="col" className="px-6 py-3 text-center w-1/4">
               action
@@ -57,21 +57,31 @@ const Table_NewsService = ({ data }) => {
         </thead>
         <tbody>
           {records.map((d, i) => (
-            <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
+            <tr key={i} className="bg-white border-b hover:bg-gray-50">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center w-1/4"
+                className="p-2 font-medium text-gray-900 whitespace-nowrap"
               >
                 {firstIndex + i + 1}
               </th>
 
-              <th scope="row" className="px-6 py-4 font-normal  w-1/4">
+              <th scope="row" className="px-2 font-normal">
                 {d.name}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal  w-1/4 border">
-                {/* {d.content} */}
+              <th
+                scope="row"
+                className="p-2 font-normal text-start lg:max-w-sm"
+              >
+                <a
+                  href={d.content}
+                  target="_blank"
+                  className="underline text-blue-600"
+                >
+                  {d.content}
+                  {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti! */}
+                </a>
               </th>
-              <th scope="row" className="px-6 py-4 font-normal  w-1/4">
+              <th scope="row" className="p-2 font-normal">
                 <div className="flex justify-center items-center gap-2">
                   <EditNewService id={d.newService_id} />
                   <button
@@ -105,7 +115,7 @@ const Table_NewsService = ({ data }) => {
 };
 
 Table_NewsService.propTypes = {
-  data: PropTypes.array
-}
+  data: PropTypes.array,
+};
 
 export default Table_NewsService;

@@ -106,7 +106,7 @@ const AddNewService = () => {
                       ลิงค์ไปยังข้อมูล
                     </label>
 
-                    <input
+                    <textarea
                       type="text"
                       name="content"
                       id="content"

@@ -4,6 +4,7 @@ import { TbClipboardText } from "react-icons/tb";
 import axios from "axios";
 import PropTypes from "prop-types";
 import Pagination from "../../components/farmer/Pagination";
+import dot from '../../images/dot.png'
 
 const TableRicecrop = ({ farmer_id }) => {
   const [data, setData] = useState([]);
@@ -35,13 +36,10 @@ const TableRicecrop = ({ farmer_id }) => {
   const [records, setRecords] = useState([]);
   const [firstIndex, setFirstIndex] = useState(0);
 
-  // records.sort((a, b) => {
-  //   return b.riceCaltivation_id - a.riceCaltivation_id;
-  // });
   return (
     <div>
-      <div className="hidden md:flex">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-4 border">
+      <div className="hidden md:flex bg-white p-4 mt-4 shadow rounded-lg mb-4">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3 text-center">
@@ -121,11 +119,11 @@ const TableRicecrop = ({ farmer_id }) => {
         </table>
       </div>
       <div className="md:hidden flex flex-col">
-        <span className="text-center font-semibold">รอบการปลูก</span>
         {records.map((d, i) => (
-          <div className="flex flex-col gap-1" key={i}>
-            <div className="flex items-center text-sm text-green-700 space-x-1">
-              <span className="font-semibold">ปีที่ปลูก</span>
+          <div className="flex flex-col gap-1  mb-4 bg-white p-4 rounded-lg border" key={i}>
+            <div className="flex items-center text-sm space-x-1 p-2 bg-gray-100 shadow">
+              <img src={dot} width={17}/>
+              <span>ปี</span>
               <span>{d.year}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
@@ -141,26 +139,28 @@ const TableRicecrop = ({ farmer_id }) => {
               <span>{d.riceVariety}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">พื้นที่ (ไร่)</span>
-              <span>{d.area}</span>
+              <span className="text-gray-500">พื้นที่</span>
+              <span>{d.area} (ไร่)</span>
             </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">รายการย้อนหลัง</span>
-              <a
-                href={`/ricecrop/history/${farmer_id}/${d.riceCaltivation_id}`}
-                className="flex justify-center items-center text-blue-600 focus:underline"
-              >
-                ดูรายการย้อนหลัง
-              </a>
-            </div>
-            <div className="flex justify-between items-center text-sm mb-4 border-b pb-4">
-              <span className="text-gray-500">รายละเอียด</span>
-              <a
-                href={`/ricecrop/detail/${farmer_id}/${d.riceCaltivation_id}`}
-                className="flex justify-center items-center  text-blue-600 focus:underline"
-              >
-                ดูรายละเอียด
-              </a>
+            <div className="flex items-center justify-between">
+              <div className="text-sm w-1/2 p-2 text-center bg-orange-500 ">
+                <a
+                  href={`/ricecrop/history/${farmer_id}/${d.riceCaltivation_id}`}
+                  className="flex justify-center items-center text-white focus:underline gap-1"
+                >
+                  <TbClipboardText/>
+                  รายงานค่าใช้จ่าย
+                </a>
+              </div>
+              <div className="text-sm w-1/2 p-2 text-center bg-sky-500">
+                <a
+                  href={`/ricecrop/detail/${farmer_id}/${d.riceCaltivation_id}`}
+                  className="flex justify-center items-center  text-white focus:underline gap-1"
+                >
+                  <FaEye/>
+                  รายงานแปลงนา
+                </a>
+              </div>
             </div>
           </div>
         ))}

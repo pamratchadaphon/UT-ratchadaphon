@@ -124,7 +124,7 @@ const EditNewService = ({ id }) => {
                       ลิงค์ของข้อมูล
                     </label>
 
-                    <input
+                    <textarea
                       type="text"
                       name="content"
                       id="content"
@@ -132,7 +132,7 @@ const EditNewService = ({ id }) => {
                       onChange={(e) =>
                         setValues({ ...values, content: e.target.value })
                       }
-                      className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full"
+                      className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full h-40"
                     />
                     {content ? (
                       <div className="text-sm text-red-500 flex items-center gap-1">

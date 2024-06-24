@@ -6,10 +6,9 @@ import Search from "../../components/admin/Search";
 import Table_Farmers from "../../components/admin/Table_Farmers";
 
 const ManageFarmer = () => {
-  const [searchFname, setSearchFname] = useState("");
-  // const [searchLname, setSearchLname] = useState("");
+  const [search, setSearch] = useState("");
 
-  const searchName = (string) => setSearchFname(string);
+  const searchName = (string) => setSearch(string);
 
   return (
     <div className="mx-auto flex">
@@ -23,14 +22,13 @@ const ManageFarmer = () => {
             <AddFarmer />
             <div className="flex space-x-2">
               <Search
-                search={searchFname}
+                search={search}
                 searchName={searchName}
-                text={"ค้นหาชื่อ"}
+                text={"ค้นหาอีเมล"}
               />
-              <Search text={"ค้นหานามสกุล"} />
             </div>
           </div>
-          <Table_Farmers search={searchFname} />
+          <Table_Farmers search={search} />
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ const Ricecrop = () => {
         <div className="w-full md:hidden">
           <ModalAddRicecrop />
         </div>
-        <div className="lg:m-0 bg-white shadow rounded-lg  p-4">
+        <div className="lg:m-0 ">
           <div className="hidden md:flex justify-between items-center">
             <ModalAddRicecrop />
           </div>

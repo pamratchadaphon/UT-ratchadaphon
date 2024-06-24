@@ -7,5 +7,6 @@ router.get("/:riceCaltivation_id", riceCaltivation.show);
 router.put("/:riceCaltivation_id", riceCaltivation.update);
 router.delete("/:riceCaltivation_id", riceCaltivation.delete);
 router.get("/incomeExpense/:riceCaltivation_id", riceCaltivation.incomeExpense);
+router.get('/farmer', riceCaltivation.farmer)
 
 module.exports = router;

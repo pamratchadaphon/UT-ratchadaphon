@@ -9,7 +9,14 @@ module.exports = {
     res.status(201).send(incomeExpense);
   },
   async index(req, res) {
-    const incomeExpense = await IncomeExpense.findAll();
+    const incomeExpense = await IncomeExpense.findAll({
+      include: [
+        {
+          model: db.Farmer,
+          as: "farmer",
+        },
+      ],
+    });
     res.status(200).send(incomeExpense);
   },
   async show(req, res) {
@@ -29,5 +36,17 @@ module.exports = {
       where: { income_expense_id: req.params.income_expense_id },
     });
     res.status(200).send("incomeexpense is deleted!");
+  },
+  async farmer(req, res) {
+    const incomeExpense = await IncomeExpense.findAll({
+      include: [
+        {
+          model: db.Farmer,
+          as: "farmer",
+        },
+      ],
+      where: { income_expense_id: req.params.income_expense_id },
+    });
+    res.status(200).send(incomeExpense);
   },
 };

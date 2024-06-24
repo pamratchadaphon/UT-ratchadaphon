@@ -31,6 +31,7 @@ db.Farmer.hasMany(db.RiceCaltivation, {
   foreignKey: 'farmer_id',
   as: 'riceCaltivation'
 })
+
 db.RiceCaltivation.belongsTo(db.Farmer, {
   foreignKey: 'farmer_id',
   as: 'farmer'

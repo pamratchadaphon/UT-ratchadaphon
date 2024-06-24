@@ -85,35 +85,35 @@ const Table_RiceVariety = ({ search }) => {
             <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
               <th
                 scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
+                className="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center"
               >
                 {firstIndex + i + 1}
               </th>
               <th
                 scope="row"
-                className="px-6 py-4 font-normal flex justify-center"
+                className="p-2 font-normal flex justify-center"
               >
                 <img
                   src={`http://localhost:8080/${d.image}`}
                   className="h-16 w-24"
                 />
               </th>
-              <th scope="row" className="px-6 py-4 font-normal  text-center">
+              <th scope="row" className="p-2 font-normal  text-center">
                 {d.name}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal text-center">
+              <th scope="row" className="p-2 font-normal text-center">
                 {d.age} วัน
               </th>
-              <th scope="row" className="px-6 py-4 font-normal text-center">
+              <th scope="row" className="p-2 font-normal text-center">
                 ประมาณ {d.yield} กก./ไร่
               </th>
-              <th scope="row" className="px-6 py-4 font-normal text-center">
+              <th scope="row" className="p-2 font-normal text-center">
                 {d.height} ซม.
               </th>
-              <th scope="row" className="px-6 py-4 font-normal text-center">
+              <th scope="row" className="p-2 font-normal text-center">
                 {d.photosensitivity}
               </th>
-              <th scope="row" className="px-6 py-4 font-normal text-center">
+              <th scope="row" className="p-2 font-normal text-center">
                 <div className="flex justify-center items-center gap-2">
                   <ViewRiceVariety id={d.riceVariety_id} />
                   <EditRiceVariety id={d.riceVariety_id} />

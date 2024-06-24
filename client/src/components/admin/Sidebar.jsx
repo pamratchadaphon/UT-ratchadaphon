@@ -9,14 +9,16 @@ import PropTypes from "prop-types";
 import { IoMdClose } from "react-icons/io";
 import { LuNewspaper } from "react-icons/lu";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
+const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
   const navigator = useNavigate();
-
+  console.log(showSidebar_Moble);
   const [dashboard, setDashboard] = useState(false);
   const [riceVariety, setRiceVariety] = useState(false);
   const [farmer, setFarmer] = useState(false);
   const [riceCaltivaion, setRiceCalrivation] = useState(false);
+  const [incomeExpense, setIncomeExpense] = useState(false);
   const [newsService, setNewsService] = useState(false);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
     page === "riceCaltivation" ? setRiceCalrivation(true) : null;
     page === "dashboard" ? setDashboard(true) : null;
     page === "newsService" ? setNewsService(true) : null;
+    page === "incomeExpense" ? setIncomeExpense(true) : null;
   }, [page]);
 
   const Logout = () => {
@@ -104,10 +107,10 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                   </li>
                 )}
 
-                {riceCaltivaion ? (
+                {incomeExpense ? (
                   <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                     <a
-                      href="/admin/riceCaltivaion"
+                      href="/admin/incomeExpense"
                       className="flex items-center gap-2"
                     >
                       <FaRegMoneyBillAlt />
@@ -117,7 +120,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
                 ) : (
                   <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
                     <a
-                      href="/admin/riceCaltivaion"
+                      href="/admin/incomeExpense"
                       className="flex items-center gap-2"
                     >
                       <FaRegMoneyBillAlt />
@@ -185,20 +188,26 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
         </button>
       </div>
 
-      {showSidebar ? (
-        <div className="fixed flex basis-1/6 border-r h-screen px-5 bg-white flex-col justify-between">
+      {showSidebar_Moble ? (
+        <motion.div
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ duration: 0.5 }}
+          className=" fixed flex border-r h-screen px-5 bg-white flex-col justify-between"
+        >
           <div>
             <div className="text-end mt-4">
               <button
                 type="button"
-                onClick={() => setShowSideBar(!showSidebar)}
+                onClick={() => setShowSideBar_Moble(!showSidebar_Moble)}
+                className="border-2 p-1 rounded-lg text-gray-500"
               >
-                <IoMdClose />
+                <IoMdClose className="w-5 h-5"/>
               </button>
             </div>
             <div className="text-center pb-7">
               <a
-                href="/dashboard"
+                href="/admin/dashboard"
                 className="text-green-700 font-bold text-2xl"
               >
                 Admin
@@ -302,7 +311,7 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
               <span className="text-sm">ออกจากระบบ</span>
             </div>
           </button>
-        </div>
+        </motion.div>
       ) : null}
     </div>
   );
@@ -310,8 +319,8 @@ const Sidebar = ({ page, showSidebar, setShowSideBar }) => {
 
 Sidebar.propTypes = {
   page: PropTypes.string,
-  showSidebar: PropTypes.bool,
-  setShowSideBar: PropTypes.func,
+  showSidebar_Moble: PropTypes.bool,
+  setShowSideBar_Moble: PropTypes.func,
 };
 
 export default Sidebar;

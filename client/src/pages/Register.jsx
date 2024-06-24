@@ -1,10 +1,10 @@
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { GoArrowRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { ReactTyped } from "react-typed";
 import { useEffect, useState } from "react";
 import { RiErrorWarningLine } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const navigator = useNavigate();
@@ -65,9 +65,20 @@ const Register = () => {
         await axios
           .post("http://localhost:8080/farmer/", values)
           .then((result) => console.log(result.data));
+        await Swal.fire({
+          title: "ลงทะเบียนสำเร็จ",
+          icon: "success",
+        });
         navigator("/");
       } catch (error) {
         console.log("Error : " + error);
+        if (error.response.data.error === "Email already exists") {
+          Swal.fire({
+            title: "อีเมลนี้ถูกใช้แล้ว",
+            text: "กรุณาใช้อีเมลใหม่ในการสร้างบัญชี",
+            icon: "error",
+          });
+        }
       }
     }
   };

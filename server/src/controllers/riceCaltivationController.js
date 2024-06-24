@@ -7,7 +7,14 @@ module.exports = {
     res.status(201).send(riceCaltivation);
   },
   async index(req, res) {
-    const riceCaltivation = await RiceCaltivation.findAll();
+    const riceCaltivation = await RiceCaltivation.findAll({
+      include: [
+        {
+          model: db.Farmer,
+          as: "farmer",
+        },
+      ],
+    });
     res.status(200).send(riceCaltivation);
   },
   async show(req, res) {
@@ -39,5 +46,16 @@ module.exports = {
       where: { riceCaltivation_id: req.params.riceCaltivation_id },
     });
     res.status(200).send(data);
+  },
+  async farmer(req, res) {
+    const riceCaltivation = await RiceCaltivation.findAll({
+      include: [
+        {
+          model: db.Farmer,
+          as: "farmer",
+        },
+      ],
+    });
+    res.status(200).send(riceCaltivation);
   },
 };

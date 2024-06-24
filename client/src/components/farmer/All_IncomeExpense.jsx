@@ -62,7 +62,7 @@ const All_IncomeExpense = ({ incomeExpense }) => {
     { id: 3, value: value[3], label: "น้ำมันเชื้อเพลิง", color: "#E22427" },
     { id: 4, value: value[4], label: "เช่าที่ดิน", color: "#996633" },
     { id: 5, value: value[5], label: "เมล็ดพันธุ์ข้าว", color: "#FCCF55" },
-    { id: 6, value: value[6], label: "อื่นๆ", color: "#DCDCDC" },
+    { id: 6, value: value[6], label: "อื่นๆ", color: "#BEBEBE" },
   ];
 
   return (
