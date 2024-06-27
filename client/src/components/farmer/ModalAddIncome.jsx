@@ -173,7 +173,7 @@ const ModalAddIncome = ({
                       </div>
                       <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                          น้ำหนักสุทธิ (กิโลกรัม)
+                          ปริมาณข้าวที่ขาย (กิโลกรัม)
                         </label>
 
                         <input

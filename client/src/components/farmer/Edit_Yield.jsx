@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 
 const Edit_Yield = ({ riceCaltivation_id }) => {
   const [modal, setModal] = useState(false);
+  const [yield_rice, setYield_Rice] = useState({})
 
   const [values, setValues] = useState({
     total_yield: "",
@@ -21,18 +22,22 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
         const res = await axios.get(
           `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`
         );
-        setValues({
-          ...values,
-          total_yield: res.data.total_yield,
-          yield: res.data.yield,
-          rice_price_per_kg: res.data.rice_price_per_kg,
-        });
-      } catch (error) {
+        res.data.length !== 0 ? setYield_Rice(res.data) : null;
+       } catch (error) {
         console.log("Error : " + error);
       }
     };
     fetchData();
   }, [riceCaltivation_id]);
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      total_yield: yield_rice.total_yield,
+      yield: yield_rice.yield,
+      rice_price_per_kg: yield_rice.rice_price_per_kg,
+    });
+  }, [yield_rice])
 
   const [total_yield, setTotal_yield] = useState(false);
   const [yield_input, setYield] = useState(false);

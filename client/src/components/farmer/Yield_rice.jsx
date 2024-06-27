@@ -20,13 +20,13 @@ const Yield_rice = ({ riceCaltivation }) => {
         <div className=" w-5 h-5 text-center">
           <img src={sack_rice} />
         </div>
-        <span>ปริมาณข้าวที่ได้ : {riceCaltivation.total_yield} (กิโลกรัม)</span>
+        <span>ปริมาณข้าวที่ได้ : {riceCaltivation.total_yield} กิโลกรัม</span>
       </div>
       <div className="flex gap-2">
         <div className=" w-5 h-5 text-center">
           <img src={weight} />
         </div>
-        <span>น้ำหนักสุทธิ : {riceCaltivation.yield} กิโลกรัม</span>
+        <span>ปริมาณข้าวที่ขาย : {riceCaltivation.yield} กิโลกรัม</span>
       </div>
       <div className="flex gap-2">
         <div className=" w-5 h-5 text-center">
@@ -41,7 +41,7 @@ const Yield_rice = ({ riceCaltivation }) => {
           <img src={money} />
         </div>
         <span>
-          รายได้จากการขายข้าว :{" "}
+          รายรับจากการขายข้าว :{" "}
           {riceCaltivation.yield * riceCaltivation.rice_price_per_kg} บาท
         </span>
       </div>

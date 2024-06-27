@@ -15,7 +15,7 @@ const Table_Farmers = ({ search }) => {
       try {
         const res = await axios.get(`http://localhost:8080/farmer`);
         const searchName = res.data.filter((data) =>
-          data.email.includes(search)
+          data.fname.includes(search)
         );
         setData(searchName.filter((data) => data.role === "user"));
       } catch (error) {
@@ -82,9 +82,6 @@ const Table_Farmers = ({ search }) => {
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
-            <th scope="col" className="px-2 py-4">
-              ลำดับที่
-            </th>
             <th scope="col" className="px-2 py-4 text-start">
               ชื่อ
             </th>
@@ -114,13 +111,6 @@ const Table_Farmers = ({ search }) => {
         <tbody>
           {records.map((d, i) => (
             <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                {firstIndex + i + 1}
-              </th>
-
               <th scope="row" className="p-2 font-normal text-start">
                 {d.fname}
               </th>

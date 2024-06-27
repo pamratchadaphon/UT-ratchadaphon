@@ -14,9 +14,6 @@ const Detail_RiceCaltivationjsx = () => {
   const riceCaltivation_id = Number(useParams().riceCaltivation_id);
 
   const [riceCaltivation, setRiceCaltivation] = useState({});
-  const [subdistrict, setSubdistrict] = useState("");
-  const [district, setDistrict] = useState("");
-  const [province, setProvince] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +21,6 @@ const Detail_RiceCaltivationjsx = () => {
         const res = await axios.get(
           `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`
         );
-
-        const farmer = await axios.get(
-          `http://localhost:8080/farmer/${farmer_id}`
-        );
-        setSubdistrict(farmer.data.subdistrict);
-        setDistrict(farmer.data.district);
-        setProvince(farmer.data.province);
         setRiceCaltivation(res.data);
       } catch (error) {
         console.log("Error : " + error);
@@ -54,9 +44,6 @@ const Detail_RiceCaltivationjsx = () => {
         >
           <Info_ricecrop
             riceCaltivation={riceCaltivation}
-            subdistrict={subdistrict}
-            district={district}
-            province={province}
           />
           <Yield_rice riceCaltivation={riceCaltivation} />
           <Stored_Rice riceCaltivation={riceCaltivation} />

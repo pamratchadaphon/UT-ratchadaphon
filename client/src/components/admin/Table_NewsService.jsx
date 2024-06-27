@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Pagonation from "./Pagonation";
+import Pagination from "./Pagination";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { IoTrashOutline } from "react-icons/io5";
@@ -77,8 +77,9 @@ const Table_NewsService = ({ data }) => {
                   target="_blank"
                   className="underline text-blue-600"
                 >
-                  {d.content}
-                  {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti! */}
+                  
+                  {/* <p> {d.content}</p> */}
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti!
                 </a>
               </th>
               <th scope="row" className="p-2 font-normal">
@@ -105,10 +106,11 @@ const Table_NewsService = ({ data }) => {
           ) : null}
         </tbody>
       </table>
-      <Pagonation
+      <Pagination
         data={data}
         setRecords={setRecords}
         setFirstIndex={setFirstIndex}
+        recodesPerPage={4}
       />
     </div>
   );

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const Edit_Stored = ({ riceCaltivation_id }) => {
   const [modal, setModal] = useState(false);
+  const [stored, setStored] = useState({})
 
   const [values, setValues] = useState({
     rice_consumption: "",
@@ -18,14 +19,18 @@ const Edit_Stored = ({ riceCaltivation_id }) => {
       const res = await axios.get(
         `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`
       );
-      setValues({
-        ...values,
-        rice_consumption: res.data.rice_consumption,
-        seed_rice: res.data.seed_rice,
-      });
+      res.data.length !== 0 ? setStored(res.data) : null;
     };
     fetchData();
   }, [riceCaltivation_id]);
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      rice_consumption: stored.rice_consumption,
+      seed_rice: stored.seed_rice,
+    });
+  }, [stored])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

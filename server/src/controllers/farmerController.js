@@ -47,9 +47,9 @@ module.exports = {
     const token = jwt.sign(
       { farmer_id: farmer.farmer_id, email: farmer.email },
       secret,
-      {
-        expiresIn: "1h",
-      }
+      // {
+      //   expiresIn: "1h",
+      // }
     );
     res.status(200).json({
       status: "ok",

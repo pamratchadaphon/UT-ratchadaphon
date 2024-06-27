@@ -28,7 +28,7 @@ const View_RiceCaltivation = ( {id} ) => {
       </button>
 
       {modal ? (
-        <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50 h-screen">
+        <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md lg:max-w-lg">
             <div className="relative bg-white rounded-lg shadow">
               <div className="flex justify-between items-center p-4 md:p-5 border-b rounded-t">
@@ -64,7 +64,7 @@ const View_RiceCaltivation = ( {id} ) => {
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/2">
-                      วันที่เก็บเกี่ยว
+                      วันที่คาดว่าจะเก็บเกี่ยว
                     </span>
                     <span className="text-sm text-gray-700">
                     {new Date (data.endDate).getDate()}/{new Date (data.endDate).getMonth() + 1}/{new Date (data.endDate).getFullYear()}
@@ -96,7 +96,7 @@ const View_RiceCaltivation = ( {id} ) => {
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/2">
-                      น้ำหนักสุทธิ
+                      ปริมาณข้าวที่ขาย
                     </span>
                     <span className="text-sm text-gray-700">
                       {data.yield} กิโลกรัม

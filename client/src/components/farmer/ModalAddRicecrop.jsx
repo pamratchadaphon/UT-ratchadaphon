@@ -131,7 +131,7 @@ const ModalAddRicecrop = () => {
                 <div className="grid gap-4 mb-4 grid-cols-2">
                   <div className="col-span-2">
                     <label className="block mb-2 text-sm font-medium text-gray-900">
-                      วันที่เก็บเกี่ยว
+                      วันที่คาดว่าจะเก็บเกี่ยว
                     </label>
                     <input
                       type="date"

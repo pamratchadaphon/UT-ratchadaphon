@@ -5,10 +5,12 @@ import Edit_RiceCaltivation from "./Edit_RiceCaltivation";
 import View_RiceCaltivation from "./View_RiceCaltivation";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
-import Pagonation from "./Pagonation";
+import Pagination from "./Pagination";
+import { FaSort } from "react-icons/fa";
 
 const Table_RiceCaltivation = ({ search }) => {
   const [data, setData] = useState([]);
+  const [order, setOrder] = useState("ASC");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,9 +28,54 @@ const Table_RiceCaltivation = ({ search }) => {
     fetchData();
   }, [search]);
 
-  data.sort((a, b) => {
-    return a.year - b.year;
-  });
+  const [records, setRecords] = useState([]);
+
+  const sortingEmail = (column) => {
+    if (order === "ASC") {
+      const sorted = [...data].sort((a, b) =>
+        a.farmer[column].toLowerCase() > b.farmer[column].toLowerCase() ? 1 : -1
+      );
+      setData(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...data].sort((a, b) =>
+        a.farmer[column].toLowerCase() < b.farmer[column].toLowerCase() ? 1 : -1
+      );
+      setData(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  const sorting = (column) => {
+    if (order === "ASC") {
+      const sorted = [...data].sort((a, b) => (a[column] > b[column] ? 1 : -1));
+      setData(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...data].sort((a, b) => (a[column] < b[column] ? 1 : -1));
+      setData(sorted);
+      setOrder("ASC");
+    }
+  };
+
+  const sortingPrice = () => {
+    if (order === "ASC") {
+      const sorted = [...data].sort((a, b) =>
+        a.yield * a.rice_price_per_kg > b.yield * b.rice_price_per_kg ? 1 : -1
+      );
+      setData(sorted)
+      setOrder("DSC")
+    }
+    if (order === "DSC") {
+      const sorted = [...data].sort((a, b) =>
+        a.yield * a.rice_price_per_kg < b.yield * b.rice_price_per_kg ? 1 : -1
+      );
+      setData(sorted)
+      setOrder("ASC")
+    }
+  };
 
   const deleteRiceCaltivation = async (id) => {
     Swal.fire({
@@ -51,40 +98,94 @@ const Table_RiceCaltivation = ({ search }) => {
     });
   };
 
-  const [records, setRecords] = useState([])
-  const [firstIndex, setFirstIndex] = useState(0)
-
   return (
     <div className="hidden lg:flex flex-wrap">
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-2 py-4">
-              ลำดับที่
+              <div className="flex items-center gap-2 justify-end">
+                รหัส
+                <button
+                  className="button"
+                  onClick={() => sorting("riceCaltivation_id")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              ปี
+              <div className="flex items-center gap-2 justify-center">
+                ผู้ปลูก
+                <button
+                  className="button"
+                  onClick={() => sortingEmail("fname")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-end">
+                ปี{" "}
+                <button type="button" onClick={() => sorting("year")}>
+                  <FaSort />
+                </button>
+              </div>
             </th>
             <th scope="col" className="px-2 py-4 text-start">
-              พันธุ์ข้าว
-            </th>
-            <th scope="col" className="px-2 py-4 text-end">
-              พื้นที่ (ไร่)
-            </th>
-            <th scope="col" className="px-2 py-4 text-end">
-              ปริมาณข้าวที่ได้ (กิโลกรัม)
-            </th>
-            <th scope="col" className="px-2 py-4 text-end">
-              น้ำหนักสุทธิ (กิโลกรัม)
-            </th>
-            <th scope="col" className="px-2 py-4 text-end">
-              ราคา/กิโลกรัม
-            </th>
-            <th scope="col" className="px-2 py-4 text-end">
-              จำนวนเงิน (บาท)
+              <div className="flex items-center gap-2 justify-start">
+                พันธุ์ข้าว
+                <button type="button" onClick={() => sorting("riceVariety")}>
+                  <FaSort />
+                </button>
+              </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              อีเมลผู้ปลูก
+              <div className="flex items-center gap-2 justify-end">
+                พื้นที่ (ไร่)
+                <button className="button" onClick={() => sorting("area")}>
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-end">
+                ปริมาณข้าวที่ได้ (กิโลกรัม)
+                <button
+                  className="button"
+                  onClick={() => sorting("total_yield")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-end">
+                ปริมาณข้าวที่ขาย (กิโลกรัม)
+                <button className="button" onClick={() => sorting("yield")}>
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-end">
+                ราคา/กิโลกรัม
+                <button
+                  className="button"
+                  onClick={() => sorting("rice_price_per_kg")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-end">
+                จำนวนเงิน (บาท)
+                <button className="button" onClick={() => sortingPrice()}>
+                  <FaSort />
+                </button>
+              </div>
             </th>
             <th scope="col" className="px-2 py-4">
               action
@@ -92,13 +193,13 @@ const Table_RiceCaltivation = ({ search }) => {
           </tr>
         </thead>
         <tbody>
-          {records.map((data, i) => (
+          {data.map((data, i) => (
             <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                {i + 1}
+              <th scope="row" className="p-2 font-normal text-end">
+                {data.riceCaltivation_id}
+              </th>
+              <th scope="row" className="p-2 font-normal text-start">
+                {data.farmer.fname} {data.farmer.lname}
               </th>
               <th scope="row" className="p-2 font-normal">
                 {data.year}
@@ -121,17 +222,15 @@ const Table_RiceCaltivation = ({ search }) => {
               <th scope="row" className="p-2 font-normal text-end">
                 {(data.yield * data.rice_price_per_kg).toLocaleString()}
               </th>
-              <th scope="row" className="p-2 font-normal text-start">
-                {data.farmer.email}
-              </th>
-
               <th scope="row" className="p-2 font-normal">
                 <div className="flex justify-center items-center gap-2">
                   <View_RiceCaltivation id={data.riceCaltivation_id} />
                   <Edit_RiceCaltivation />
                   <button
                     className="flex justify-center items-center"
-                    onClick={() => deleteRiceCaltivation(data.riceCaltivation_id)}
+                    onClick={() =>
+                      deleteRiceCaltivation(data.riceCaltivation_id)
+                    }
                   >
                     <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
                       <IoTrashOutline className="w-5 h-5" />
@@ -141,20 +240,16 @@ const Table_RiceCaltivation = ({ search }) => {
               </th>
             </tr>
           ))}
-          {/* {records.length === 0 ? (
+          {records.length === 0 ? (
             <tr>
               <td className="text-center py-4" colSpan="8">
                 ไม่พบข้อมูล
               </td>
             </tr>
-          ) : null} */}
+          ) : null}
         </tbody>
       </table>
-      <Pagonation
-        data={data}
-        setRecords={setRecords}
-        setFirstIndex={setFirstIndex}
-      />
+      <Pagination data={data} setRecords={setRecords} recodesPerPage={10} />
     </div>
   );
 };

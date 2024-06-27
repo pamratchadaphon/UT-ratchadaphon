@@ -10,29 +10,82 @@ const ManageRiceVariety = () => {
 
   const searchName = (string) => setSearch(string);
 
-  const [showSidebar, setShowSideBar] = useState(false);
+  const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
+  const [showSidebar_Web, setShowSideBar_Web] = useState(true);
 
   return (
     <div>
-      <div className="mx-auto flex w-full">
-        <div className="hidden lg:block basis-1/6">
-          <Sidebar
-            page={"riceVariety"}
-            showSidebar={showSidebar}
-            setShowSideBar={setShowSideBar}
-          />
-        </div>
-        <div className="w-full lg:basis-5/6">
-          <Navbar setShowSideBar={setShowSideBar} />
-          <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4">
-            <div className="flex flex-wrap justify-between items-center gap-4">
-              <AddRicevariety />
-              <Search search={search} searchName={searchName} text={'ค้นหาชื่อพันธุ์ข้าว'}/>
+      {showSidebar_Web ? (
+        <div className="mx-auto flex">
+          {showSidebar_Moble ? (
+            <div className="block lg:basis-1/6">
+              <Sidebar
+                page={"riceVariety"}
+                showSidebar_Moble={showSidebar_Moble}
+                setShowSideBar_Moble={setShowSideBar_Moble}
+              />
             </div>
-            <Table_RiceVariety search={search} />
+          ) : (
+            <div className="hidden lg:block basis-1/6">
+              <Sidebar page={"riceVariety"} />
+            </div>
+          )}
+          <div className="w-full lg:basis-5/6">
+            <Navbar
+              setShowSideBar_Moble={setShowSideBar_Moble}
+              setShowSideBar_Web={setShowSideBar_Web}
+              showSidebar_Web={showSidebar_Web}
+              showSidebar_Moble={showSidebar_Moble}
+            />
+            <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
+              <div className="flex flex-wrap justify-between items-center gap-4">
+                <AddRicevariety />
+                <Search
+                  search={search}
+                  searchName={searchName}
+                  text={"ค้นหาชื่อพันธุ์ข้าว"}
+                />
+              </div>
+              <Table_RiceVariety search={search} />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div>
+          {showSidebar_Moble ? (
+            <div className="block lg:hidden">
+              <Sidebar
+                page={"riceVariety"}
+                showSidebar_Moble={showSidebar_Moble}
+                setShowSideBar_Moble={setShowSideBar_Moble}
+              />
+            </div>
+          ) : (
+            <div className="hidden">
+              <Sidebar page={"riceVariety"} />
+            </div>
+          )}
+          <div className="w-full lg:basis-6/6">
+            <Navbar
+              setShowSideBar_Moble={setShowSideBar_Moble}
+              setShowSideBar_Web={setShowSideBar_Web}
+              showSidebar_Web={showSidebar_Web}
+              showSidebar_Moble={showSidebar_Moble}
+            />
+            <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
+              <div className="flex flex-wrap justify-between items-center gap-4">
+                <AddRicevariety />
+                <Search
+                  search={search}
+                  searchName={searchName}
+                  text={"ค้นหาชื่อพันธุ์ข้าว"}
+                />
+              </div>
+              <Table_RiceVariety search={search} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

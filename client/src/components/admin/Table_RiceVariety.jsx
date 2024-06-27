@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import ViewRiceVariety from "./ViewRiceVariety";
 import EditRiceVariety from "./EditRiceVariety";
 import PropTypes from "prop-types";
-import Pagonation from "./Pagonation";
+import Pagination from "./Pagination";
 
 const Table_RiceVariety = ({ search }) => {
   const [data, setData] = useState([]);
@@ -138,10 +138,11 @@ const Table_RiceVariety = ({ search }) => {
           ) : null}
         </tbody>
       </table>
-      <Pagonation
+      <Pagination
         data={data}
         setRecords={setRecords}
         setFirstIndex={setFirstIndex}
+        recodesPerPage={10}
       />
     </div>
   );

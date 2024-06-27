@@ -52,7 +52,7 @@ const TableRicecrop = ({ farmer_id }) => {
                 วันที่ปลูก
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                วันที่เก็บเกี่ยว
+                วันที่คาดว่าจะเก็บเกี่ยว
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 พันธุ์ข้าว

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import ReactPaginate from "react-paginate";
 
-const Pagonation = ({ data, setRecords, setFirstIndex}) => {
+const Pagination = ({ data, setRecords, setFirstIndex, recodesPerPage}) => {
+
   const [page, setPage] = useState(1);
-  const recodesPerPage = 7;
   const lastIndex = page * recodesPerPage;
   const firstIndex = lastIndex - recodesPerPage;
   const records = data.slice(firstIndex, lastIndex);
@@ -90,10 +90,11 @@ const Pagonation = ({ data, setRecords, setFirstIndex}) => {
   );
 };
 
-Pagonation.propTypes = {
+Pagination.propTypes = {
   data: PropTypes.array,
   setRecords: PropTypes.func,
-  setFirstIndex: PropTypes.func
+  setFirstIndex: PropTypes.func,
+  recodesPerPage: PropTypes.number
 };
 
-export default Pagonation;
+export default Pagination;
