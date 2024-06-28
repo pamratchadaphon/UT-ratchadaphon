@@ -6,17 +6,17 @@ import Search from "../../components/admin/Search";
 import AddIncome from "../../components/admin/AddIncome";
 import AddExpense from "../../components/admin/AddExpense";
 import SelectType from "../../components/admin/SelectType";
-import Search_RiceCaltivation from "../../components/admin/Search_RiceCaltivation";
+import ShowName from "../../components/admin/ShowName";
 
 const ManageIncomeExpense = () => {
-  const [searchEmail, setSearchEmail] = useState("");
+  const [search, setSearch] = useState("");
+  const [riceCaltivation_id_search, setRiceCaltivation_id_Search] =
+    useState("");
 
   const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
   const [showSidebar_Web, setShowSideBar_Web] = useState(true);
 
-  const [searchRiceCaltivation, setSearchRiceCaltivation] = useState("");
-
-  const [type, setType] = useState('')
+  const [type, setType] = useState("");
 
   return (
     <div>
@@ -42,28 +42,40 @@ const ManageIncomeExpense = () => {
               showSidebar_Web={showSidebar_Web}
               showSidebar_Moble={showSidebar_Moble}
             />
-            <div className="flex p-4 gap-2 flex-wrap">
-              <Search
-                search={searchEmail}
-                setSearch={setSearchEmail}
-                text={"ผู้ปลูก"}
-              />
-              <Search_RiceCaltivation
-                searchRiceCaltivation={searchRiceCaltivation}
-                setSearchRiceCaltivation={setSearchRiceCaltivation}
-              />
-            </div>
-            <div className="flex space-x-2 pl-4">
-              <SelectType setType={setType}/>
-              <AddIncome />
-              <AddExpense />
-            </div>
+
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4">
-              <Table_IncomeExpense
-                searchEmail={searchEmail}
-                searchRiceCaltivation={searchRiceCaltivation}
-                type={type}
-              />
+              <div className="flex gap-2 flex-wrap justify-between">
+                <Search
+                  search={search}
+                  setSearch={setSearch}
+                  setRiceCaltivation_id_Search={setRiceCaltivation_id_Search}
+                  page={"incomeExpense"}
+                  text={"ระบุชื่อชาวนา"}
+                />
+                <div className="flex space-x-2">
+                  <AddIncome />
+                  <AddExpense />
+                </div>
+              </div>
+              {search === "" ? (
+                <div>
+                  <div className="flex items-center gap-2 pb-4">
+                    {/* <h1>รายรับรายจ่ายทั้งหมด</h1> */}
+                    <SelectType setType={setType} />
+                  </div>
+                  <Table_IncomeExpense
+                    search={search}
+                    riceCaltivation_id_search={riceCaltivation_id_search}
+                    type={type}
+                  />
+                </div>
+              ) : (
+                <ShowName
+                  search={search}
+                  page={"incomeExpense"}
+                  riceCaltivation_id_search={riceCaltivation_id_search}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -93,13 +105,13 @@ const ManageIncomeExpense = () => {
               <div className="flex flex-wrap items-center gap-4">
                 <div className="flex space-x-2">
                   <Search
-                    search={searchEmail}
-                    setSearch={setSearchEmail}
+                    search={search}
+                    setSearch={setSearch}
                     text={"อีเมลผู้ปลูก"}
                   />
                   <Search
-                    search={searchEmail}
-                    setSearch={setSearchEmail}
+                    search={search}
+                    setSearch={setSearch}
                     text={"รอบการปลูก"}
                   />
                 </div>
@@ -109,8 +121,8 @@ const ManageIncomeExpense = () => {
                 </div>
               </div>
               <Table_IncomeExpense
-                searchEmail={searchEmail}
-                searchRiceCaltivation={searchRiceCaltivation}
+                searchEmail={search}
+                //searchRiceCaltivation={searchRiceCaltivation}
               />
             </div>
           </div>

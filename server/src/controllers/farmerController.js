@@ -9,11 +9,11 @@ module.exports = {
   async register(req, res) {
     try {
       const farmer = await Farmer.findOne({ where: { email: req.body.email } });
-      if (farmer) {
-        return res
-          .status(404)
-          .json({ status: "error", error: "Email already exists" });
-      }
+      // if (farmer) {
+      //   return res
+      //     .status(409)
+      //     .json({ status: "error", error: "Email already exists" });
+      // }
       const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
       const newFarmer = await Farmer.create({
         email: req.body.email,
@@ -27,7 +27,7 @@ module.exports = {
       });
       res.status(201).send(newFarmer);
     } catch (error) {
-      res.status(404).json({ status: "error", error: "Email already exists" });
+      res.status(409).json({ status: "error", error: error });
     }
   },
   async login(req, res) {
@@ -46,10 +46,7 @@ module.exports = {
     }
     const token = jwt.sign(
       { farmer_id: farmer.farmer_id, email: farmer.email },
-      secret,
-      // {
-      //   expiresIn: "1h",
-      // }
+      secret
     );
     res.status(200).json({
       status: "ok",
@@ -79,20 +76,24 @@ module.exports = {
   },
   async update(req, res) {
     const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
-    const newFarmer = await Farmer.update(
-      {
-        email: req.body.email,
-        password: hashPassword,
-        phone: req.body.phone,
-        fname: req.body.fname,
-        lname: req.body.lname,
-        subdistrict: req.body.subdistrict,
-        district: req.body.district,
-        province: req.body.province,
-      },
-      { where: { farmer_id: req.params.farmer_id } }
-    );
-    res.status(200).send(newFarmer);
+    try {
+      const newFarmer = await Farmer.update(
+        {
+          email: req.body.email,
+          password: hashPassword,
+          phone: req.body.phone,
+          fname: req.body.fname,
+          lname: req.body.lname,
+          subdistrict: req.body.subdistrict,
+          district: req.body.district,
+          province: req.body.province,
+        },
+        { where: { farmer_id: req.params.farmer_id } }
+      );
+      res.status(200).send(newFarmer);
+    } catch (error) {
+      res.status(409).json({status: 'erroe', error : error});
+    }
   },
   async edit(req, res) {
     const data = await Farmer.update(req.body, {

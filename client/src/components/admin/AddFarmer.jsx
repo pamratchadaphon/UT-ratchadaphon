@@ -48,6 +48,12 @@ const AddFarmer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
+    if (values.phone.length > 10) {
+      Swal.fire({
+        title: "เบอร์โทรศัพท์ไม่ถูกต้อง",
+        icon: "warning",
+      })
+    }
     if (
       values.fname !== "" &&
       values.lname !== "" &&

@@ -4,11 +4,10 @@ import Navbar from "../../components/admin/Navbar";
 import Search from "../../components/admin/Search";
 import Sidebar from "../../components/admin/Sidebar";
 import Table_RiceCaltivation from "../../components/admin/Table_RiceCaltivation";
+import ShowName from "../../components/admin/ShowName";
 
 const ManageRiceCaltivation = () => {
   const [search, setSearch] = useState("");
-
-  const searchName = (string) => setSearch(string);
 
   const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
   const [showSidebar_Web, setShowSideBar_Web] = useState(true);
@@ -38,16 +37,19 @@ const ManageRiceCaltivation = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <AddRiceCaltivation />
                 <div className="flex space-x-2">
-                  <Search
-                    search={search}
-                    searchName={searchName}
-                    text={"ค้นหาอีเมล"}
-                  />
+                  <Search setSearch={setSearch} text={"ระบุชื่อชาวนา"}/>
                 </div>
+                <AddRiceCaltivation />
               </div>
-              <Table_RiceCaltivation search={search} />
+              {search === "" ? (
+                <div>
+                  {/* <h1 className="pb-4 text-sm lg:text-md">รอบการปลูกทั้งหมด</h1> */}
+                  <Table_RiceCaltivation search={search}/>
+                </div>
+              ) : (
+                <ShowName search={search} page={'riceCaltivation'}/>
+              )}
             </div>
           </div>
         </div>
@@ -75,14 +77,14 @@ const ManageRiceCaltivation = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <AddRiceCaltivation />
                 <div className="flex space-x-2">
                   <Search
                     search={search}
-                    searchName={searchName}
-                    text={"ค้นหาอีเมล"}
+                    setSearch={setSearch}
+                    text={"ระบุชื่อชาวนา"}
                   />
                 </div>
+                <AddRiceCaltivation />
               </div>
               <Table_RiceCaltivation search={search} />
             </div>

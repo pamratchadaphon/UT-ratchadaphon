@@ -8,39 +8,48 @@ import Swal from "sweetalert2";
 import Pagination from "./Pagination";
 import { FaSort } from "react-icons/fa";
 
-const Table_RiceCaltivation = ({ search }) => {
+const Table_RiceCaltivation = ({ search, fname, lname}) => {
   const [data, setData] = useState([]);
-  const [order, setOrder] = useState("ASC");
+  const [order, setOrder] = useState("DSC");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/riceCaltivation");
         const data = res.data.filter((data) => data.farmer !== null);
-        const searchEmail = data.filter((data) =>
-          data.farmer.email.includes(search)
-        );
-        setData(searchEmail);
+        if (fname !== undefined && lname !== undefined) {
+          const searchName = data.filter(
+            (data) =>
+              data.farmer.fname.includes(fname) &&
+              data.farmer.lname.includes(lname)
+          );
+          setData(searchName.sort((a, b) => a.year - b.year));
+        } else {
+          const searchName = data.filter((data) =>
+            data.farmer.fname.includes(search)
+          );
+          setData(searchName.sort((a, b) => a.year - b.year));
+        }
       } catch (error) {
         console.log("Error : " + error);
       }
     };
     fetchData();
-  }, [search]);
+  }, [search, fname, lname]);
 
   const [records, setRecords] = useState([]);
 
-  const sortingEmail = (column) => {
+  const sortingName = (column) => {
     if (order === "ASC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column].toLowerCase() > b.farmer[column].toLowerCase() ? 1 : -1
+        a.farmer[column] > b.farmer[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column].toLowerCase() < b.farmer[column].toLowerCase() ? 1 : -1
+        a.farmer[column] < b.farmer[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("ASC");
@@ -65,15 +74,15 @@ const Table_RiceCaltivation = ({ search }) => {
       const sorted = [...data].sort((a, b) =>
         a.yield * a.rice_price_per_kg > b.yield * b.rice_price_per_kg ? 1 : -1
       );
-      setData(sorted)
-      setOrder("DSC")
+      setData(sorted);
+      setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...data].sort((a, b) =>
         a.yield * a.rice_price_per_kg < b.yield * b.rice_price_per_kg ? 1 : -1
       );
-      setData(sorted)
-      setOrder("ASC")
+      setData(sorted);
+      setOrder("ASC");
     }
   };
 
@@ -107,7 +116,7 @@ const Table_RiceCaltivation = ({ search }) => {
               <div className="flex items-center gap-2 justify-end">
                 รหัส
                 <button
-                  className="button"
+                  className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("riceCaltivation_id")}
                 >
                   <FaSort />
@@ -118,8 +127,8 @@ const Table_RiceCaltivation = ({ search }) => {
               <div className="flex items-center gap-2 justify-center">
                 ผู้ปลูก
                 <button
-                  className="button"
-                  onClick={() => sortingEmail("fname")}
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sortingName("fname")}
                 >
                   <FaSort />
                 </button>
@@ -128,7 +137,10 @@ const Table_RiceCaltivation = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 justify-end">
                 ปี{" "}
-                <button type="button" onClick={() => sorting("year")}>
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("year")}
+                >
                   <FaSort />
                 </button>
               </div>
@@ -136,7 +148,10 @@ const Table_RiceCaltivation = ({ search }) => {
             <th scope="col" className="px-2 py-4 text-start">
               <div className="flex items-center gap-2 justify-start">
                 พันธุ์ข้าว
-                <button type="button" onClick={() => sorting("riceVariety")}>
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("riceVariety")}
+                >
                   <FaSort />
                 </button>
               </div>
@@ -144,7 +159,10 @@ const Table_RiceCaltivation = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 justify-end">
                 พื้นที่ (ไร่)
-                <button className="button" onClick={() => sorting("area")}>
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("area")}
+                >
                   <FaSort />
                 </button>
               </div>
@@ -153,7 +171,7 @@ const Table_RiceCaltivation = ({ search }) => {
               <div className="flex items-center gap-2 justify-end">
                 ปริมาณข้าวที่ได้ (กิโลกรัม)
                 <button
-                  className="button"
+                  className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("total_yield")}
                 >
                   <FaSort />
@@ -163,7 +181,10 @@ const Table_RiceCaltivation = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 justify-end">
                 ปริมาณข้าวที่ขาย (กิโลกรัม)
-                <button className="button" onClick={() => sorting("yield")}>
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("yield")}
+                >
                   <FaSort />
                 </button>
               </div>
@@ -172,7 +193,7 @@ const Table_RiceCaltivation = ({ search }) => {
               <div className="flex items-center gap-2 justify-end">
                 ราคา/กิโลกรัม
                 <button
-                  className="button"
+                  className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("rice_price_per_kg")}
                 >
                   <FaSort />
@@ -182,7 +203,10 @@ const Table_RiceCaltivation = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 justify-end">
                 จำนวนเงิน (บาท)
-                <button className="button" onClick={() => sortingPrice()}>
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sortingPrice()}
+                >
                   <FaSort />
                 </button>
               </div>
@@ -242,7 +266,7 @@ const Table_RiceCaltivation = ({ search }) => {
           ))}
           {records.length === 0 ? (
             <tr>
-              <td className="text-center py-4" colSpan="8">
+              <td className="text-center py-4" colSpan="10">
                 ไม่พบข้อมูล
               </td>
             </tr>
@@ -256,6 +280,8 @@ const Table_RiceCaltivation = ({ search }) => {
 
 Table_RiceCaltivation.propTypes = {
   search: PropTypes.string,
+  fname: PropTypes.string,
+  lname: PropTypes.string,
 };
 
 export default Table_RiceCaltivation;

@@ -7,17 +7,15 @@ import Swal from "sweetalert2";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const Table_Farmers = ({ search }) => {
+const Table_Farmers = ({ search}) => {
   const [data, setData] = useState([]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:8080/farmer`);
-        const searchName = res.data.filter((data) =>
-          data.fname.includes(search)
-        );
-        setData(searchName.filter((data) => data.role === "user"));
+        const farmer = res.data.filter((data) => data.role === "user");
+        setData(farmer.filter((data) => data.fname.includes(search)));
       } catch (error) {
         console.log("Error : " + error);
       }
@@ -211,6 +209,7 @@ const Table_Farmers = ({ search }) => {
 
 Table_Farmers.propTypes = {
   search: PropTypes.string,
+  clear: PropTypes.bool
 };
 
 export default Table_Farmers;

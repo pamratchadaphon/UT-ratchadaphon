@@ -7,12 +7,9 @@ import Search from "../../components/admin/Search";
 
 const ManageRiceVariety = () => {
   const [search, setSearch] = useState("");
-
-  const searchName = (string) => setSearch(string);
-
+console.log(search);
   const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
   const [showSidebar_Web, setShowSideBar_Web] = useState(true);
-
   return (
     <div>
       {showSidebar_Web ? (
@@ -39,12 +36,12 @@ const ManageRiceVariety = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <AddRicevariety />
                 <Search
                   search={search}
-                  searchName={searchName}
+                  setSearch={setSearch}
                   text={"ค้นหาชื่อพันธุ์ข้าว"}
                 />
+                <AddRicevariety />
               </div>
               <Table_RiceVariety search={search} />
             </div>
@@ -74,12 +71,12 @@ const ManageRiceVariety = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <AddRicevariety />
                 <Search
                   search={search}
-                  searchName={searchName}
+                  setSearch={setSearch}
                   text={"ค้นหาชื่อพันธุ์ข้าว"}
                 />
+                <AddRicevariety />
               </div>
               <Table_RiceVariety search={search} />
             </div>

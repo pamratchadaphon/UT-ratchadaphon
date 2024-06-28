@@ -15,7 +15,7 @@ const BoxDashboard = () => {
         const resFarmer = await axios.get(`http://localhost:8080/farmer`);
         setFarmer(resFarmer.data.filter((data) => data.role === 'user'));
         const resRiceCaltivation = await axios.get(`http://localhost:8080/riceCaltivation`);
-        setRiceCaltivation(resRiceCaltivation.data);
+        setRiceCaltivation(resRiceCaltivation.data.filter((data) => data.farmer_id !== null));
         const resRiceVariety = await axios.get(`http://localhost:8080/riceVariety`);
         setRiceVariety(resRiceVariety.data)
       } catch (error) {

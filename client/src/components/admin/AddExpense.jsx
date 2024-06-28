@@ -6,7 +6,7 @@ const AddExpense = () => {
     <div>
       <button
         type="button"
-        className="bg-red-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
+        className="bg-red-600 px-3 py-2.5 text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
         onClick={() => setModal(!modal)}
       >
         บันทึกรายจ่าย

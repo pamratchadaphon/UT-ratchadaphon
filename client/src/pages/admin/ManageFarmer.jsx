@@ -4,8 +4,6 @@ import Navbar from "../../components/admin/Navbar";
 import Sidebar from "../../components/admin/Sidebar";
 import Search from "../../components/admin/Search";
 import Table_Farmers from "../../components/admin/Table_Farmers";
-import SelectProvince from "../../components/admin/SelectProvince";
-import { IoSearch } from "react-icons/io5";
 
 const ManageFarmer = () => {
   const [search, setSearch] = useState("");
@@ -41,14 +39,13 @@ const ManageFarmer = () => {
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div className="flex space-x-2">
                   <Search
-                    search={search}
                     setSearch={setSearch}
-                    text={"ค้นหาผู้ปลูก"}
+                    text={"ระบุชื่อชาวนา"}
                   />
                 </div>
                 <AddFarmer />
               </div>
-              <Table_Farmers search={search} />
+              <Table_Farmers search={search}/>
             </div>
           </div>
         </div>
@@ -76,14 +73,15 @@ const ManageFarmer = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <AddFarmer />
+                
                 <div className="flex space-x-2">
                   <Search
                     search={search}
-                    searchName={searchName}
-                    text={"ค้นหาอีเมล"}
+                    setSearch={setSearch}
+                    text={"ระบุชื่อชาวนา"}
                   />
                 </div>
+                <AddFarmer />
               </div>
               <Table_Farmers search={search} />
             </div>
