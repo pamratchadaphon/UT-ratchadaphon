@@ -5,8 +5,12 @@ const RiceCaltivation = db.RiceCaltivation;
 
 module.exports = {
   async create(req, res) {
-    const incomeExpense = await IncomeExpense.create(req.body);
+    try {
+      const incomeExpense = await IncomeExpense.create(req.body);
     res.status(201).send(incomeExpense);
+    } catch (error) {
+      res.status(400).json({status: 'error', error: error})
+    }
   },
   async index(req, res) {
     const incomeExpense = await IncomeExpense.findAll({

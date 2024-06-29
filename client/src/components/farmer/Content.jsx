@@ -13,12 +13,19 @@ const Content = () => {
   const [showModalIncome, setShowModalIncome] = useState(false);
   const [riceCaltivation_id, setRiceCaltivation_id] = useState(0);
   const [status, setStatus] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
         `http://localhost:8080/farmer/riceCaltivation_incomeExpense/${farmer_id}`
       );
+      const resFarmer = await axios.get(
+        `http://localhost:8080/farmer/${farmer_id}`
+      );
+      setFname(resFarmer.data.fname);
+      setLname(resFarmer.data.lname);
       if (res.data[0].riceCaltivation.length !== 0) {
         const resRiceCaltivation = res.data[0].riceCaltivation;
         setData(resRiceCaltivation[resRiceCaltivation.length - 1]);
@@ -58,11 +65,16 @@ const Content = () => {
     ];
     return `${day} ${monthString[month]} ${year}`;
   };
-
   return (
-    <div>
+    <div className="mx-auto max-w-screen-xl w-full p-4">
+      <div className="flex items-center text-xl mb-4">
+        <h1 className="text-gray-500">สวัสดี </h1>
+        <h1>
+          {fname} {lname}
+        </h1>
+      </div>
       {status === "old" ? (
-        <div className="">
+        <div>
           <div className="flex flex-col justify-center items-center">
             <h1 className="mb-4 text-4xl font-extrabold text-green-700 tracking-tight leading-none  md:text-5xl lg:text-6xl">
               พันธุ์ {data.riceVariety}
@@ -75,7 +87,7 @@ const Content = () => {
             </p>
             <div className="flex gap-2 md:gap-3 justify-center items-center">
               <button
-                className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-200 shadow-md"
+                className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-500 shadow-md"
                 onClick={handleModalExpense}
               >
                 บันทึกรายจ่าย
@@ -87,7 +99,7 @@ const Content = () => {
                 riceCaltivation_id={riceCaltivation_id}
               />
               <button
-                className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-200"
+                className="bg-green-400 lg:bg-green-300 h-36 w-36 rounded-full  text-white lg:text-green-700 lg:hover:bg-green-500 lg:hover:text-white shadow-md hover:duration-500"
                 onClick={handleModalIncome}
               >
                 บันทึกรายรับ

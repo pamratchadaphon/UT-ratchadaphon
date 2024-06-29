@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { RiErrorWarningLine } from "react-icons/ri";
+import {motion} from 'framer-motion'
 
 const AddriceCaltivation = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -28,9 +29,6 @@ const AddriceCaltivation = () => {
   const [endDate, setEndDate] = useState(false);
   const [riceVariety, setRiceVariety] = useState(false);
   const [area, setArea] = useState(false);
-  const [email, setEmail] = useState(false);
-
-  const [email_input, setEmail_Input] = useState("");
 
   const check = async () => {
     values.year === "" ? setYear(true) : null;
@@ -44,18 +42,6 @@ const AddriceCaltivation = () => {
   useEffect(() => setRiceVariety(false), [values.riceVariety]);
   useEffect(() => setArea(false), [values.area]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await axios.get(`http://localhost:8080/farmer/`);
-  //     const data = res.data.map((data) => data.email === email_input ? setFarmer_id(data.farmer_id) : null);
-  //     console.log(data);
-  //     if (data.length > 0) {
-  //       setValues({ ...values, farmer_id: data[0].farmer_id });
-  //     }
-  //   };
-  //   fetchData();
-  // }, [email_input]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
@@ -66,29 +52,25 @@ const AddriceCaltivation = () => {
       values.area !== "" &&
       values.farmer_id !== ""
     ) {
-      const res = await axios.get(`http://localhost:8080/farmer/`);
-      for (let i = 0; i < res.data.length; i++) {
-        if (res.data[i].email === email_input) {
-          const farmer_id = res.data[i].farmer_id;
-          setValues({ ...values, farmer_id: farmer_id });
-          break;
-        } else {
-          setValues({ ...values, farmer_id: 0 });
+      try {
+        await axios
+          .post("http://localhost:8080/riceCaltivation", values)
+          .then((result) => console.log(result.data));
+        Swal.fire({
+          title: "เพิ่มรอบการปลูกสำเร็จ",
+          icon: "success",
+        }).then((result) => {
+          result ? window.location.reload() : null;
+        });
+      } catch (error) {
+        console.log(error);
+        if (error.response.data.error.name === "SequelizeForeignKeyConstraintError") {
+          Swal.fire({
+            title: "ไม่พบรหัสชาวนา",
+            icon: "error",
+          })
         }
       }
-
-      const f = values.farmer_id;
-      console.log(f);
-      // await axios
-      //   .post("http://localhost:8080/riceCaltivation", values)
-      //   .then((result) => console.log(result.data));
-      // Swal.fire({
-      //   title: "เพิ่มรอบการปลูกสำเร็จ",
-      //   icon: "success",
-      // }).then((result) => {
-      //   result ? window.location.reload() : null;
-      // });
-      console.log(values);
     }
   };
   return (
@@ -103,7 +85,7 @@ const AddriceCaltivation = () => {
       {isOpenModal ? (
         <div className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-black bg-opacity-50 flex">
           <div className="relative p-4 w-full max-w-md max-h-full">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div initial={{y: -100}} animate={{y: 0}} transition={{duration: 1}} className="relative bg-white rounded-lg shadow">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
                   เพิ่มรอบการปลูก
@@ -231,14 +213,15 @@ const AddriceCaltivation = () => {
                   <div className="grid gap-4 grid-cols-2">
                     <div className="col-span-2">
                       <label className="block mb-2 text-sm font-medium text-gray-900">
-                        อีเมลผู้ปลูก
+                        รหัสชาวนา
                       </label>
                       <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        value={email_input}
-                        onChange={(e) => setEmail_Input(e.target.value)}
+                        type="number"
+                        name="farmer_id"
+                        id="farmer_id"
+                        onChange={(e) =>
+                          setValues({ ...values, farmer_id: e.target.value })
+                        }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       {area ? (
@@ -267,7 +250,7 @@ const AddriceCaltivation = () => {
                   </button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

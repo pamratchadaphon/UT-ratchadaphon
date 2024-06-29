@@ -3,8 +3,12 @@ const RiceCaltivation = db.RiceCaltivation;
 
 module.exports = {
   async create(req, res) {
-    const riceCaltivation = await RiceCaltivation.create(req.body);
-    res.status(201).send(riceCaltivation);
+    try {
+      const riceCaltivation = await RiceCaltivation.create(req.body);
+      res.status(201).send(riceCaltivation);
+    } catch (error) {
+      res.status(400).json({status: 'error', error: error});
+    }
   },
   async index(req, res) {
     const riceCaltivation = await RiceCaltivation.findAll({

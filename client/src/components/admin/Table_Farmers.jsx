@@ -6,10 +6,11 @@ import EditFarmer from "./EditFarmer";
 import Swal from "sweetalert2";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { FaSort } from "react-icons/fa";
 
-const Table_Farmers = ({ search}) => {
+const Table_Farmers = ({ search }) => {
   const [data, setData] = useState([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -49,6 +50,21 @@ const Table_Farmers = ({ search}) => {
     }
   }, [firstIndex, records]);
 
+  const [order, setOrder] = useState("DSC");
+
+  const sorting = (column) => {
+    if (order === "ASC") {
+      const sorted = data.sort((a, b) => (a[column] > b[column] ? 1 : -1));
+      setData(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = data.sort((a, b) => (a[column] < b[column] ? 1 : -1));
+      setData(sorted);
+      setOrder("ASC");
+    }
+  };
+
   const deleteFarmer = async (id, fname, lname) => {
     try {
       Swal.fire({
@@ -81,7 +97,19 @@ const Table_Farmers = ({ search}) => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-2 py-4 text-start">
-              ชื่อ
+              <div className="flex items-center gap-2 justify-center">
+                ID
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("farmer_id")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4 text-start">
+            ชื่อ
+
             </th>
             <th scope="col" className="px-2 py-4 text-start">
               นามสกุล
@@ -109,6 +137,12 @@ const Table_Farmers = ({ search}) => {
         <tbody>
           {records.map((d, i) => (
             <tr key={i} className="bg-white border-b hover:bg-gray-50 ">
+              <th
+                scope="row"
+                className="p-2 font-normal text-center text-gray-900"
+              >
+                {d.farmer_id}
+              </th>
               <th scope="row" className="p-2 font-normal text-start">
                 {d.fname}
               </th>
@@ -209,7 +243,7 @@ const Table_Farmers = ({ search}) => {
 
 Table_Farmers.propTypes = {
   search: PropTypes.string,
-  clear: PropTypes.bool
+  clear: PropTypes.bool,
 };
 
 export default Table_Farmers;

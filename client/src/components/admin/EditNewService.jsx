@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
 const EditNewService = ({ id }) => {
   const [modal, setModal] = useState(false);
@@ -75,7 +76,12 @@ const EditNewService = ({ id }) => {
       {modal ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full ">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900">
                   แก้ไขข่าวสาร
@@ -90,13 +96,11 @@ const EditNewService = ({ id }) => {
               </div>
               <div className="p-4 md:p-5">
                 <form
-                  className="flex flex-col space-y-4"
+                  className="flex flex-col space-y-4 text-start"
                   onSubmit={handleSubmit}
                 >
                   <div>
-                    <label
-                      className="block text-sm font-medium text-gray-900 mb-2"
-                    >
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
                       หัวข้อ
                     </label>
                     <input
@@ -118,9 +122,7 @@ const EditNewService = ({ id }) => {
                   </div>
 
                   <div>
-                    <label
-                      className="text-sm text-gray-900 font-medium block mb-2"
-                    >
+                    <label className="text-sm text-gray-900 font-medium block mb-2">
                       ลิงค์ของข้อมูล
                     </label>
 
@@ -159,7 +161,7 @@ const EditNewService = ({ id }) => {
                   </div>
                 </form>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

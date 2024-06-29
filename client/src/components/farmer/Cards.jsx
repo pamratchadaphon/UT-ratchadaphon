@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import axios from "axios";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
-const Cards = ({data}) => {
+const Cards = ({ data }) => {
   const [modal, setModal] = useState(false);
   const [dataById, setDataById] = useState({});
 
@@ -14,7 +15,7 @@ const Cards = ({data}) => {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 w-full px-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 w-full px-4 mb-4">
       {data.map((d, i) => (
         <div
           className="max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:-translate-y-1 hover:scale-100 hover:shadow-lg hover:duration-700"
@@ -49,13 +50,18 @@ const Cards = ({data}) => {
       {modal ? (
         <div className="fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-x-hidden flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-sm max-h-full">
-            <div className="relative bg-white rounded-lg shadow p-4">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow p-4"
+            >
               <div>
                 <img
                   src={`http://localhost:8080/${dataById.image}`}
                   className="rounded-lg h-48 w-full"
                 />
-                <div>
+                <div className="mb-2">
                   <div className="pt-2 pb-1">
                     <span className="font-semibold text-lg text-green-700">
                       ข้อมูลพันธุ์ข้าว {dataById.name}
@@ -128,7 +134,7 @@ const Cards = ({data}) => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}
@@ -137,7 +143,7 @@ const Cards = ({data}) => {
 };
 
 Cards.propTypes = {
-  data: PropTypes.array
-}
+  data: PropTypes.array,
+};
 
 export default Cards;

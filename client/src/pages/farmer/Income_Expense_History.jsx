@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import ModalAddIncome from "../../components/farmer/ModalAddIncome";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-// import All_IncomeExpense from "../../components/farmer/All_IncomeExpense";
 import IncomeExpensePerMonth from "../../components/farmer/IncomeExpensePerMonth";
 import SelectMonth from "../../components/farmer/SelectMonth";
-import Chart from "../../components/farmer/chart";
+import Cetegory_Expense from "../../components/farmer/Cetegory_Expense";
 import { motion } from "framer-motion";
 import Bg_header from "../../components/farmer/Bg_header";
 
@@ -86,10 +85,7 @@ const Income_Expense_History = () => {
             startMonth_IncomeExpense={startMonth_IncomeExpense}
             endMonth_IncomeExpense={endMonth_IncomeExpense}
           />
-          {/* <All_IncomeExpense
-            incomeExpense={incomeExpense}
-          /> */}
-          <Chart incomeExpense={incomeExpense}/>
+          <Cetegory_Expense incomeExpense={incomeExpense}/>
         </div>
 
         <div className="bg-white p-4 my-4 rounded-lg shadow-md">

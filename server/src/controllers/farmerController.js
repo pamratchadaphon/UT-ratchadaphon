@@ -92,14 +92,8 @@ module.exports = {
       );
       res.status(200).send(newFarmer);
     } catch (error) {
-      res.status(409).json({status: 'erroe', error : error});
+      res.status(409).json({status: 'error', error : error});
     }
-  },
-  async edit(req, res) {
-    const data = await Farmer.update(req.body, {
-      where: { farmer_id: req.params.farmer_id },
-    });
-    res.status(200).send(req.body);
   },
   async delete(req, res) {
     await Farmer.destroy({ where: { farmer_id: req.params.farmer_id } });

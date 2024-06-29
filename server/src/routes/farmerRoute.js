@@ -12,6 +12,5 @@ router.get(
   "/riceCaltivation_incomeExpense/:farmer_id",
   farmerController.riceCaltivation_incomeExpense
 );
-router.put('/edit/:farmer_id', farmerController.edit)
 
 module.exports = router;

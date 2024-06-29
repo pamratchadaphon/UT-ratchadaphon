@@ -8,7 +8,6 @@ import EditNewService from "./EditNewService";
 
 const Table_NewsService = ({ data }) => {
   const [records, setRecords] = useState([]);
-  const [firstIndex, setFirstIndex] = useState(0);
 
   const deleteNewService = async (id, name) => {
     try {
@@ -41,10 +40,7 @@ const Table_NewsService = ({ data }) => {
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
-            <th scope="col" className="px-6 py-3 w-1/4">
-              ลำดับที่
-            </th>
-            <th scope="col" className="px-6 py-3 w-1/4">
+            <th scope="col" className="px-6 py-3 w-1/4 text-start">
               หัวข้อ
             </th>
             <th scope="col" className="px-6 py-3  w-1/4 ">
@@ -58,14 +54,8 @@ const Table_NewsService = ({ data }) => {
         <tbody>
           {records.map((d, i) => (
             <tr key={i} className="bg-white border-b hover:bg-gray-50">
-              <th
-                scope="row"
-                className="p-2 font-medium text-gray-900 whitespace-nowrap"
-              >
-                {firstIndex + i + 1}
-              </th>
 
-              <th scope="row" className="px-2 font-normal">
+              <th scope="row" className="px-4 py-2 font-normal text-start">
                 {d.name}
               </th>
               <th
@@ -78,8 +68,8 @@ const Table_NewsService = ({ data }) => {
                   className="underline text-blue-600"
                 >
                   
-                  {/* <p> {d.content}</p> */}
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti!
+                  <p> {d.content}</p>
+                  {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti! */}
                 </a>
               </th>
               <th scope="row" className="p-2 font-normal">
@@ -109,7 +99,6 @@ const Table_NewsService = ({ data }) => {
       <Pagination
         data={data}
         setRecords={setRecords}
-        setFirstIndex={setFirstIndex}
         recodesPerPage={4}
       />
     </div>

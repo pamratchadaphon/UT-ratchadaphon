@@ -3,6 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
 const ViewRiceVariety = ({ id }) => {
   const [modal, setModal] = useState(false);
@@ -36,9 +37,14 @@ const ViewRiceVariety = ({ id }) => {
       </button>
 
       {modal ? (
-        <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50 h-screen">
+        <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md lg:max-w-2xl">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex justify-between items-center p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
                   ข้อมูลพันธุ์ข้าว
@@ -60,9 +66,7 @@ const ViewRiceVariety = ({ id }) => {
                     <span className="text-sm font-medium text-gray-900 w-1/3">
                       ชื่อพันธุ์
                     </span>
-                    <span className="text-sm text-gray-700">
-                      {data.name}
-                    </span>
+                    <span className="text-sm text-gray-700">{data.name}</span>
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/3 ">
@@ -139,7 +143,7 @@ const ViewRiceVariety = ({ id }) => {
                   </button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

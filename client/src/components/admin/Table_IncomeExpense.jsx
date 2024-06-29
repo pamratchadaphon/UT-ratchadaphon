@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { IoTrashOutline } from "react-icons/io5";
-import Pagination from "./Pagination";
 import EditIncome from "./EditIncome";
 import EditExpense from "./EditExpense";
 import Swal from "sweetalert2";
 import { FaSort } from "react-icons/fa";
+import ReactPaginate from "react-paginate";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 const Table_IncomeExpense = ({
   search,
@@ -82,7 +83,31 @@ const Table_IncomeExpense = ({
       setOrder("ASC");
     }
   };
-  const [records, setRecords] = useState([]);
+  const [page, setPage] = useState(1);
+  const recodesPerPage = 10;
+  const lastIndex = page * recodesPerPage;
+  const firstIndex = lastIndex - recodesPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recodesPerPage);
+  const [lastRow, setLastRow] = useState(0);
+
+  const nextPage = () => {
+    page < npage ? setPage(page + 1) : null;
+  };
+
+  const prePage = () => {
+    page > 1 ? setPage(page - 1) : null;
+  };
+
+  const changePage = (even) => {
+    setPage(even.selected + 1);
+  };
+
+  useEffect(() => {
+    if (records.length > 0) {
+      setLastRow(firstIndex + records.length);
+    }
+  }, [firstIndex, records]);
 
   const handleDelete = async (detail, id) => {
     try {
@@ -139,7 +164,7 @@ const Table_IncomeExpense = ({
                 </div>
               </th>
               <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-center">
+                <div className="flex items-center gap-2 justify-start">
                   วันที่
                   <button
                     className="text-gray-400 hover:text-gray-700"
@@ -150,7 +175,7 @@ const Table_IncomeExpense = ({
                 </div>
               </th>
               <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-center">
+                <div className="flex items-center gap-2 justify-start">
                   รายการ
                   <button
                     className="text-gray-400 hover:text-gray-700"
@@ -160,8 +185,8 @@ const Table_IncomeExpense = ({
                   </button>
                 </div>
               </th>
-              <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-center">
+              <th scope="col" className="px-4 py-2">
+                <div className="flex items-center gap-2 justify-end">
                   ราคา
                   <button
                     className="text-gray-400 hover:text-gray-700"
@@ -171,33 +196,33 @@ const Table_IncomeExpense = ({
                   </button>
                 </div>
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
+              <th scope="col" className="px-2 py-4 text-center">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((d, i) => (
+            {records.map((d, i) => (
               <tr
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
                 key={i}
               >
-                <td className="px-4 py-2 text-center">
+                <td className="p-2 text-center">
                   {d.farmer.fname} {d.farmer.lname}
                 </td>
-                <td className="px-4 py-2 text-center">
+                <td className="p-2 text-center">
                   {d.riceCaltivation_id}
                 </td>
-                <th className="p-2 text-center font-normal">
+                <th className="p-2 font-normal text-start">
                   {new Date(d.date).getDate()}/{new Date(d.date).getMonth() + 1}
                   /{new Date(d.date).getFullYear()}
                 </th>
-                <td className="px-4 py-2 text-center">{d.detail}</td>
-                <td className="px-4 py-2 text-end">
+                <td className="p-2 text-start">{d.detail}</td>
+                <td className="p-2 text-end">
                   {d.price.toLocaleString()}
                 </td>
 
-                <td className="px-4 py-2">
+                <td className="p-2">
                   <div className="flex justify-center items-center gap-2">
                     <div className="flex justify-center items-center cursor-pointer">
                       <div className="hover:bg-sky-400 hover:text-white rounded-md bg-sky-100 text-sky-500  w-8 h-8 flex justify-center items-center border border-sky-200">
@@ -238,7 +263,55 @@ const Table_IncomeExpense = ({
           </tbody>
         </table>
       </div>
-      <Pagination data={data} setRecords={setRecords} recodesPerPage={10} />
+      <nav
+        className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 w-full"
+        aria-label="Table navigation"
+      >
+        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+          จำนวนแถวต่อหน้า{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {firstIndex + 1}-{lastRow}
+          </span>{" "}
+          จาก{" "}
+          <span className="font-semibold text-gray-900 dark:text-white">
+            {data.length}
+          </span>
+        </span>
+        <ReactPaginate
+          breakLabel={
+            <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
+              ...
+            </span>
+          }
+          nextLabel={
+            page < npage ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={nextPage}
+              >
+                <GrNext />
+              </span>
+            ) : null
+          }
+          onPageChange={changePage}
+          pageRangeDisplayed={5}
+          pageCount={npage}
+          previousLabel={
+            firstIndex > 0 ? (
+              <span
+                className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+                onClick={prePage}
+              >
+                <GrPrevious />
+              </span>
+            ) : null
+          }
+          renderOnZeroPageCount={null}
+          containerClassName="flex space-x-1 justify-center items-center"
+          pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
+          activeClassName="bg-green-100 text-green-700"
+        />
+      </nav>
     </div>
   );
 };

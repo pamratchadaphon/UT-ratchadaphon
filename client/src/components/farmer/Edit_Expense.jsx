@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { FaRegEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
   const [values, setValues] = useState({
@@ -68,7 +69,7 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
       setPayees([...new Set(payee)]);
     };
     fetchData();
-  }, [income_expense_id]);
+  }, [income_expense_id, riceCaltivation_id]);
 
   const data_labor = [
     "กำจัดวัชพืช",
@@ -105,19 +106,23 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
   const [price, setPrice] = useState(false);
   const [payee, setPayee] = useState(false);
 
-  useEffect(() => {setDetail1_input(false)}, [values.detail])
-  useEffect(() => {setPrice(false)}, [values.price])
-  useEffect(() => setPayee(false), [values.payee])
+  useEffect(() => {
+    setDetail1_input(false);
+  }, [values.detail]);
+  useEffect(() => {
+    setPrice(false);
+  }, [values.price]);
+  useEffect(() => setPayee(false), [values.payee]);
 
   const check = () => {
-    values.detail === '' ? setDetail1_input(true) : null
-    values.price === '' ? setPrice(true) : null
-    values.payee === '' ? setPayee(true) : null
-  }
+    values.detail === "" ? setDetail1_input(true) : null;
+    values.price === "" ? setPrice(true) : null;
+    values.payee === "" ? setPayee(true) : null;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    check()
+    check();
     if (values.detail !== "" && values.price !== "" && values.payee !== "") {
       await axios
         .put(`http://localhost:8080/incomeExpense/${income_expense_id}`, values)
@@ -145,7 +150,12 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
       {modal ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full ">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900">
                   แก้ไขรายจ่าย
@@ -202,8 +212,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                       <div className="relative max-w-md max-h-full w-full p-4 border rounded-lg shadow-lg ">
                         <div className="text-sm space-y-2 ">
                           <select
-                            name=""
-                            id=""
+                            name="laboor"
+                            id="laboor"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -215,8 +225,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
+                            name="chemicals"
+                            id="chemicals"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -228,8 +238,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
+                            name="machinery"
+                            id="mechinary"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -241,8 +251,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             ))}
                           </select>
                           <select
-                            name=""
-                            id=""
+                            name="fule"
+                            id="fule"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -252,8 +262,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             </option>
                           </select>
                           <select
-                            name=""
-                            id=""
+                            name="land_rent"
+                            id="land_rent"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -261,8 +271,8 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                             <option value="เช่าที่ดิน">เช่าที่ดิน</option>
                           </select>
                           <select
-                            name=""
-                            id=""
+                            name="seed"
+                            id="seed"
                             className="w-full text-gray-900"
                             onChange={handleDetail}
                           >
@@ -376,7 +386,7 @@ const Edit_Expense = ({ income_expense_id, riceCaltivation_id }) => {
                   </div>
                 </form>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

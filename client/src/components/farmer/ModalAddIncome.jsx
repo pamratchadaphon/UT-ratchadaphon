@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { motion } from "framer-motion";
 
 const ModalAddIncome = ({
   showModalIncome,
@@ -26,7 +27,7 @@ const ModalAddIncome = ({
     rice_consumption: "",
     seed_rice: "",
   });
-  
+
   useEffect(() => {
     setValues({ ...values, riceCaltivation_id: riceCaltivation_id });
   }, [riceCaltivation_id]);
@@ -102,7 +103,12 @@ const ModalAddIncome = ({
         <div>
           <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50 h-screen">
             <div className="relative p-4 w-full max-w-lg max-h-full">
-              <div className="relative bg-white rounded-lg shadow">
+              <motion.div
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1 }}
+                className="relative bg-white rounded-lg shadow"
+              >
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                   <h3 className="text-xl font-semibold text-gray-900 ">
                     บันทึกรายรับ
@@ -119,7 +125,10 @@ const ModalAddIncome = ({
                   <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                       <div className="flex flex-col">
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                        <label
+                          htmlFor="date"
+                          className="block mb-2 text-sm font-medium text-gray-900 "
+                        >
                           วันที่
                         </label>
                         <input
@@ -134,7 +143,10 @@ const ModalAddIncome = ({
                         />
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                        <label
+                          htmlFor="detail"
+                          className="block mb-2 text-sm font-medium text-gray-900 "
+                        >
                           รายการ
                         </label>
                         <input
@@ -147,14 +159,17 @@ const ModalAddIncome = ({
                         />
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label
+                          htmlFor="total_yield"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
                           ปริมาณข้าวที่ได้ (กิโลกรัม)
                         </label>
 
                         <input
                           type="number"
-                          name="yield_rice"
-                          id="yield_rice"
+                          name="total_yield"
+                          id="total_yield"
                           value={yield_rice.total_yield}
                           onChange={(e) =>
                             setYield({
@@ -172,14 +187,17 @@ const ModalAddIncome = ({
                         ) : null}
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label
+                          htmlFor="yield"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
                           ปริมาณข้าวที่ขาย (กิโลกรัม)
                         </label>
 
                         <input
                           type="number"
-                          name="yield_rice"
-                          id="yield_rice"
+                          name="yield"
+                          id="yield"
                           value={yield_rice.yield}
                           onChange={(e) =>
                             setYield({ ...yield_rice, yield: e.target.value })
@@ -194,7 +212,10 @@ const ModalAddIncome = ({
                         ) : null}
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                        <label
+                          htmlFor="rice_price_per_kg"
+                          className="block mb-2 text-sm font-medium text-gray-900 "
+                        >
                           ราคา/กิโลกรัม (บาท)
                         </label>
                         <input
@@ -218,7 +239,10 @@ const ModalAddIncome = ({
                         ) : null}
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label
+                          htmlFor="price"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
                           จำนวนเงิน (บาท)
                         </label>
                         <input
@@ -232,7 +256,10 @@ const ModalAddIncome = ({
                       </div>
 
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                        <label
+                          htmlFor="rice_consumption"
+                          className="block mb-2 text-sm font-medium text-gray-900 "
+                        >
                           เก็บไว้บริโภค (กิโลกรัม)
                         </label>
                         <input
@@ -250,7 +277,10 @@ const ModalAddIncome = ({
                         />
                       </div>
                       <div>
-                        <label className="block mb-2 text-sm font-medium text-gray-900 ">
+                        <label
+                          htmlFor="seed_rice"
+                          className="block mb-2 text-sm font-medium text-gray-900 "
+                        >
                           เก็บไว้ทำเมล็ดพันธ์ุ (กิโลกรัม)
                         </label>
                         <input
@@ -286,7 +316,7 @@ const ModalAddIncome = ({
                     </div>
                   </form>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

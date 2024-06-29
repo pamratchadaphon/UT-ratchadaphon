@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import { FaRegEdit } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
   const [values, setValues] = useState({
@@ -95,7 +96,12 @@ const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
       {modal ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 max-h-full bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-lg max-h-full">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900 ">
                   แก้ไขรายรับ
@@ -264,7 +270,7 @@ const Edit_Income = ({ income_expense_id, riceCaltivation_id }) => {
                   </div>
                 </form>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

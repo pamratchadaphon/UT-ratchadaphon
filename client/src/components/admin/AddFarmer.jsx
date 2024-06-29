@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 const AddFarmer = () => {
   const [modal, setModal] = useState(false);
@@ -52,7 +53,7 @@ const AddFarmer = () => {
       Swal.fire({
         title: "เบอร์โทรศัพท์ไม่ถูกต้อง",
         icon: "warning",
-      })
+      });
     }
     if (
       values.fname !== "" &&
@@ -75,12 +76,16 @@ const AddFarmer = () => {
           result.isConfirmed ? window.location.reload() : null;
         });
       } catch (error) {
-        console.log("Error : " + error);
-        Swal.fire({
-          title: "อีเมลนี้ถูกใช้แล้ว",
-          text: "กรุณาใช้อีเมลใหม่ในการสร้างบัญชี",
-          icon: "error",
-        });
+        console.log(error);
+        if (
+          error.response.data.error.name === "SequelizeUniqueConstraintError"
+        ) {
+          Swal.fire({
+            title: "อีเมลนี้ถูกใช้แล้ว",
+            text: "กรุณาใช้อีเมลใหม่ในการสร้างบัญชี",
+            icon: "error",
+          });
+        }
       }
     }
   };
@@ -97,7 +102,12 @@ const AddFarmer = () => {
       {modal ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md max-h-full ">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-xl font-semibold text-gray-900">
                   เพิ่มชาวนา
@@ -341,7 +351,7 @@ const AddFarmer = () => {
                   </div>
                 </form>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

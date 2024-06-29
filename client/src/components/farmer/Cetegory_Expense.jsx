@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
-const All_IncomeExpense = ({ incomeExpense }) => {
+const Cetegory_Expense = ({ incomeExpense }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -121,8 +121,8 @@ const All_IncomeExpense = ({ incomeExpense }) => {
   );
 };
 
-All_IncomeExpense.propTypes = {
+Cetegory_Expense.propTypes = {
   incomeExpense: PropTypes.array
 }
 
-export default All_IncomeExpense;
+export default Cetegory_Expense;

@@ -5,10 +5,11 @@ import { IoMdClose } from "react-icons/io";
 import { RiErrorWarningLine } from "react-icons/ri";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 const Edit_Yield = ({ riceCaltivation_id }) => {
   const [modal, setModal] = useState(false);
-  const [yield_rice, setYield_Rice] = useState({})
+  const [yield_rice, setYield_Rice] = useState({});
 
   const [values, setValues] = useState({
     total_yield: "",
@@ -23,7 +24,7 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
           `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`
         );
         res.data.length !== 0 ? setYield_Rice(res.data) : null;
-       } catch (error) {
+      } catch (error) {
         console.log("Error : " + error);
       }
     };
@@ -37,7 +38,7 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
       yield: yield_rice.yield,
       rice_price_per_kg: yield_rice.rice_price_per_kg,
     });
-  }, [yield_rice])
+  }, [yield_rice]);
 
   const [total_yield, setTotal_yield] = useState(false);
   const [yield_input, setYield] = useState(false);
@@ -63,7 +64,10 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
     ) {
       try {
         await axios
-          .put(`http://localhost:8080/riceCaltivation/${riceCaltivation_id}`, values)
+          .put(
+            `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,
+            values
+          )
           .then((result) => {
             console.log(result.data);
           });
@@ -93,7 +97,12 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
       {modal ? (
         <div className=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-black bg-opacity-50 flex">
           <div className="relative p-4 w-full max-w-md max-h-full">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
                   แก้ไขผลผลิต
@@ -215,7 +224,7 @@ const Edit_Yield = ({ riceCaltivation_id }) => {
                   </button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}

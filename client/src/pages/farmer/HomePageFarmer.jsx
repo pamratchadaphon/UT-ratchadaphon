@@ -9,10 +9,6 @@ const HomePageFarmer = () => {
   return (
     <div className="h-screen flex flex-col justify-between bg-gradient-to-r from-green-100 to-blue-100">
       <Navbar id={farmer_id} page={"home"} />
-      <div className="flex items-center px-6 text-xl">
-        <h1 className="text-gray-500">สวัสดี</h1>
-        <h1>aaa</h1>
-      </div>
       <Content />
       <NewsService />
     </div>

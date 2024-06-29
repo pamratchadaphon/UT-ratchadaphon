@@ -2,19 +2,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
-const View_RiceCaltivation = ( {id} ) => {
+const View_RiceCaltivation = ({ id }) => {
   const [modal, setModal] = useState(false);
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8080/riceCaltivation/${id}`)
-      setData(res.data)
-    }
+      const res = await axios.get(
+        `http://localhost:8080/riceCaltivation/${id}`
+      );
+      setData(res.data);
+    };
     fetchData();
-  }, [id])
+  }, [id]);
 
   return (
     <div>
@@ -30,7 +33,12 @@ const View_RiceCaltivation = ( {id} ) => {
       {modal ? (
         <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-md lg:max-w-lg">
-            <div className="relative bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="relative bg-white rounded-lg shadow"
+            >
               <div className="flex justify-between items-center p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
                   ข้อมูลรอบการปลูก
@@ -59,7 +67,9 @@ const View_RiceCaltivation = ( {id} ) => {
                       วันที่ปลูก
                     </span>
                     <span className="text-sm text-gray-700">
-                      {new Date (data.startDate).getDate()}/{new Date (data.startDate).getMonth() + 1}/{new Date (data.startDate).getFullYear()}
+                      {new Date(data.startDate).getDate()}/
+                      {new Date(data.startDate).getMonth() + 1}/
+                      {new Date(data.startDate).getFullYear()}
                     </span>
                   </div>
                   <div className="flex text-start">
@@ -67,7 +77,9 @@ const View_RiceCaltivation = ( {id} ) => {
                       วันที่คาดว่าจะเก็บเกี่ยว
                     </span>
                     <span className="text-sm text-gray-700">
-                    {new Date (data.endDate).getDate()}/{new Date (data.endDate).getMonth() + 1}/{new Date (data.endDate).getFullYear()}
+                      {new Date(data.endDate).getDate()}/
+                      {new Date(data.endDate).getMonth() + 1}/
+                      {new Date(data.endDate).getFullYear()}
                     </span>
                   </div>
                   <div className="flex text-start">
@@ -80,7 +92,7 @@ const View_RiceCaltivation = ( {id} ) => {
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/2">
-                      พื้นที่ 
+                      พื้นที่
                     </span>
                     <span className="text-sm text-gray-700">
                       {data.area} ไร่
@@ -112,6 +124,14 @@ const View_RiceCaltivation = ( {id} ) => {
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/2">
+                      จำนวนเงิน
+                    </span>
+                    <span className="text-sm text-gray-700">
+                      {data.yield * data.rice_price_per_kg} บาท
+                    </span>
+                  </div>
+                  <div className="flex text-start">
+                    <span className="text-sm font-medium text-gray-900 w-1/2">
                       เก็บไว้บริโภค
                     </span>
                     <span className="text-sm text-gray-700">
@@ -138,7 +158,7 @@ const View_RiceCaltivation = ( {id} ) => {
                   </button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}
@@ -147,7 +167,7 @@ const View_RiceCaltivation = ( {id} ) => {
 };
 
 View_RiceCaltivation.propTypes = {
-  id: PropTypes.number
-}
+  id: PropTypes.number,
+};
 
 export default View_RiceCaltivation;

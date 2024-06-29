@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const AddRicevariety = () => {
   const [modal, setModal] = useState(false);
@@ -73,9 +74,14 @@ const AddRicevariety = () => {
       </button>
 
       {modal ? (
-        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 flex justify-center items-center bg-black bg-opacity-50 h-screen">
+        <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center bg-black bg-opacity-50 h-screen">
           <div className="relative p-4 w-full max-w-3xl max-h-full">
-            <div className="bg-white rounded-lg shadow">
+            <motion.div
+              initial={{ y: -100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1 }}
+              className="bg-white rounded-lg shadow"
+            >
               <div className="flex justify-between items-center p-4 md:p-5 border-b rounded-t">
                 <h3 className="text-lg font-semibold text-gray-900">
                   เพิ่มพันธุ์ข้าว
@@ -274,7 +280,7 @@ const AddRicevariety = () => {
                   </button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : null}
