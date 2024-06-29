@@ -4,7 +4,7 @@ import { TbClipboardText } from "react-icons/tb";
 import axios from "axios";
 import PropTypes from "prop-types";
 import Pagination from "../../components/farmer/Pagination";
-import dot from '../../images/dot.png'
+import dot from "../../images/dot.png";
 
 const TableRicecrop = ({ farmer_id }) => {
   const [data, setData] = useState([]);
@@ -120,9 +120,12 @@ const TableRicecrop = ({ farmer_id }) => {
       </div>
       <div className="md:hidden flex flex-col">
         {records.map((d, i) => (
-          <div className="flex flex-col gap-1  mb-4 bg-white p-4 rounded-lg border" key={i}>
-            <div className="flex items-center text-sm space-x-1 p-2 bg-gray-100 shadow">
-              <img src={dot} width={17}/>
+          <div
+            className="flex flex-col gap-1  mb-4 bg-white p-4 rounded-lg border"
+            key={i}
+          >
+            <div className="flex items-center text-sm space-x-1 p-2 bg-gray-200 shadow">
+              <img src={dot} width={17} />
               <span>ปี</span>
               <span>{d.year}</span>
             </div>
@@ -143,21 +146,21 @@ const TableRicecrop = ({ farmer_id }) => {
               <span>{d.area} (ไร่)</span>
             </div>
             <div className="flex items-center justify-between">
-              <div className="text-sm w-1/2 p-2 text-center bg-orange-500 ">
+              <div className="text-sm w-1/2 p-2 text-center bg-orange-100 border border-orange-200">
                 <a
                   href={`/ricecrop/history/${farmer_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center text-white focus:underline gap-1"
+                  className="flex justify-center items-center text-orange-600 focus:underline gap-1"
                 >
-                  <TbClipboardText/>
+                  <TbClipboardText />
                   รายงานค่าใช้จ่าย
                 </a>
               </div>
-              <div className="text-sm w-1/2 p-2 text-center bg-sky-500">
+              <div className="text-sm w-1/2 p-2 text-center bg-sky-100 border border-sky-200">
                 <a
                   href={`/ricecrop/detail/${farmer_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center  text-white focus:underline gap-1"
+                  className="flex justify-center items-center  text-sky-600 focus:underline gap-1"
                 >
-                  <FaEye/>
+                  <FaEye />
                   รายงานแปลงนา
                 </a>
               </div>

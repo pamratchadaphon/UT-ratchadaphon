@@ -7,7 +7,6 @@ import Search from "../../components/admin/Search";
 
 const ManageRiceVariety = () => {
   const [search, setSearch] = useState("");
-console.log(search);
   const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
   const [showSidebar_Web, setShowSideBar_Web] = useState(true);
   return (

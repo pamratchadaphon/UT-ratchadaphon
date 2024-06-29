@@ -135,6 +135,7 @@ const Income_Expense_History = () => {
             <TableIncomeExpense
               incomeExpense={incomeExpense}
               selectMonth={selectMonth}
+              riceCaltivation_id={riceCaltivation_id}
             />
           </div>
         </div>

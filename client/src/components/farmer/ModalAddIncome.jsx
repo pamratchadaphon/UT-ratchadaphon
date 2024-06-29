@@ -72,25 +72,37 @@ const ModalAddIncome = ({
       yield_rice.rice_price_per_kg !== ""
     ) {
       try {
-        await axios
-          .post("http://localhost:8080/incomeExpense", values)
-          .then((result) => console.log(result.data));
-        await axios
-          .put(
-            `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,
-            data_yield
-          )
-          .then((result) => console.log(result.data));
+        if (
+          yield_rice.yield +
+            yield_rice.rice_consumption +
+            yield_rice.seed_rice ===
+          yield_rice.total_yield
+        ) {
+          await axios
+            .post("http://localhost:8080/incomeExpense", values)
+            .then((result) => console.log(result.data));
+          await axios
+            .put(
+              `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,
+              data_yield
+            )
+            .then((result) => console.log(result.data));
 
-        Swal.fire({
-          title: "บันทึกรายรับสำเร็จ",
-          icon: "success",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        });
-        console.log(yield_rice);
+          Swal.fire({
+            title: "บันทึกรายรับสำเร็จ",
+            icon: "success",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "เกิดข้อผิดพลาด",
+            text: "กรอกปริมาณข้าวเกินจำนวนข้าวที่ได้",
+            icon: "error",
+          });
+        }
       } catch (error) {
         console.log("Error : " + error);
       }

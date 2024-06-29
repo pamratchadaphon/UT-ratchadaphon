@@ -8,29 +8,8 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
-  const handleDelete = (detail, id) => {
-    Swal.fire({
-      title: "ยืนยันการลบ?",
-      text: `คุณต้องการลบรายการ ${detail}`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "ยกเลิก",
-      confirmButtonText: "ตกลง",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8080/incomeExpense/${id}`);
-        await Swal.fire({
-          title: "ลบสำเร็จ",
-          icon: "success",
-        });
-        window.location.reload();
-      }
-    });
-  };
-
+const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) => {
+console.log(riceCaltivation_id);
   const formatDate = (string) => {
     const date = new Date(string);
     const day = date.getDate();
@@ -76,6 +55,35 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
       setLastRow(firstIndex + records.length);
     }
   }, [firstIndex, records]);
+
+  const handleDelete = (detail, id) => {
+    Swal.fire({
+      title: "ยืนยันการลบ?",
+      text: `คุณต้องการลบรายการ ${detail}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ตกลง",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:8080/incomeExpense/${id}`);
+        await axios.put(`http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,{
+          total_yield: 0,
+          yield: 0,
+          rice_price_per_kg: 0,
+          rice_consumption: 0,
+          seed_rice: 0
+        })
+        await Swal.fire({
+          title: "ลบสำเร็จ",
+          icon: "success",
+        });
+        window.location.reload();
+      }
+    });
+  };
 
   return (
     <div>
@@ -259,6 +267,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth }) => {
 TableIncomeExpense.propTypes = {
   incomeExpense: PropTypes.array,
   selectMonth: PropTypes.string,
+  riceCaltivation_id: PropTypes.number
 };
 
 export default TableIncomeExpense;

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalAddRicecrop from "../../components/farmer/ModalAddRicecrop";
+import { BsPersonCircle } from "react-icons/bs";
 
 const Content = () => {
   const id = useParams();
@@ -66,10 +67,12 @@ const Content = () => {
     return `${day} ${monthString[month]} ${year}`;
   };
   return (
-    <div className="mx-auto max-w-screen-xl w-full p-4">
-      <div className="flex items-center text-xl mb-4">
-        <h1 className="text-gray-500">สวัสดี </h1>
-        <h1>
+    <div className="mx-auto max-w-screen-xl w-full">
+      <div className="flex items-center mx-auto max-w-screen-xl w-full px-4 gap-1">
+        <div className=" text-green-600 text-md md:text-2xl">
+          <BsPersonCircle />
+        </div>
+        <h1 className="font-semibold text-green-600 text-xl md:text-3xl">
           {fname} {lname}
         </h1>
       </div>
@@ -82,7 +85,7 @@ const Content = () => {
             <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
               วันที่ปลูก : {formatDate(data.startDate)}
             </p>
-            <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
+            <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
               วันที่เก็บเกี่ยว : {formatDate(data.endDate)}
             </p>
             <div className="flex gap-2 md:gap-3 justify-center items-center">

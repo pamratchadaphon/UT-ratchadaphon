@@ -16,7 +16,6 @@ const Pagonation = ({ data, setRecords, recodesPerPage, setFirstIndex}) => {
     if (setFirstIndex) {
       setFirstIndex(firstIndex);
     }
-    console.log(records);
   }, [lastRow, firstIndex]);
   
   const nextPage = () => {

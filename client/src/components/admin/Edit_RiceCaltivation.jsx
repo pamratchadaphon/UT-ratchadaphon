@@ -29,17 +29,15 @@ const Edit_RiceCaltivation = ({ id }) => {
         const res = await axios.get(
           `http://localhost:8080/riceCaltivation/${id}`
         );
-
         const fomatDate = (string) => {
           const date = new Date(string);
           const day = date.getDate();
           const month = date.getMonth() + 1;
           const year = date.getFullYear();
-          return `${year}-${month > 10 ? month : "0" + month}-${
-            day > 10 ? day : "0" + day
+          return `${year}-${month < 10 ? "0" + month : month}-${
+            day < 10 ? "0" + day : day
           }`;
         };
-
         setValues({
           ...values,
           year: res.data.year,
@@ -88,7 +86,7 @@ const Edit_RiceCaltivation = ({ id }) => {
     values.area === "" ? setArea(true) : null;
     values.riceVariety === "" ? setRiceVariety(true) : null;
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
