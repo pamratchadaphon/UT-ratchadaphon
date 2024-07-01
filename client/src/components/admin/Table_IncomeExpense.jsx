@@ -137,7 +137,7 @@ const Table_IncomeExpense = ({
 
   return (
     <div>
-      <div className="hidden md:flex">
+      <div className="flex flex-col overflow-x-scroll lg:overflow-x-hidden">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>

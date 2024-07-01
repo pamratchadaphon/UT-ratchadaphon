@@ -204,30 +204,57 @@ const Navbar = ({ id, page }) => {
           </ul>
         </div>
         {isOpenToggle ? (
-          <ul className="md:hidden flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 rtl:space-x-reverse w-full">
+          <ul className="fixed top-14 right-0 left-0 z-50 md:hidden flex flex-col p-4 mt-4 rounded-b-lg shadow font-medium border-b border-gray-100 bg-white rtl:space-x-reverse w-full">
             <li>
-              <a
-                href={`/farmer/home/${farmer_id}`}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
-              >
-                หน้าแรก
-              </a>
+              {home ? (
+                <a
+                  href={`/farmer/home/${farmer_id}`}
+                  className="block py-2 px-3 text-white rounded bg-green-500"
+                >
+                  หน้าแรก
+                </a>
+              ) : (
+                <a
+                  href={`/farmer/home/${farmer_id}`}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
+                >
+                  หน้าแรก
+                </a>
+              )}
             </li>
             <li>
-              <a
-                href={`/ricecrop/${farmer_id}`}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
-              >
-                รอบการปลูก
-              </a>
+              {riceCaltivation ? (
+                <a
+                  href={`/ricecrop/${farmer_id}`}
+                  className="block py-2 px-3 text-white rounded bg-green-500"
+                >
+                  รอบการปลูก
+                </a>
+              ) : (
+                <a
+                  href={`/ricecrop/${farmer_id}`}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
+                >
+                  รอบการปลูก
+                </a>
+              )}
             </li>
             <li>
-              <a
-                href={`/ricevariety/${farmer_id}`}
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
-              >
-                พันธุ์ข้าว
-              </a>
+              {riceVariety ? (
+                <a
+                  href={`/ricevariety/${farmer_id}`}
+                  className="block py-2 px-3 text-white rounded bg-green-500"
+                >
+                  พันธุ์ข้าว
+                </a>
+              ) : (
+                <a
+                  href={`/ricevariety/${farmer_id}`}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-200 md:hover:bg-transparent md:text-green-700 md:p-0 "
+                >
+                  พันธุ์ข้าว
+                </a>
+              )}
             </li>
           </ul>
         ) : null}

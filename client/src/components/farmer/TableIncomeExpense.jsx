@@ -9,7 +9,6 @@ import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
 const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) => {
-console.log(riceCaltivation_id);
   const formatDate = (string) => {
     const date = new Date(string);
     const day = date.getDate();
@@ -267,7 +266,7 @@ console.log(riceCaltivation_id);
 TableIncomeExpense.propTypes = {
   incomeExpense: PropTypes.array,
   selectMonth: PropTypes.string,
-  riceCaltivation_id: PropTypes.number
+  riceCaltivation_id: PropTypes.string
 };
 
 export default TableIncomeExpense;

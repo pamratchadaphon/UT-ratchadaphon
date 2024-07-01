@@ -54,6 +54,7 @@ const ModalAddExpense = ({
   ];
 
   const data_chemicals = [
+    "จุลินทรีย์ย่อยสลายตอซังข้าว",
     "ปุ๋ยเกล็ด",
     "ปุ๋ยเคมี",
     "ปุ๋ยอินทรีย์",
@@ -64,6 +65,7 @@ const ModalAddExpense = ({
   ];
 
   const data_machinery = [
+    "โดรนพ่นยา",
     "รถเกี่ยวข้าว",
     "รถเข็นข้าว",
     "รถไถนา",

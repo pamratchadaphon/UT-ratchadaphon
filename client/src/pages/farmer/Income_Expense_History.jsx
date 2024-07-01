@@ -85,7 +85,7 @@ const Income_Expense_History = () => {
             startMonth_IncomeExpense={startMonth_IncomeExpense}
             endMonth_IncomeExpense={endMonth_IncomeExpense}
           />
-          <Cetegory_Expense incomeExpense={incomeExpense}/>
+          <Cetegory_Expense incomeExpense={incomeExpense} />
         </div>
 
         <div className="bg-white p-4 my-4 rounded-lg shadow-md">
@@ -94,7 +94,7 @@ const Income_Expense_History = () => {
               <div>
                 <button
                   type="button"
-                  className="bg-red-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200"
+                  className="bg-red-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-red-100 hover:text-red-700 hover:duration-200 shadow-lg"
                   onClick={handleModalExpense}
                 >
                   บันทึกรายจ่าย
@@ -109,7 +109,7 @@ const Income_Expense_History = () => {
               <div>
                 <button
                   type="button"
-                  className="bg-green-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200"
+                  className="bg-green-600 px-4 py-2 text-white rounded-lg text-sm hover:bg-green-100 hover:text-green-700 hover:duration-200 shadow-lg"
                   onClick={handleModalIncome}
                 >
                   บันทึกรายรับ

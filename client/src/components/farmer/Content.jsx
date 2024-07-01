@@ -3,8 +3,7 @@ import ModalAddExpense from "../../components/farmer/ModalAddExpense";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ModalAddRicecrop from "../../components/farmer/ModalAddRicecrop";
-import { BsPersonCircle } from "react-icons/bs";
+import ModalAddRicecrop from '../../components/farmer/ModalAddRicecrop'
 
 const Content = () => {
   const id = useParams();
@@ -14,19 +13,12 @@ const Content = () => {
   const [showModalIncome, setShowModalIncome] = useState(false);
   const [riceCaltivation_id, setRiceCaltivation_id] = useState(0);
   const [status, setStatus] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get(
         `http://localhost:8080/farmer/riceCaltivation_incomeExpense/${farmer_id}`
       );
-      const resFarmer = await axios.get(
-        `http://localhost:8080/farmer/${farmer_id}`
-      );
-      setFname(resFarmer.data.fname);
-      setLname(resFarmer.data.lname);
       if (res.data[0].riceCaltivation.length !== 0) {
         const resRiceCaltivation = res.data[0].riceCaltivation;
         setData(resRiceCaltivation[resRiceCaltivation.length - 1]);
@@ -67,26 +59,18 @@ const Content = () => {
     return `${day} ${monthString[month]} ${year}`;
   };
   return (
-    <div className="mx-auto max-w-screen-xl w-full">
-      <div className="flex items-center mx-auto max-w-screen-xl w-full px-4 gap-1">
-        <div className=" text-green-600 text-md md:text-2xl">
-          <BsPersonCircle />
-        </div>
-        <h1 className="font-semibold text-green-600 text-xl md:text-3xl">
-          {fname} {lname}
-        </h1>
-      </div>
+    <div className="mx-auto max-w-screen-xl w-full h-4/6 flex justify-center items-center">
       {status === "old" ? (
         <div>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="mb-4 text-4xl font-extrabold text-green-700 tracking-tight leading-none  md:text-5xl lg:text-6xl">
+            <h1 className="mb-4 text-4xl font-extrabold text-green-700 leading-none  md:text-5xl lg:text-6xl">
               พันธุ์ {data.riceVariety}
             </h1>
             <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
               วันที่ปลูก : {formatDate(data.startDate)}
             </p>
             <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
-              วันที่เก็บเกี่ยว : {formatDate(data.endDate)}
+              วันที่คาดว่าเก็บเกี่ยว : {formatDate(data.endDate)}
             </p>
             <div className="flex gap-2 md:gap-3 justify-center items-center">
               <button
@@ -118,7 +102,7 @@ const Content = () => {
             <div className="mt-8">
               <Link
                 to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
-                className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700"
+                className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700 shadow-lg"
               >
                 ดูรายงานค่าใช้จ่าย
               </Link>
@@ -126,11 +110,25 @@ const Content = () => {
           </div>
         </div>
       ) : (
-        <div className="px-4 py-16 flex flex-col justify-center items-center">
-          <h1 className="mb-4 text-4xl font-extrabold text-green-700 tracking-tight leading-none  md:text-5xl lg:text-6xl">
+        <div className="flex flex-col justify-center items-center px-4">
+          <h1 className="text-transparent bg-clip-text bg-gradient-to-b to-green-600 from-green-700 mb-4 text-5xl font-extrabold tracking-tight leading-none lg:text-6xl">
             ยินดีต้อนรับ
           </h1>
-          <ModalAddRicecrop />
+
+          <p className="text-gray-500 text-md md:text-lg w-full lg:w-2/3 text-center pb-8">
+            เพื่อให้คุณสามารถจดบันทึกการปลูกข้าว ตรวจสอบผลผลิต เลือกพันธุ์ข้าว
+            ดูรายงานแปลงนา และรายงานค่าใช้จ่ายได้อย่างมีประสิทธิภาพ {" "}
+            <span className=" font-semibold text-lg md:text-2xl">
+              เริ่มต้นสร้างรอบการปลูกของคุณได้เลย
+            </span>
+          </p>
+          {/* <button
+            className="block text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-700 duration-200 font-medium rounded-full text-sm px-4 py-2"
+            onClick={() =>}
+          >
+            เพิ่มรอบการปลูก
+          </button> */}
+          <ModalAddRicecrop/>
         </div>
       )}
     </div>

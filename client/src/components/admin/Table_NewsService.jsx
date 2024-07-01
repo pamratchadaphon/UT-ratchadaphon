@@ -36,7 +36,7 @@ const Table_NewsService = ({ data }) => {
   };
 
   return (
-    <div className="hidden lg:flex flex-wrap">
+    <div className="flex flex-col overflow-x-scroll">
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
@@ -60,7 +60,7 @@ const Table_NewsService = ({ data }) => {
               </th>
               <th
                 scope="row"
-                className="p-2 font-normal text-start lg:max-w-sm"
+                className="p-2 font-normal text-start lg:max-w-4xl"
               >
                 <a
                   href={d.content}

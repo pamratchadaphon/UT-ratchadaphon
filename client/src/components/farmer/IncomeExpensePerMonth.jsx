@@ -59,10 +59,10 @@ const IncomeExpensePerMonth = ({
   }
 
   const chartSetting = {
-    height: 250,
+    height: 300,
     sx: {
       [`.${axisClasses.left} .${axisClasses.label}`]: {
-        transform: "translate(-20px, 1)",
+        transform: "translate(-5px, 1)",
       },
     },
   };
@@ -72,27 +72,30 @@ const IncomeExpensePerMonth = ({
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-2/3 shadow-md">
       <div className="border-b pb-4">
-        <span >กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
+        <span>กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
       </div>{" "}
-      <BarChart
-        dataset={dataset}
-        xAxis={[{ scaleType: "band", dataKey: "month" }]}
-        series={[
-          {
-            dataKey: "expense",
-            label: "รายจ่าย",
-            valueFormatter,
-            color: "#FF9997",
-          },
-          {
-            dataKey: "income",
-            label: "รายรับ",
-            valueFormatter,
-            color: "#92CEA8",
-          },
-        ]}
-        {...chartSetting}
-      />
+      <div className=" flex flex-col justify-center pt-10">
+        <BarChart
+          dataset={dataset}
+          xAxis={[{ scaleType: "band", dataKey: "month" }]}
+          series={[
+            {
+              dataKey: "expense",
+              label: "รายจ่าย",
+              valueFormatter,
+              color: "#FF9997",
+            },
+            {
+              dataKey: "income",
+              label: "รายรับ",
+              valueFormatter,
+              color: "#92CEA8",
+            },
+          ]}
+          {...chartSetting}
+          grid={{ horizontal: true }}
+        />
+      </div>
     </div>
   );
 };

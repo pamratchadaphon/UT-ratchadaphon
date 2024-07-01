@@ -133,7 +133,7 @@ const Table_RiceCaltivation = ({ search, fname, lname}) => {
   };
 
   return (
-    <div className="hidden lg:flex flex-wrap">
+    <div className="flex flex-col overflow-x-scroll lg:overflow-x-hidden">
       <table className="w-full text-sm  text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>

@@ -102,17 +102,14 @@ const ManageIncomeExpense = () => {
               showSidebar_Moble={showSidebar_Moble}
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center justify-between">
                 <div className="flex space-x-2">
                   <Search
                     search={search}
                     setSearch={setSearch}
-                    text={"อีเมลผู้ปลูก"}
-                  />
-                  <Search
-                    search={search}
-                    setSearch={setSearch}
-                    text={"รอบการปลูก"}
+                    setRiceCaltivation_id_Search={setRiceCaltivation_id_Search}
+                    page={"incomeExpense"}
+                    text={"ระบุชื่อชาวนา"}
                   />
                 </div>
                 <div className="flex space-x-2">
@@ -120,10 +117,25 @@ const ManageIncomeExpense = () => {
                   <AddExpense />
                 </div>
               </div>
-              <Table_IncomeExpense
-                searchEmail={search}
-                //searchRiceCaltivation={searchRiceCaltivation}
-              />
+              {search === "" ? (
+                <div>
+                  <div className="flex items-center gap-2 pb-4">
+                    {/* <h1>รายรับรายจ่ายทั้งหมด</h1> */}
+                    <SelectType setType={setType} />
+                  </div>
+                  <Table_IncomeExpense
+                    search={search}
+                    riceCaltivation_id_search={riceCaltivation_id_search}
+                    type={type}
+                  />
+                </div>
+              ) : (
+                <ShowName
+                  search={search}
+                  page={"incomeExpense"}
+                  riceCaltivation_id_search={riceCaltivation_id_search}
+                />
+              )}
             </div>
           </div>
         </div>

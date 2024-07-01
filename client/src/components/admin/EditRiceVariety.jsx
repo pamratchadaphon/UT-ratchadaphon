@@ -20,7 +20,6 @@ const EditRiceVariety = ({ id }) => {
   const [photosensitivity, setPhotosensitivity] = useState("");
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
-  const [feature, setFeature] = useState("");
 
   const handleModal = () => {
     setModal(!modal);
@@ -34,7 +33,6 @@ const EditRiceVariety = ({ id }) => {
 
         setName(res.data.name);
         setAge(res.data.age);
-        setFeature(res.data.feature);
         setHeight(res.data.height);
         setPhotosensitivity(res.data.photosensitivity);
         setPrecautions(res.data.precautions);
@@ -64,7 +62,6 @@ const EditRiceVariety = ({ id }) => {
     formData.append("photosensitivity", photosensitivity);
     formData.append("stability", stability);
     formData.append("precautions", precautions);
-    formData.append("feature", feature);
 
     const values = {
       name: name,
@@ -74,7 +71,6 @@ const EditRiceVariety = ({ id }) => {
       photosensitivity: photosensitivity,
       stability: stability,
       precautions: precautions,
-      feature: feature,
     };
 
     const config = {
@@ -201,23 +197,6 @@ const EditRiceVariety = ({ id }) => {
                       className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2"
                     />
                     วัน
-                  </div>
-                  <div className="flex items-center text-gray-900">
-                    <label
-                      htmlFor="feature"
-                      className="font-medium  mb-2 w-1/4 items-center"
-                    >
-                      คุณสมบัติ
-                    </label>
-                    <input
-                      type="text"
-                      name="feature"
-                      id="feature"
-                      value={feature}
-                      onChange={(e) => setFeature(e.target.value)}
-                      required
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5"
-                    />
                   </div>
                   <div className="flex items-center text-gray-900 text-sm">
                     <label htmlFor="height" className="font-medium  mb-2 w-1/4">

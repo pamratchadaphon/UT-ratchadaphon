@@ -94,14 +94,6 @@ const ViewRiceVariety = ({ id }) => {
                   </div>
                   <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/3">
-                      คุณสมบัติ
-                    </span>
-                    <span className="text-sm text-gray-700">
-                      {data.feature}
-                    </span>
-                  </div>
-                  <div className="flex text-start">
-                    <span className="text-sm font-medium text-gray-900 w-1/3">
                       ความสูงเฉลี่ย
                     </span>
                     <span className="text-sm text-gray-700">

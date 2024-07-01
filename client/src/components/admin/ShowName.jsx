@@ -42,16 +42,16 @@ const ShowName = ({ search, page, riceCaltivation_id_search }) => {
         {name.length > 0 && fname.length === 0 && lname.length === 0 ? (
           <div>
             {page === "riceCaltivation" ? (
-              <span className="text-sm lg:text-md">
+              <span className="text-sm lg:text-lg">
                 กรุณาใช้เมาส์ Click ที่ชื่อเพื่อแสดงข้อมูลรอบการปลูก
               </span>
             ) : (
-              <span className="text-sm lg:text-md">
+              <span className="text-sm lg:text-lg">
                 กรุณาใช้เมาส์ Click ที่ชื่อเพื่อแสดงข้อมูลรายรับรายจ่าย
               </span>
             )}
             <table>
-              <tbody className="text-sm">
+              <tbody className="text-sm lg:text-lg">
                 {name.map((name, index) => (
                   <tr key={index}>
                     <td className="w-5">{index + 1}</td>

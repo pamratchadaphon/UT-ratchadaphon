@@ -7,6 +7,7 @@ import EditRiceVariety from "./EditRiceVariety";
 import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import { FaSort } from "react-icons/fa";
 
 const Table_RiceVariety = ({ search }) => {
   const [data, setData] = useState([]);
@@ -51,6 +52,20 @@ const Table_RiceVariety = ({ search }) => {
     }
   }, [firstIndex, records]);
 
+  const [order, setOrder] = useState('ASC');
+  const sorting = (column) => {
+    if (order === "ASC") {
+      const sorted = data.sort((a, b) => a[column] > b[column] ? 1 : -1);
+      setData(sorted);
+      setOrder("DSC")
+    }
+    if (order === "DSC") {
+      const sorted = data.sort((a, b) => a[column] < b[column] ? 1 : -1);
+      setData(sorted);
+      setOrder("ASC")
+    }
+  }
+
   const deleteRiceVariety = async (id, name) => {
     Swal.fire({
       title: "ยืนยันการลบ?",
@@ -74,27 +89,67 @@ const Table_RiceVariety = ({ search }) => {
   };
 
   return (
-    <div className="hidden lg:block">
+    <div className="flex flex-col overflow-x-scroll lg:overflow-x-hidden">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>
             <th scope="col" className="px-6 py-3 text-center">
               รูปภาพ
             </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              ชื่อพันธุ์
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                ชื่อพันธุ์
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("name")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              อายุเก็บเกี่ยว
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                อายุเก็บเกี่ยว
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("age")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              ผลผลิต
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                ผลผลิต
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("yield")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              ความสูงเฉลี่ย
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                ความสูงเฉลี่ย
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("height")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
-            <th scope="col" className="px-6 py-3 text-center">
-              ความไวแสง
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                ความไวแสง
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("photosensitivity")}
+                >
+                  <FaSort />
+                </button>
+              </div>
             </th>
             <th scope="col" className="px-6 py-3 text-center">
               action

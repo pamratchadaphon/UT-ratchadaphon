@@ -38,17 +38,17 @@ const ManageRiceCaltivation = () => {
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div className="flex space-x-2">
-                  <Search setSearch={setSearch} text={"ระบุชื่อชาวนา"}/>
+                  <Search setSearch={setSearch} text={"ระบุชื่อชาวนา"} />
                 </div>
                 <AddRiceCaltivation />
               </div>
               {search === "" ? (
                 <div>
                   {/* <h1 className="pb-4 text-sm lg:text-md">รอบการปลูกทั้งหมด</h1> */}
-                  <Table_RiceCaltivation search={search}/>
+                  <Table_RiceCaltivation search={search} />
                 </div>
               ) : (
-                <ShowName search={search} page={'riceCaltivation'}/>
+                <ShowName search={search} page={"riceCaltivation"} />
               )}
             </div>
           </div>
@@ -86,7 +86,14 @@ const ManageRiceCaltivation = () => {
                 </div>
                 <AddRiceCaltivation />
               </div>
-              <Table_RiceCaltivation search={search} />
+              {search === "" ? (
+                <div>
+                  {/* <h1 className="pb-4 text-sm lg:text-md">รอบการปลูกทั้งหมด</h1> */}
+                  <Table_RiceCaltivation search={search} />
+                </div>
+              ) : (
+                <ShowName search={search} page={"riceCaltivation"} />
+              )}
             </div>
           </div>
         </div>

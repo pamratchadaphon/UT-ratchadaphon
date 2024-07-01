@@ -77,14 +77,6 @@ const Cards = ({ data }) => {
                   </div>
                   <div className="flex">
                     <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
-                      คุณสมบัติ
-                    </span>
-                    <span className="w-1/2 text-sm text-gray-600">
-                      {dataById.feature}
-                    </span>
-                  </div>
-                  <div className="flex">
-                    <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
                       ความไวแสง
                     </span>
                     <span className="w-1/2 text-sm text-gray-600">

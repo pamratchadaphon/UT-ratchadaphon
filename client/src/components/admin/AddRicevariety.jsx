@@ -15,7 +15,6 @@ const AddRicevariety = () => {
   const [photosensitivity, setPhotosensitivity] = useState("");
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
-  const [feature, setFeature] = useState("");
 
   const [imageURL, setImageURL] = useState("");
 
@@ -40,7 +39,6 @@ const AddRicevariety = () => {
     formData.append("photosensitivity", photosensitivity);
     formData.append("stability", stability);
     formData.append("precautions", precautions);
-    formData.append("feature", feature);
 
     const config = {
       headers: {
@@ -171,23 +169,6 @@ const AddRicevariety = () => {
                     วัน
                   </div>
 
-                  <div className="flex text-sm items-center">
-                    <label
-                      htmlFor="feature"
-                      className="font-medium text-gray-900 mb-2 w-1/3"
-                    >
-                      คุณสมบัติ
-                    </label>
-                    <input
-                      type="text"
-                      name="feature"
-                      id="feature"
-                      required
-                      value={feature}
-                      onChange={(e) => setFeature(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 w-1/3 md:w-2/4"
-                    />
-                  </div>
                   <div className="flex items-center text-sm">
                     <label
                       htmlFor="height"
