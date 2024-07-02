@@ -27,7 +27,7 @@ const BoxDashboard = () => {
   return (
     <div>
       <div className="flex flex-col md:flex-row items-center gap-8 justify-between">
-        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full">
+        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full lg:w-1/3">
           <div className="p-5 border rounded-lg bg-sky-300 text-white">
             <IoMdPerson />
           </div>
@@ -36,7 +36,7 @@ const BoxDashboard = () => {
             <span className="text-xl">{farmer.length}</span>
           </div>
         </div>
-        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full">
+        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full lg:w-1/3">
           <div className="p-5 rounded-lg bg-violet-300 text-white">
             <FaRegFileAlt />
           </div>
@@ -46,7 +46,7 @@ const BoxDashboard = () => {
           </div>
         </div>
 
-        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full">
+        <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full lg:w-1/3">
           <div className="p-5 rounded-lg bg-orange-300 text-white">
             <FaSeedling />
           </div>

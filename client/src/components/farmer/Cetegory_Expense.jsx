@@ -95,12 +95,12 @@ const Cetegory_Expense = ({ incomeExpense }) => {
       options: {
         plugins: {
           legend: {
-            position: "right",
+            position: "top",
           },
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                return `จำนวนเงิน : ${(tooltipItem.raw).toLocaleString()} บาท`;
               },
             },
           },
@@ -116,7 +116,7 @@ const Cetegory_Expense = ({ incomeExpense }) => {
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-1/3 shadow-md">
       <div className="border-b pb-4">สัดส่วนค่าใช้จ่ายในแต่ละหมวดหมู่</div>
-      <canvas ref={chartRef} width="200" height="200"></canvas>
+      <canvas ref={chartRef}></canvas>
     </div>
   );
 };

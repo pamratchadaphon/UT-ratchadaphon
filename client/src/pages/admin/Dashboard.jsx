@@ -2,8 +2,7 @@ import Sidebar from "../../components/admin/Sidebar";
 import BoxDashboard from "../../components/admin/BoxDashboard";
 import Navbar from "../../components/admin/Navbar";
 import { useState } from "react";
-import SelectProvince from "../../components/admin/SelectProvince";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Productivity_graph from "../../components/admin/Productivity_graph";
 
 const Dashboard = () => {
   const [showSidebar_Moble, setShowSideBar_Moble] = useState(false);
@@ -33,25 +32,13 @@ const Dashboard = () => {
               showSidebar_Web={showSidebar_Web}
               showSidebar_Moble={showSidebar_Moble}
             />
-            <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
+            <div className="bg-white rounded-lg shadow space-y-4 p-4 lg:p-8 basis-5/6">
               <BoxDashboard />
-              <div className="flex flex-col md:flex-row gap-8">
-                <div className="bg-gray-50 rounded-lg w-full lg:w-2/3 p-4 shadow">
-                  กราฟแสดงผลผลิต
-                  <div className="flex gap-2">
-                    <select
-                      name="type"
-                      id="type"
-                      className="border border-gray-300 rounded-lg p-2 text-sm bg-gray-50 text-gray-500"
-                    >
-                      <option value="">ปี</option>
-                    </select>
-                    <SelectProvince />
-                  </div>
-                </div>
-                <div className="bg-gray-50 rounded-lg w-1/3 p-4 shadow">
-                  {/* พันธุ์ข้าวยอดนิยม 5 อันดับ */}
-                </div>
+              <div className="flex flex-col md:flex-row gap-8 pt-4">
+                <Productivity_graph />
+                {/* <div className="bg-gray-50 rounded-lg w-full lg:w-1/3 p-4 shadow">
+                  รายรับรายจ่ายรายสัปดาห์
+                </div> */}
               </div>
             </div>
           </div>
@@ -78,9 +65,14 @@ const Dashboard = () => {
               showSidebar_Web={showSidebar_Web}
               showSidebar_Moble={showSidebar_Moble}
             />
-            <div className="bg-white m-4 rounded-lg shadow space-y-4 p-8 basis-5/6">
+            <div className="bg-white rounded-lg shadow space-y-4 p-8 basis-5/6">
               <BoxDashboard />
-              <div className="bg-gray-100 rounded-lg w-2/3"></div>
+              <div className="flex flex-col md:flex-row gap-8 pt-4">
+                <Productivity_graph />
+                <div className="bg-gray-50 rounded-lg w-full lg:w-1/3 p-4 shadow">
+                  รายรับรายจ่ายรายสัปดาห์
+                </div>
+              </div>
             </div>
           </div>
         </div>

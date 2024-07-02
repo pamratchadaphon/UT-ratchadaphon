@@ -3,7 +3,7 @@ import ModalAddExpense from "../../components/farmer/ModalAddExpense";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ModalAddRicecrop from '../../components/farmer/ModalAddRicecrop'
+import ModalAddRicecrop from "../../components/farmer/ModalAddRicecrop";
 
 const Content = () => {
   const id = useParams();
@@ -111,24 +111,17 @@ const Content = () => {
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center px-4">
-          <h1 className="text-transparent bg-clip-text bg-gradient-to-b to-green-600 from-green-700 mb-4 text-5xl font-extrabold tracking-tight leading-none lg:text-6xl">
-            ยินดีต้อนรับ
-          </h1>
-
-          <p className="text-gray-500 text-md md:text-lg w-full lg:w-2/3 text-center pb-8">
-            เพื่อให้คุณสามารถจดบันทึกการปลูกข้าว ตรวจสอบผลผลิต เลือกพันธุ์ข้าว
-            ดูรายงานแปลงนา และรายงานค่าใช้จ่ายได้อย่างมีประสิทธิภาพ {" "}
-            <span className=" font-semibold text-lg md:text-2xl">
-              เริ่มต้นสร้างรอบการปลูกของคุณได้เลย
-            </span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 py-3 font-semibold text-6xl md:text-7xl mb-4">
+            เริ่มต้นสร้างรอบการปลูกของคุณ
+          </span>
+          <p className="text-gray-500 text-md md:text-xl w-full lg:w-2/3 text-center pb-8">
+            เพื่อช่วยให้คุณสามารถ
+            จดบันทึกการปลูกข้าว ตรวจสอบผลผลิต
+            เลือกพันธุ์ข้าว ดูรายงานแปลงนา
+            และรายงานค่าใช้จ่าย
+            ได้อย่างมีประสิทธิภาพ
           </p>
-          {/* <button
-            className="block text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-700 duration-200 font-medium rounded-full text-sm px-4 py-2"
-            onClick={() =>}
-          >
-            เพิ่มรอบการปลูก
-          </button> */}
-          <ModalAddRicecrop/>
+          <ModalAddRicecrop />
         </div>
       )}
     </div>

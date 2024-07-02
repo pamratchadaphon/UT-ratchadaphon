@@ -7,9 +7,9 @@ module.exports = {
   async create(req, res) {
     try {
       const incomeExpense = await IncomeExpense.create(req.body);
-    res.status(201).send(incomeExpense);
+      res.status(201).send(incomeExpense);
     } catch (error) {
-      res.status(400).json({status: 'error', error: error})
+      res.status(400).json({ status: "error", error: error });
     }
   },
   async index(req, res) {
@@ -19,6 +19,10 @@ module.exports = {
           model: db.Farmer,
           as: "farmer",
         },
+        {
+          model: db.RiceCaltivation,
+          as: 'riceCaltivation'
+        }
       ],
     });
     res.status(200).send(incomeExpense);

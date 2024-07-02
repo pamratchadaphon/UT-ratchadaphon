@@ -1,6 +1,25 @@
-import { BarChart } from "@mui/x-charts/BarChart";
-import { axisClasses } from "@mui/x-charts/ChartsAxis";
+// import { BarChart } from "@mui/x-charts/BarChart";
+// import { axisClasses } from "@mui/x-charts/ChartsAxis";
 import PropTypes from "prop-types";
+import { useRef, useEffect } from "react";
+import {
+  Chart as ChartJS,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend
+);
 
 const IncomeExpensePerMonth = ({
   incomeExpense,
@@ -57,44 +76,54 @@ const IncomeExpensePerMonth = ({
     };
     dataset.push(monthData);
   }
-
-  const chartSetting = {
-    height: 300,
-    sx: {
-      [`.${axisClasses.left} .${axisClasses.label}`]: {
-        transform: "translate(-5px, 1)",
+  const chartRef = useRef(null);
+  useEffect(() => {
+    const ctx = chartRef.current.getContext("2d");
+    const myChart = new ChartJS(ctx, {
+      type: "bar",
+      data: {
+        labels: dataset.map((data) => data.month),
+        datasets: [
+          {
+            label: "รายจ่าย",
+            data: dataset.map((data) => data.expense),
+            backgroundColor: ["#FF9997"],
+          },
+          {
+            label: "รายรับ",
+            data: dataset.map((data) => data.income),
+            backgroundColor: ["#92CEA8"],
+          },
+        ],
       },
-    },
-  };
+      options: {
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          tooltip: {
+            callbacks: {
+              label: function (tooltipItem) {
+                return `${tooltipItem.label}: ${tooltipItem.raw}`;
+              },
+            },
+          },
+        },
+      },
+    });
 
-  const valueFormatter = (value) => `${value.toLocaleString()} บาท`;
+    return () => {
+      myChart.destroy();
+    };
+  }, [dataset]);
 
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-2/3 shadow-md">
       <div className="border-b pb-4">
         <span>กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
       </div>{" "}
-      <div className=" flex flex-col justify-center pt-10">
-        <BarChart
-          dataset={dataset}
-          xAxis={[{ scaleType: "band", dataKey: "month" }]}
-          series={[
-            {
-              dataKey: "expense",
-              label: "รายจ่าย",
-              valueFormatter,
-              color: "#FF9997",
-            },
-            {
-              dataKey: "income",
-              label: "รายรับ",
-              valueFormatter,
-              color: "#92CEA8",
-            },
-          ]}
-          {...chartSetting}
-          grid={{ horizontal: true }}
-        />
+      <div className=" flex flex-col justify-center">
+        <canvas ref={chartRef}></canvas>
       </div>
     </div>
   );
