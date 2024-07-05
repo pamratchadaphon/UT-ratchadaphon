@@ -94,7 +94,7 @@ module.exports = {
     await RiceVariety.destroy({
       where: { riceVariety_id: req.params.riceVariety_id },
     });
-    res.status(200).send("ricecrop is deleted!");
+    res.status(200).send("riceVariety is deleted!");
   },
   upload,
 };

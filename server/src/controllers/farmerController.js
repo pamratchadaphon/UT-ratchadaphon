@@ -9,11 +9,6 @@ module.exports = {
   async register(req, res) {
     try {
       const farmer = await Farmer.findOne({ where: { email: req.body.email } });
-      // if (farmer) {
-      //   return res
-      //     .status(409)
-      //     .json({ status: "error", error: "Email already exists" });
-      // }
       const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
       const newFarmer = await Farmer.create({
         email: req.body.email,

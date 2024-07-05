@@ -7,4 +7,5 @@ router.get('/:newService_id', newsServiceController.show);
 router.put('/:newService_id', newsServiceController.edit);
 router.delete('/:newService_id', newsServiceController.delete);
 
+
 module.exports = router;

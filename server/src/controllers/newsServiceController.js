@@ -26,6 +26,6 @@ module.exports = {
     await NewsService.destroy({
       where: { newService_id: req.params.newService_id },
     });
-    res.status(200).send("newService is deleted!!");
+    res.status(200).send("newService is deleted!");
   },
 };

@@ -37,7 +37,7 @@ module.exports = {
     await RiceCaltivation.destroy({
       where: { riceCaltivation_id: req.params.riceCaltivation_id },
     });
-    res.status(200).send("ricecaltivation is deleted!");
+    res.status(200).send("rice caltivation is deleted!");
   },
   async incomeExpense(req, res) {
     const data = await RiceCaltivation.findAll({
