@@ -68,7 +68,7 @@ const Table_NewsService = ({ data }) => {
                   className="underline text-blue-600"
                 >
                   
-                  <p> {d.content}</p>
+                 {d.content}
                   {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti! */}
                 </a>
               </th>
