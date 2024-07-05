@@ -9,13 +9,7 @@ import { FaSort } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const Table_IncomeExpense = ({
-  search,
-  type,
-  riceCaltivation_id_search,
-  fname,
-  lname,
-}) => {
+const Table_IncomeExpense = ({ search, type }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -25,33 +19,21 @@ const Table_IncomeExpense = ({
         const dataAll = res.data.filter(
           (data) => data.riceCaltivation_id !== null && data.farmer_id !== null
         );
-        if (fname !== undefined && lname !== undefined) {
-          const search_data = dataAll.filter(
-            (data) =>
-              data.farmer.fname === fname &&
-              data.farmer.lname === lname &&
-              data.riceCaltivation_id === Number(riceCaltivation_id_search) &&
-              data.type.includes(type)
-          );
-          search_data.sort((a, b) => {
-            return new Date(a.date) - new Date(b.date);
-          });
-          setData(search_data);
-        } else {
-          const search_data = dataAll.filter((data) =>
-            data.type.includes(type)
-          );
-          search_data.sort((a, b) => {
-            return new Date(a.date) - new Date(b.date);
-          });
-          setData(search_data);
-        }
+
+        const search_data = dataAll.filter((data) => ( 
+          data.type.includes(type) &&
+          data.farmer.fname.includes(search)
+        ));
+        search_data.sort((a, b) => {
+          return new Date(a.date) - new Date(b.date);
+        });
+        setData(search_data);
       } catch (error) {
         console.log("Error : " + error);
       }
     };
     fetchData();
-  }, [search, riceCaltivation_id_search, type, fname, lname]);
+  }, [search, type]);
 
   const [order, setOrder] = useState("DSC");
   const sortingName = (column) => {
@@ -210,17 +192,13 @@ const Table_IncomeExpense = ({
                 <td className="p-2 text-center">
                   {d.farmer.fname} {d.farmer.lname}
                 </td>
-                <td className="p-2 text-center">
-                  {d.riceCaltivation_id}
-                </td>
+                <td className="p-2 text-center">{d.riceCaltivation_id}</td>
                 <th className="p-2 font-normal text-start">
                   {new Date(d.date).getDate()}/{new Date(d.date).getMonth() + 1}
                   /{new Date(d.date).getFullYear()}
                 </th>
                 <td className="p-2 text-start">{d.detail}</td>
-                <td className="p-2 text-end">
-                  {d.price.toLocaleString()}
-                </td>
+                <td className="p-2 text-end">{d.price.toLocaleString()}</td>
 
                 <td className="p-2">
                   <div className="flex justify-center items-center gap-2">

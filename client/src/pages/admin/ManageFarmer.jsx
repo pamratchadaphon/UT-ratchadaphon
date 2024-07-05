@@ -37,15 +37,10 @@ const ManageFarmer = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <div className="flex space-x-2">
-                  <Search
-                    setSearch={setSearch}
-                    text={"ระบุชื่อชาวนา"}
-                  />
-                </div>
+                <Search setSearch={setSearch} />
                 <AddFarmer />
               </div>
-              <Table_Farmers search={search}/>
+              <Table_Farmers search={search} />
             </div>
           </div>
         </div>
@@ -73,14 +68,7 @@ const ManageFarmer = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                
-                <div className="flex space-x-2">
-                  <Search
-                    search={search}
-                    setSearch={setSearch}
-                    text={"ระบุชื่อชาวนา"}
-                  />
-                </div>
+                <Search setSearch={setSearch} />
                 <AddFarmer />
               </div>
               <Table_Farmers search={search} />

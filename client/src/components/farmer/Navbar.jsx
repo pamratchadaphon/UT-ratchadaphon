@@ -45,7 +45,7 @@ const Navbar = ({ id, page }) => {
   return (
     <nav className="bg-white border-b w-full border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-4">
-        <a href="/farmer/home/2" className="flex items-center">
+        <a href={`/farmer/home/${farmer_id}`} className="flex items-center">
           <span className="self-center text-xl md:text-2xl font-semibold whitespace-nowrap text-green-800">
             RiceProsper
           </span>

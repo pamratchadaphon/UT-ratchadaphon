@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 const SelectProvince = ({ setProvince }) => {
-  const [province_res, setProvince_res] = useState([])
+  const [province_res, setProvince_res] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,6 +23,7 @@ const SelectProvince = ({ setProvince }) => {
     };
     fetchData();
   }, []);
+
   return (
     <div>
       <select
@@ -33,7 +34,9 @@ const SelectProvince = ({ setProvince }) => {
       >
         <option value="">จังหวัด</option>
         {province_res.map((province, index) => (
-          <option value={province} key={index}>{province}</option>
+          <option value={province} key={index}>
+            {province}
+          </option>
         ))}
       </select>
     </div>

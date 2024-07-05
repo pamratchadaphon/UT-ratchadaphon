@@ -4,6 +4,7 @@ import Content from "../../components/farmer/Content";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const HomePageFarmer = () => {
   const farmer_id = Number(useParams().farmer_id);
@@ -21,24 +22,27 @@ const HomePageFarmer = () => {
       } catch (error) {
         console.log(error);
       }
-    }
-    fetchData()
-  }, [farmer_id])
+    };
+    fetchData();
+  }, [farmer_id]);
 
   return (
     <div className="h-screen flex flex-col justify-between bg-gradient-to-r from-green-100 to-blue-100">
       <div>
         <Navbar id={farmer_id} page={"home"} />
-        <div className="flex items-center mx-auto max-w-screen-xl w-full px-4 gap-2 pt-10 text-xl md:text-2xl">
-          <div className=" text-gray-400">
-            สวัสดี
-          </div>
+        <motion.div
+          initial={{ x: -100 , opacity: 0}}
+          animate={{ x: 0 , opacity: 1}}
+          transition={{ duration: 1}}
+          className="flex items-center mx-auto max-w-screen-xl w-full px-4 gap-2 pt-10 text-xl md:text-2xl"
+        >
+          <div className=" text-gray-400">สวัสดี</div>
           <h1 className="font-semibold text-transparent bg-clip-text bg-gradient-to-l to-emerald-500 from-green-600">
-            {fname} {lname} 
+            {fname} {lname}
           </h1>
-        </div>
+        </motion.div>
       </div>
-      <Content/>
+      <Content />
       <NewsService />
     </div>
   );

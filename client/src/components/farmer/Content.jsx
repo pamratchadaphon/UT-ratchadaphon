@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalAddRicecrop from "../../components/farmer/ModalAddRicecrop";
+import { motion } from "framer-motion";
 
 const Content = () => {
   const id = useParams();
@@ -63,16 +64,36 @@ const Content = () => {
       {status === "old" ? (
         <div>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="mb-4 text-4xl font-extrabold text-green-700 leading-none  md:text-5xl lg:text-6xl">
+            <motion.h1
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="mb-4 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 leading-none  md:text-6xl lg:text-7xl p-3"
+            >
               พันธุ์ {data.riceVariety}
-            </h1>
-            <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
+            </motion.h1>
+            <motion.p
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1.5 }}
+              className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
+            >
               วันที่ปลูก : {formatDate(data.startDate)}
-            </p>
-            <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
+            </motion.p>
+            <motion.p
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 2 }}
+              className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
+            >
               วันที่คาดว่าเก็บเกี่ยว : {formatDate(data.endDate)}
-            </p>
-            <div className="flex gap-2 md:gap-3 justify-center items-center">
+            </motion.p>
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 2.5 }}
+              className="flex gap-2 md:gap-3 justify-center items-center"
+            >
               <button
                 className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-500 shadow-md"
                 onClick={handleModalExpense}
@@ -97,31 +118,50 @@ const Content = () => {
                 farmer_id={farmer_id}
                 riceCaltivation_id={riceCaltivation_id}
               />
-            </div>
+            </motion.div>
 
-            <div className="mt-8">
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 2.5 }}
+              className="mt-8"
+            >
               <Link
                 to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
                 className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700 shadow-lg"
               >
                 ดูรายงานค่าใช้จ่าย
               </Link>
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center px-4">
-          <span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 py-3 font-semibold text-6xl md:text-7xl mb-4">
+          <motion.span
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 py-3 font-semibold text-6xl md:text-7xl mb-4"
+          >
             เริ่มต้นสร้างรอบการปลูกของคุณ
-          </span>
-          <p className="text-gray-500 text-md md:text-xl w-full lg:w-2/3 text-center pb-8">
-            เพื่อช่วยให้คุณสามารถ
-            จดบันทึกการปลูกข้าว ตรวจสอบผลผลิต
-            เลือกพันธุ์ข้าว ดูรายงานแปลงนา
-            และรายงานค่าใช้จ่าย
+          </motion.span>
+          <motion.p
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5 }}
+            className="text-gray-500 text-md md:text-xl w-full lg:w-2/3 text-center pb-8"
+          >
+            เพื่อช่วยให้คุณสามารถจดบันทึกการปลูกข้าว ตรวจสอบผลผลิต
+            เลือกพันธุ์ข้าว ดูรายงานแปลงนา และรายงานค่าใช้จ่าย
             ได้อย่างมีประสิทธิภาพ
-          </p>
-          <ModalAddRicecrop />
+          </motion.p>
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 2 }}
+          >
+            <ModalAddRicecrop />
+          </motion.div>
         </div>
       )}
     </div>

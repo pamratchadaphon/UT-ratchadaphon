@@ -40,7 +40,6 @@ const BarChart = () => {
             new Date(data.date).getFullYear() === Number(year) &&
             data.farmer.province.includes(province)
         );
-        console.log(res.data.filter((data) => data.type==='รายรับ'));
         setData(data_yield);
       } catch (error) {
         console.log(error);
@@ -74,7 +73,7 @@ const BarChart = () => {
   }
 
   for (let i = 0; i < arrMonth.length; i++) {
-    yield_rice[arrMonth[i] -1] += arrYield[i]
+    yield_rice[arrMonth[i] - 1] += arrYield[i];
   }
 
   const dataset = [];
@@ -122,11 +121,13 @@ const BarChart = () => {
   }, [dataset, monthString]);
 
   return (
-    <div className="bg-gray-50 rounded-lg w-full lg:w-2/3 p-4 shadow">
-      ผลผลิตปีล่าสุด
-      <div className="flex gap-2 mt-4">
-        <Select_Year setYear={setYear} />
-        <SelectProvince setProvince={setProvince} />
+    <div className="bg-gray-50 rounded-lg p-4 shadow w-full">
+      <div className="flex items-center justify-between">
+        <span className="text-gray-700">ผลผลิตปีล่าสุด</span>
+        <div className="flex gap-2">
+          <Select_Year setYear={setYear} />
+          <SelectProvince setProvince={setProvince} />
+        </div>
       </div>
       <canvas ref={chartRef}></canvas>
     </div>

@@ -4,7 +4,6 @@ import Navbar from "../../components/admin/Navbar";
 import Search from "../../components/admin/Search";
 import Sidebar from "../../components/admin/Sidebar";
 import Table_RiceCaltivation from "../../components/admin/Table_RiceCaltivation";
-import ShowName from "../../components/admin/ShowName";
 
 const ManageRiceCaltivation = () => {
   const [search, setSearch] = useState("");
@@ -37,19 +36,12 @@ const ManageRiceCaltivation = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <div className="flex space-x-2">
-                  <Search setSearch={setSearch} text={"ระบุชื่อชาวนา"} />
-                </div>
+                <Search setSearch={setSearch} />
                 <AddRiceCaltivation />
               </div>
-              {search === "" ? (
-                <div>
-                  {/* <h1 className="pb-4 text-sm lg:text-md">รอบการปลูกทั้งหมด</h1> */}
-                  <Table_RiceCaltivation search={search} />
-                </div>
-              ) : (
-                <ShowName search={search} page={"riceCaltivation"} />
-              )}
+              <div>
+                <Table_RiceCaltivation search={search} />
+              </div>
             </div>
           </div>
         </div>
@@ -77,23 +69,12 @@ const ManageRiceCaltivation = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <div className="flex space-x-2">
-                  <Search
-                    search={search}
-                    setSearch={setSearch}
-                    text={"ระบุชื่อชาวนา"}
-                  />
-                </div>
+                <Search setSearch={setSearch} />
                 <AddRiceCaltivation />
               </div>
-              {search === "" ? (
-                <div>
-                  {/* <h1 className="pb-4 text-sm lg:text-md">รอบการปลูกทั้งหมด</h1> */}
-                  <Table_RiceCaltivation search={search} />
-                </div>
-              ) : (
-                <ShowName search={search} page={"riceCaltivation"} />
-              )}
+              <div>
+                <Table_RiceCaltivation search={search} />
+              </div>
             </div>
           </div>
         </div>

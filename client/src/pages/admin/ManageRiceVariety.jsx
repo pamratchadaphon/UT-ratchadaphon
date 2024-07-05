@@ -35,11 +35,7 @@ const ManageRiceVariety = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <Search
-                  search={search}
-                  setSearch={setSearch}
-                  text={"ค้นหาชื่อพันธุ์ข้าว"}
-                />
+                <Search setSearch={setSearch} />
                 <AddRicevariety />
               </div>
               <Table_RiceVariety search={search} />
@@ -70,11 +66,7 @@ const ManageRiceVariety = () => {
             />
             <div className="bg-white m-4 rounded-lg shadow space-y-4 p-4 basis-5/6">
               <div className="flex flex-wrap justify-between items-center gap-4">
-                <Search
-                  search={search}
-                  setSearch={setSearch}
-                  text={"ค้นหาชื่อพันธุ์ข้าว"}
-                />
+                <Search setSearch={setSearch} />
                 <AddRicevariety />
               </div>
               <Table_RiceVariety search={search} />
