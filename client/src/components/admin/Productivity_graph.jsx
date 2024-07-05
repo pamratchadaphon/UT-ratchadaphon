@@ -121,7 +121,7 @@ const BarChart = () => {
   }, [dataset, monthString]);
 
   return (
-    <div className="bg-gray-50 rounded-lg p-4 shadow w-full">
+    <div className="bg-gray-50 rounded-lg p-4 shadow w-full md:w-4/5">
       <div className="flex items-center justify-between">
         <span className="text-gray-700">ผลผลิตปีล่าสุด</span>
         <div className="flex gap-2">

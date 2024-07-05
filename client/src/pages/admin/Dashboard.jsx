@@ -69,9 +69,9 @@ const Dashboard = () => {
               <BoxDashboard />
               <div className="flex flex-col md:flex-row gap-8 pt-4">
                 <Productivity_graph />
-                <div className="bg-gray-50 rounded-lg w-full lg:w-1/3 p-4 shadow">
+                {/* <div className="bg-gray-50 rounded-lg w-full lg:w-1/3 p-4 shadow">
                   รายรับรายจ่ายรายสัปดาห์
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
