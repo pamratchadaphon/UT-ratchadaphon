@@ -1,7 +1,5 @@
 const db = require("../models");
 const IncomeExpense = db.IncomeExpense;
-const Farmer = db.Farmer;
-const RiceCaltivation = db.RiceCaltivation;
 
 module.exports = {
   async create(req, res) {
