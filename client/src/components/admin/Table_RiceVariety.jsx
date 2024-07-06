@@ -97,7 +97,7 @@ const Table_RiceVariety = ({ search }) => {
               รูปภาพ
             </th>
             <th scope="col" className="px-2 py-4">
-              <div className="flex items-center gap-2 justify-center">
+              <div className="flex items-center gap-2">
                 ชื่อพันธุ์
                 <button
                   className="text-gray-400 hover:text-gray-700"
@@ -108,7 +108,7 @@ const Table_RiceVariety = ({ search }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              <div className="flex items-center gap-2 justify-center">
+              <div className="flex items-center gap-2 ">
                 อายุเก็บเกี่ยว
                 <button
                   className="text-gray-400 hover:text-gray-700"
@@ -119,7 +119,7 @@ const Table_RiceVariety = ({ search }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              <div className="flex items-center gap-2 justify-center">
+              <div className="flex items-center gap-2">
                 ผลผลิต
                 <button
                   className="text-gray-400 hover:text-gray-700"
@@ -130,8 +130,8 @@ const Table_RiceVariety = ({ search }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              <div className="flex items-center gap-2 justify-center">
-                ความสูงเฉลี่ย
+              <div className="flex items-center gap-2">
+                ความสูง
                 <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("height")}
@@ -141,7 +141,7 @@ const Table_RiceVariety = ({ search }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
-              <div className="flex items-center gap-2 justify-center">
+              <div className="flex items-center gap-2">
                 ความไวแสง
                 <button
                   className="text-gray-400 hover:text-gray-700"
@@ -168,19 +168,19 @@ const Table_RiceVariety = ({ search }) => {
                   className="h-16 w-24"
                 />
               </th>
-              <th scope="row" className="p-2 font-normal  text-center">
+              <th scope="row" className="p-2 font-normal">
                 {d.name}
               </th>
-              <th scope="row" className="p-2 font-normal text-center">
-                {d.age} วัน
+              <th scope="row" className="p-2 font-normal">
+                {d.age} 
               </th>
-              <th scope="row" className="p-2 font-normal text-center">
+              <th scope="row" className="p-2 font-normal">
                 ประมาณ {d.yield} กก./ไร่
               </th>
-              <th scope="row" className="p-2 font-normal text-center">
+              <th scope="row" className="p-2 font-normal">
                 {d.height} ซม.
               </th>
-              <th scope="row" className="p-2 font-normal text-center">
+              <th scope="row" className="p-2 font-normal">
                 {d.photosensitivity}
               </th>
               <th scope="row" className="p-2 font-normal text-center">
@@ -239,7 +239,7 @@ const Table_RiceVariety = ({ search }) => {
             ) : null
           }
           onPageChange={changePage}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           pageCount={npage}
           previousLabel={
             firstIndex > 0 ? (

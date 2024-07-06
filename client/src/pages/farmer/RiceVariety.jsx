@@ -57,7 +57,7 @@ const RiceVariety = () => {
             <Pagination
               data={data}
               setRecords={setRecords}
-              recodesPerPage={20}
+              recodesPerPage={12}
             />
           </div>
         </motion.div>

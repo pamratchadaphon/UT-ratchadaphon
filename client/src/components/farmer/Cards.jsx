@@ -15,7 +15,7 @@ const Cards = ({ data }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 w-full px-4 mb-4">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-6 w-full px-4 mb-6">
       {data.map((d, i) => (
         <div
           className="max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:-translate-y-1 hover:scale-100 hover:shadow-lg hover:duration-700"
@@ -35,6 +35,7 @@ const Cards = ({ data }) => {
             <p className="text-sm text-gray-700 mb-3">
               ผลผลิต : ประมาณ {d.yield} กก./ไร่
             </p>
+
             <div className="flex items-center">
               <button
                 className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center rounded-lg  bg-green-100 text-green-700 hover:duration-500 hover:text-white hover:bg-green-600"
@@ -67,12 +68,20 @@ const Cards = ({ data }) => {
                       ข้อมูลพันธุ์ข้าว {dataById.name}
                     </span>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex">
+                    <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
+                      ชนิด
+                    </span>
+                    <span className="w-1/2 text-sm text-gray-600">
+                      {dataById.type}
+                    </span>
+                  </div>
+                  <div className="flex">
                     <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
                       อายุเก็บเกี่ยว
                     </span>
                     <span className="w-1/2 text-sm text-gray-600">
-                      {dataById.age} วัน (หว่านน้ำตม)
+                      {dataById.age}
                     </span>
                   </div>
                   <div className="flex">
@@ -85,7 +94,7 @@ const Cards = ({ data }) => {
                   </div>
                   <div className="flex">
                     <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
-                      ความสูงเฉลี่ย
+                      ความสูง
                     </span>
                     <span className="w-1/2 text-sm text-gray-600">
                       {dataById.height} เซนติเมตร
@@ -96,7 +105,7 @@ const Cards = ({ data }) => {
                       ผลผลิต
                     </span>
                     <span className="w-1/2 text-sm text-gray-600">
-                      ประมาณ {dataById.yield} กก./ไร่
+                      {dataById.yield} กก./ไร่
                     </span>
                   </div>
                   <div className="flex">
@@ -109,7 +118,7 @@ const Cards = ({ data }) => {
                   </div>
                   <div className="flex">
                     <span className="w-1/2 pr-2 text-sm font-medium text-gray-800">
-                      ข้อจำกัด
+                      ข้อควรระวัง
                     </span>
                     <span className="w-1/2 text-sm text-gray-600">
                       {dataById.precautions}

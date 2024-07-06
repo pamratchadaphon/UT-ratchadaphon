@@ -54,14 +54,14 @@ const Pagination = ({ data, setRecords, setFirstIndex, recodesPerPage}) => {
       </span>
       <ReactPaginate
         breakLabel={
-          <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
+          <span className="w-5 h-5 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
             ...
           </span>
         }
         nextLabel={
           page < npage ? (
             <span
-              className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+              className=" flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
               onClick={nextPage}
             >
               <GrNext />
@@ -74,7 +74,7 @@ const Pagination = ({ data, setRecords, setFirstIndex, recodesPerPage}) => {
         previousLabel={
           firstIndex > 0 ? (
             <span
-              className="p-2 flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
+              className="flex justify-center items-center bg-gray-100 rounded-lg hover:bg-gray-200"
               onClick={prePage}
             >
               <GrPrevious />

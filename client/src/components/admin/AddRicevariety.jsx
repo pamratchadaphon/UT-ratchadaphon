@@ -15,6 +15,7 @@ const AddRicevariety = () => {
   const [photosensitivity, setPhotosensitivity] = useState("");
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
+  const [type, setType] = useState("")
 
   const [imageURL, setImageURL] = useState("");
 
@@ -39,6 +40,7 @@ const AddRicevariety = () => {
     formData.append("photosensitivity", photosensitivity);
     formData.append("stability", stability);
     formData.append("precautions", precautions);
+    formData.append("type", type)
 
     const config = {
       headers: {
@@ -133,6 +135,26 @@ const AddRicevariety = () => {
                     />
                     กก./ไร่
                   </div>
+                  <div className="flex items-center text-sm">
+                    <label
+                      htmlFor="type"
+                      className="font-medium text-gray-900 mb-2 w-1/3"
+                    >
+                      ชนิด
+                    </label>
+                    <select
+                      name="type"
+                      id="type"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
+                      onChange={(e) => setType(e.target.value)}
+                      value={type}
+                      required
+                    >
+                      <option value="">เลือกชนิด</option>
+                      <option value="ข้าวเจ้า">ข้าวเจ้า</option>
+                      <option value="ข้าวเหนียว">ข้าวเหนียว</option>
+                    </select>
+                  </div>
                   <div className="flex items-center text-sm ">
                     <label
                       htmlFor="photosensitivity"
@@ -166,7 +188,6 @@ const AddRicevariety = () => {
                       onChange={(e) => setAge(e.target.value)}
                       className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                     />
-                    วัน
                   </div>
 
                   <div className="flex items-center text-sm">

@@ -40,6 +40,7 @@ module.exports = {
       height: req.body.height,
       feature: req.body.feature,
       age: req.body.age,
+      type: req.body.type,
       image: req.file.path,
     };
     const newRiceVariety = await RiceVariety.create(info);
@@ -66,6 +67,7 @@ module.exports = {
       height: req.body.height,
       feature: req.body.feature,
       age: req.body.age,
+      type: req.body.type,
       image: req.file.path,
     };
     await RiceVariety.update(info, {
@@ -84,6 +86,7 @@ module.exports = {
       height: req.body.height,
       feature: req.body.feature,
       age: req.body.age,
+      type: req.body.type
     };
     await RiceVariety.update(info, {
       where: { riceVariety_id: req.params.riceVariety_id },

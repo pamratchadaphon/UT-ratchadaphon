@@ -20,6 +20,7 @@ const EditRiceVariety = ({ id }) => {
   const [photosensitivity, setPhotosensitivity] = useState("");
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
+  const [type, setType] = useState("");
 
   const handleModal = () => {
     setModal(!modal);
@@ -39,6 +40,7 @@ const EditRiceVariety = ({ id }) => {
         setStability(res.data.stability);
         setYield(res.data.yield);
         setImage(res.data.image);
+        setType(res.data.type);
       } catch (error) {
         console.log("Error" + error);
       }
@@ -62,6 +64,7 @@ const EditRiceVariety = ({ id }) => {
     formData.append("photosensitivity", photosensitivity);
     formData.append("stability", stability);
     formData.append("precautions", precautions);
+    formData.append("type", type);
 
     const values = {
       name: name,
@@ -71,6 +74,7 @@ const EditRiceVariety = ({ id }) => {
       photosensitivity: photosensitivity,
       stability: stability,
       precautions: precautions,
+      type: type,
     };
 
     const config = {
@@ -82,7 +86,7 @@ const EditRiceVariety = ({ id }) => {
     if (image === resImg) {
       await axios
         .put(`http://localhost:8080/riceVariety/edit2/${id}`, values)
-        .then((res) => console.log(res.data));
+        .then((response) => console.log(response.data));
     } else {
       await axios
         .put(`http://localhost:8080/riceVariety/edit1/${id}`, formData, config)
@@ -112,7 +116,7 @@ const EditRiceVariety = ({ id }) => {
 
       {modal ? (
         <div className="overflow-x-hidden overflow-y-auto fixed top-0 right-0 left-0 z-50 flex justify-center items-center bg-black bg-opacity-50 h-screen">
-          <div className="relative p-4 w-full max-w-3xl">
+          <div className="relative p-4 w-full max-w-3xl max-h-full">
             <motion.div
               initial={{ y: -100 }}
               animate={{ y: 0 }}
@@ -138,7 +142,10 @@ const EditRiceVariety = ({ id }) => {
               >
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="flex items-center text-gray-900 text-sm">
-                    <label htmlFor="name" className="font-medium mb-2 w-1/4">
+                    <label
+                      htmlFor="name"
+                      className="font-medium mb-2 w-1/4 text-start"
+                    >
                       ชื่อพันธุ์
                     </label>
                     <input
@@ -148,11 +155,14 @@ const EditRiceVariety = ({ id }) => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                     />
                   </div>
-                  <div className="flex items-center text-gray-900 text-sm ">
-                    <label htmlFor="yield" className="font-medium mb-2 w-1/4">
+                  <div className="flex items-center text-gray-900 text-sm">
+                    <label
+                      htmlFor="yield"
+                      className="font-medium mb-2 w-1/4 text-start"
+                    >
                       ผลผลิต
                     </label>
                     <input
@@ -162,11 +172,31 @@ const EditRiceVariety = ({ id }) => {
                       value={yield_rice}
                       onChange={(e) => setYield(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                     />
                     กก./ไร่
                   </div>
                   <div className="flex items-center text-gray-900 text-sm">
+                    <label
+                      htmlFor="type"
+                      className="font-medium mb-2 w-1/4 text-start"
+                    >
+                      ชนิด
+                    </label>
+                    <select
+                      name="type"
+                      id="type"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
+                      onChange={(e) => setType(e.target.value)}
+                      value={type}
+                      required
+                    >
+                      <option value="">เลือกชนิด</option>
+                      <option value="ข้าวเจ้า">ข้าวเจ้า</option>
+                      <option value="ข้าวเหนียว">ข้าวเหนียว</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center text-gray-900 text-sm text-start">
                     <label
                       htmlFor="photosensitivity"
                       className="font-medium mb-2 w-1/4"
@@ -180,11 +210,14 @@ const EditRiceVariety = ({ id }) => {
                       value={photosensitivity}
                       onChange={(e) => setPhotosensitivity(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 w-1/3 md:w-2/4"
                     />
                   </div>
-                  <div className="flex items-center text-gray-900 text-sm ">
-                    <label htmlFor="age" className="font-medium  mb-2 w-1/4">
+                  <div className="flex items-center text-gray-900 text-sm">
+                    <label
+                      htmlFor="age"
+                      className="font-medium  mb-2 w-1/4 text-start"
+                    >
                       อายุเก็บเกี่ยว
                     </label>
                     <input
@@ -194,12 +227,15 @@ const EditRiceVariety = ({ id }) => {
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                     />
-                    วัน
                   </div>
+                  
                   <div className="flex items-center text-gray-900 text-sm">
-                    <label htmlFor="height" className="font-medium  mb-2 w-1/4">
+                    <label
+                      htmlFor="height"
+                      className="font-medium  mb-2 w-1/4 text-start"
+                    >
                       ความสูงเฉลี่ย
                     </label>
                     <input
@@ -209,14 +245,14 @@ const EditRiceVariety = ({ id }) => {
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                     />
                     ซม.
                   </div>
                   <div className="flex text-sm text-gray-900">
                     <label
                       htmlFor="stability"
-                      className="font-medium  mb-2 w-1/4"
+                      className="font-medium  mb-2 w-1/4 text-start"
                     >
                       ลักษณะเด่น
                     </label>
@@ -227,13 +263,13 @@ const EditRiceVariety = ({ id }) => {
                       value={stability}
                       onChange={(e) => setStability(e.target.value)}
                       required
-                      className="bg-gray-50 border border-gray-300rounded-lg p-2.5 mr-2 h-24"
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 h-24 w-1/3 md:w-2/4"
                     ></textarea>
                   </div>
-                  <div className="flex text-gray-900 text-sm ">
+                  <div className="flex text-gray-900 text-sm">
                     <label
                       htmlFor="precautions"
-                      className="font-medium  mb-2 w-1/4"
+                      className="font-medium w-1/4 text-start"
                     >
                       ข้อควรระวัง
                     </label>
@@ -244,13 +280,13 @@ const EditRiceVariety = ({ id }) => {
                       required
                       value={precautions}
                       onChange={(e) => setPrecautions(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 h-24"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 h-24 w-1/3 md:w-2/4"
                     ></textarea>
                   </div>
                   <div className="flex items-center">
                     <label
                       htmlFor="image"
-                      className="text-sm font-medium text-gray-900 mb-2 w-1/4 mr-2"
+                      className="text-sm font-medium text-gray-900 w-1/4 mr-2 text-start"
                     >
                       รูปภาพใหม่
                     </label>
@@ -264,14 +300,20 @@ const EditRiceVariety = ({ id }) => {
                   </div>
                 </div>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center text-gray-900">
                   {imageURL ? (
-                    <img src={`${imageURL}`} className="w-72 h-48" />
+                    <div>
+                      แสดงรูปภาพใหม่
+                      <img src={`${imageURL}`} className="w-72 h-48 pt-2" />
+                    </div>
                   ) : (
-                    <img
-                      src={`http://localhost:8080/${image}`}
-                      className="w-72 h-48"
-                    />
+                    <div>
+                      แสดงรูปภาพเดิม
+                      <img
+                        src={`http://localhost:8080/${image}`}
+                        className="w-72 h-48 pt-2"
+                      />
+                    </div>
                   )}
                 </div>
 

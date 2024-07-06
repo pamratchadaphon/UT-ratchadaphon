@@ -123,7 +123,7 @@ const BarChart = () => {
   return (
     <div className="bg-gray-50 rounded-lg p-4 shadow w-full md:w-4/5">
       <div className="flex items-center justify-between">
-        <span className="text-gray-700">ผลผลิตปีล่าสุด</span>
+        <span className="text-gray-700">ผลผลิตการเก็บเกี่ยวปีล่าสุด</span>
         <div className="flex gap-2">
           <Select_Year setYear={setYear} />
           <SelectProvince setProvince={setProvince} />

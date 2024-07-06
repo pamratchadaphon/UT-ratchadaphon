@@ -38,8 +38,7 @@ const Pagonation = ({ data, setRecords, recodesPerPage, setFirstIndex}) => {
 
   return (
     <nav
-      className="flex items-center flex-column flex-wrap md:flex-row justify-between pb-4"
-      aria-label="Table navigation"
+      className="flex items-center md:flex-column flex-wrap md:flex-row justify-between"
     >
       <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
         จำนวนแถวต่อหน้า{" "}
@@ -68,7 +67,7 @@ const Pagonation = ({ data, setRecords, recodesPerPage, setFirstIndex}) => {
           ) : null
         }
         onPageChange={changePage}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         pageCount={npage}
         previousLabel={
           firstIndex > 0 ? (

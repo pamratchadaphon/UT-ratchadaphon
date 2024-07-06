@@ -69,6 +69,12 @@ const ViewRiceVariety = ({ id }) => {
                     <span className="text-sm text-gray-700">{data.name}</span>
                   </div>
                   <div className="flex text-start">
+                    <span className="text-sm font-medium text-gray-900 w-1/3">
+                      ชนิด
+                    </span>
+                    <span className="text-sm text-gray-700">{data.type}</span>
+                  </div>
+                  <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/3 ">
                       ผลผลิต
                     </span>
@@ -89,7 +95,7 @@ const ViewRiceVariety = ({ id }) => {
                       อายุเก็บเกี่ยว
                     </span>
                     <span className="text-sm text-gray-700">
-                      {data.age} วัน
+                      {data.age} 
                     </span>
                   </div>
                   <div className="flex text-start">
