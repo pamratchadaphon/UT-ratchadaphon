@@ -50,6 +50,7 @@ const Pagonation = ({ data, setRecords, recodesPerPage, setFirstIndex}) => {
           {data.length}
         </span>
       </span>
+
       <ReactPaginate
         breakLabel={
           <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
@@ -84,6 +85,7 @@ const Pagonation = ({ data, setRecords, recodesPerPage, setFirstIndex}) => {
         pageClassName="w-8 h-8 hover:bg-green-100 hover:text-green-700 rounded-lg flex items-center justify-center"
         activeClassName="bg-green-100 text-green-700"
       />
+
     </nav>
   );
 };

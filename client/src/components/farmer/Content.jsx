@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ModalAddRicecrop from "../../components/farmer/ModalAddRicecrop";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-const Content = () => {
+const Content = ({ status, setStatus }) => {
   const id = useParams();
   const farmer_id = Number(id.farmer_id);
   const [data, setData] = useState({});
   const [showModalExpense, setShowModalExpense] = useState(false);
   const [showModalIncome, setShowModalIncome] = useState(false);
   const [riceCaltivation_id, setRiceCaltivation_id] = useState(0);
-  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +32,7 @@ const Content = () => {
       }
     };
     fetchData();
-  }, [farmer_id]);
+  }, [farmer_id, setStatus]);
 
   const handleModalExpense = () => setShowModalExpense(!showModalExpense);
 
@@ -64,36 +64,16 @@ const Content = () => {
       {status === "old" ? (
         <div>
           <div className="flex flex-col justify-center items-center">
-            <motion.h1
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-              className="mb-4 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 leading-none  md:text-6xl lg:text-7xl p-3"
-            >
+            <h1 className="mb-4 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 leading-none  md:text-6xl lg:text-7xl p-3">
               พันธุ์ {data.riceVariety}
-            </motion.h1>
-            <motion.p
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1.5 }}
-              className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
-            >
+            </h1>
+            <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
               วันที่ปลูก : {formatDate(data.startDate)}
-            </motion.p>
-            <motion.p
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 2 }}
-              className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48"
-            >
+            </p>
+            <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">
               วันที่คาดว่าเก็บเกี่ยว : {formatDate(data.endDate)}
-            </motion.p>
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 2.5 }}
-              className="flex gap-2 md:gap-3 justify-center items-center"
-            >
+            </p>
+            <div className="flex gap-2 md:gap-3 justify-center items-center">
               <button
                 className="bg-red-400 h-36 w-36 rounded-full text-white lg:text-red-700 lg:bg-red-200 lg:hover:bg-red-500 lg:hover:text-white hover:duration-500 shadow-md"
                 onClick={handleModalExpense}
@@ -118,21 +98,16 @@ const Content = () => {
                 farmer_id={farmer_id}
                 riceCaltivation_id={riceCaltivation_id}
               />
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 2.5 }}
-              className="mt-8"
-            >
+            <div className="mt-8">
               <Link
                 to={`/ricecrop/history/${farmer_id}/${riceCaltivation_id}`}
                 className="text-white bg-orange-400 hover:bg-orange-100 hover:text-orange-700 py-2 px-4 rounded-full hover:duration-700 shadow-lg"
               >
                 ดูรายงานค่าใช้จ่าย
               </Link>
-            </motion.div>
+            </div>
           </div>
         </div>
       ) : (
@@ -166,6 +141,11 @@ const Content = () => {
       )}
     </div>
   );
+};
+
+Content.propTypes = {
+  status: PropTypes.string,
+  setStatus: PropTypes.func,
 };
 
 export default Content;

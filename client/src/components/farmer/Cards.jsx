@@ -27,18 +27,23 @@ const Cards = ({ data }) => {
             alt=""
           />
 
-          <div className="p-5">
+          <div className="p-2 sm:p-5">
             <h5 className="md:text-2xl font-bold tracking-tight  text-green-700">
               พันธุ์ {d.name}
             </h5>
-
-            <p className="text-sm text-gray-700 mb-3">
-              ผลผลิต : ประมาณ {d.yield} กก./ไร่
+            
+            <div className="flex flex-wrap text-xs lg:text-sm gap-1">
+              <div className="py-1 px-2 rounded-full text-violet-600 bg-violet-100">{d.type}</div>
+              <div className="py-1 px-2 bg-blue-100 rounded-full text-blue-600">{d.photosensitivity}</div>
+            </div>
+            
+            <p className="text-xs lg:text-sm text-gray-700 mb-3">
+              ผลผลิต : {d.yield} กก./ไร่
             </p>
 
             <div className="flex items-center">
               <button
-                className="inline-flex gap-2 items-center px-3 py-2 text-sm font-medium text-center rounded-lg  bg-green-100 text-green-700 hover:duration-500 hover:text-white hover:bg-green-600"
+                className="inline-flex gap-2 items-center px-3 py-2 text-xs md:text-sm font-medium text-center rounded-lg  hover:bg-green-100 hover:text-green-700 hover:duration-500 text-white bg-green-600"
                 onClick={() => handleModal(d.riceVariety_id)}
               >
                 <span>ดูข้อมูล</span>
