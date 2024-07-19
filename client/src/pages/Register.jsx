@@ -19,6 +19,7 @@ const Register = () => {
     subdistrict: "",
     district: "",
     province: "",
+    role: "user",
   });
 
   const [email, setEmail] = useState(false);
@@ -65,7 +66,7 @@ const Register = () => {
     ) {
       try {
         await axios
-          .post("http://localhost:8080/farmer/", values)
+          .post("http://localhost:8080/user/", values)
           .then((result) => console.log(result.data));
         await Swal.fire({
           title: "ลงทะเบียนสำเร็จ",
@@ -73,11 +74,17 @@ const Register = () => {
         });
         navigator("/");
       } catch (error) {
-        console.log("Error : " + error);
-        if (error.response.data.error === "Email already exists") {
+        console.log(error);
+        if (error.response.data.error.name === "SequelizeUniqueConstraintError") {
           Swal.fire({
             title: "อีเมลนี้ถูกใช้แล้ว",
             text: "กรุณาใช้อีเมลใหม่ในการสร้างบัญชี",
+            icon: "error",
+          });
+        } else if (error.response.data.error.name === "SequelizeDatabaseError") {
+          Swal.fire({
+            title: "เบอร์โทรศัพท์ไม่ถูกต้อง",
+            text: "กรุณาระบุหมายเลขโทรศัพท์ที่มีความยาว 10 หลัก",
             icon: "error",
           });
         }
@@ -197,7 +204,7 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     อีเมล
                   </label>
                   <input
@@ -218,7 +225,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     รหัสผ่าน
                   </label>
                   <input
@@ -239,7 +246,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     ชื่อ
                   </label>
                   <input
@@ -260,7 +267,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     นามสกุล
                   </label>
                   <input
@@ -281,7 +288,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     เบอร์โทรศัพท์
                   </label>
                   <input
@@ -302,7 +309,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     ตำบล
                   </label>
                   <input
@@ -323,7 +330,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     อำเภอ
                   </label>
                   <input
@@ -344,7 +351,7 @@ const Register = () => {
                   ) : null}
                 </div>
                 <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
                     จังหวัด
                   </label>
                   <button

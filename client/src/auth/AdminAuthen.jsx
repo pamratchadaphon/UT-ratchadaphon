@@ -19,7 +19,7 @@ const AdminAuthen = ({ children }) => {
             Authorization: `Bearer ${token}`
           }
         }
-        const auth = await axios.post("http://localhost:8080/farmer/authen", null, config)
+        const auth = await axios.post("http://localhost:8080/user/authen", null, config)
         if (auth.data.status === 'ok') {
           setAuthen(true)
         }

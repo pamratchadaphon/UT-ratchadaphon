@@ -13,11 +13,11 @@ const Select_Year = ({ setYear }) => {
           (data) =>
             data.type === "รายรับ" &&
             data.riceCaltivation_id !== null &&
-            data.farmer_id !== null
+            data.user_id !== null
         );
         setYearData([
             ...new Set(data.map((data) => new Date(data.date).getFullYear())),
-          ].sort((a, b) => a - b))
+          ].sort((a, b) => b - a))
       } catch (error) {
         console.log(error);
       }
@@ -30,12 +30,12 @@ const Select_Year = ({ setYear }) => {
       <select
         name="year"
         id="year"
-        className="border border-gray-300 rounded-lg p-2 text-sm bg-gray-50 text-gray-500"
+        className="border border-gray-300 rounded-lg p-2 text-sm bg-gray-50 text-gray-500 hover:bg-gray-100 hover:border-gray-400"
         onChange={(e) => setYear(e.target.value)}
       >
-        <option value={new Date().getFullYear()}>ปี</option>
-        {yearData.map((year, index) => (
-          <option value={year} key={index}>{year}</option>
+        <option value={(new Date).getFullYear()}>ปี</option>
+        {yearData.map((yearData, index) => (
+          <option value={yearData} key={index}>{yearData}</option>
         ))}
       </select>
     </div>

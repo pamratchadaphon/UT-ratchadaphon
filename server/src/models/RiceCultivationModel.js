@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     rice_price_per_kg: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
     rice_consumption: {

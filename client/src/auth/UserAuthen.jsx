@@ -20,7 +20,7 @@ const UserAuthen = ({ children }) => {
           },
         };
         const authenResponse = await axios.post(
-          `http://localhost:8080/farmer/authen`,
+          `http://localhost:8080/user/authen`,
           null,
           config
         );

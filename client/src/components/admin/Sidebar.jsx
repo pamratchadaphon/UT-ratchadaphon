@@ -15,14 +15,14 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
   const navigator = useNavigate();
   const [dashboard, setDashboard] = useState(false);
   const [riceVariety, setRiceVariety] = useState(false);
-  const [farmer, setFarmer] = useState(false);
+  const [user, setUser] = useState(false);
   const [riceCaltivaion, setRiceCalrivation] = useState(false);
   const [incomeExpense, setIncomeExpense] = useState(false);
   const [newsService, setNewsService] = useState(false);
 
   useEffect(() => {
     page === "riceVariety" ? setRiceVariety(true) : null;
-    page === "farmer" ? setFarmer(true) : null;
+    page === "user" ? setUser(true) : null;
     page === "riceCaltivation" ? setRiceCalrivation(true) : null;
     page === "dashboard" ? setDashboard(true) : null;
     page === "newsService" ? setNewsService(true) : null;
@@ -68,7 +68,7 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
                   </li>
                 )}
 
-                {farmer ? (
+                {user ? (
                   <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                     <a href="#" className="flex items-center gap-2">
                       <IoMdPerson />
@@ -77,7 +77,7 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
                   </li>
                 ) : (
                   <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
-                    <a href="/admin/farmer" className="flex items-center gap-2">
+                    <a href="/admin/user" className="flex items-center gap-2">
                       <IoMdPerson />
                       จัดการชาวนา
                     </a>
@@ -236,7 +236,7 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
                       </a>
                     </li>
                   )}
-                  {farmer ? (
+                  {user ? (
                     <li className="text-gray-500 rounded-lg p-2  bg-gray-100">
                       <a href="#" className="flex items-center gap-2">
                         <IoMdPerson />
@@ -246,7 +246,7 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
                   ) : (
                     <li className="text-gray-500 rounded-lg p-2 hover:bg-gray-100">
                       <a
-                        href="/admin/farmer"
+                        href="/admin/user"
                         className="flex items-center gap-2"
                       >
                         <IoMdPerson />

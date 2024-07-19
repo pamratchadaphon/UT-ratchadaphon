@@ -17,13 +17,15 @@ const Table_IncomeExpense = ({ search, type }) => {
       try {
         const res = await axios.get(`http://localhost:8080/incomeExpense`);
         const dataAll = res.data.filter(
-          (data) => data.riceCaltivation_id !== null && data.farmer_id !== null
+          (data) =>
+            data.riceCaltivation_id !== null &&
+            data.user_id !== null &&
+            data.user !== null
         );
 
-        const search_data = dataAll.filter((data) => ( 
-          data.type.includes(type) &&
-          data.farmer.fname.includes(search)
-        ));
+        const search_data = dataAll.filter(
+          (data) => data.type.includes(type) && data.user.fname.includes(search)
+        );
         search_data.sort((a, b) => {
           return new Date(a.date) - new Date(b.date);
         });
@@ -39,14 +41,14 @@ const Table_IncomeExpense = ({ search, type }) => {
   const sortingName = (column) => {
     if (order === "ASC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column] > b.farmer[column] ? 1 : -1
+        a.user[column] > b.user[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column] < b.farmer[column] ? 1 : -1
+        a.user[column] < b.user[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("ASC");
@@ -190,7 +192,7 @@ const Table_IncomeExpense = ({ search, type }) => {
                 key={i}
               >
                 <td className="p-2 text-center">
-                  {d.farmer.fname} {d.farmer.lname}
+                  {d.user.fname} {d.user.lname}
                 </td>
                 <td className="p-2 text-center">{d.riceCaltivation_id}</td>
                 <th className="p-2 font-normal text-start">

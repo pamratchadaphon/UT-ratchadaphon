@@ -14,8 +14,8 @@ module.exports = {
     const riceCaltivation = await RiceCaltivation.findAll({
       include: [
         {
-          model: db.Farmer,
-          as: "farmer",
+          model: db.User,
+          as: "user",
         },
       ],
     });
@@ -51,12 +51,12 @@ module.exports = {
     });
     res.status(200).send(data);
   },
-  async farmer(req, res) {
+  async User(req, res) {
     const riceCaltivation = await RiceCaltivation.findAll({
       include: [
         {
-          model: db.Farmer,
-          as: "farmer",
+          model: db.User,
+          as: "user",
         },
       ],
     });

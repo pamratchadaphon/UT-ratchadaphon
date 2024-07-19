@@ -18,7 +18,7 @@ sequelize
 
 
 const db = {};
-db.Farmer = require("./FarmerModel")(sequelize, Sequelize);
+db.User = require("./UserModel")(sequelize, Sequelize)
 db.RiceCaltivation = require("./RiceCultivationModel")(sequelize, Sequelize);
 db.IncomeExpense = require("./IncomeExpenseModel")(sequelize, Sequelize);
 db.RiceVariety = require("./RiceVarietyModel")(sequelize, Sequelize);
@@ -27,24 +27,24 @@ db.NewsService = require('./NewsServicesModel')(sequelize, Sequelize)
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.Farmer.hasMany(db.RiceCaltivation, {
-  foreignKey: 'farmer_id',
+db.User.hasMany(db.RiceCaltivation, {
+  foreignKey: 'user_id',
   as: 'riceCaltivation'
 })
 
-db.RiceCaltivation.belongsTo(db.Farmer, {
-  foreignKey: 'farmer_id',
-  as: 'farmer'
+db.RiceCaltivation.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  as: 'user'
 })
 
-db.Farmer.hasMany(db.IncomeExpense, {
-  foreignKey: 'farmer_id',
+db.User.hasMany(db.IncomeExpense, {
+  foreignKey: 'user_id',
   as: 'incomeExpense'
 })
 
-db.IncomeExpense.belongsTo(db.Farmer, {
-  foreignKey: 'farmer_id',
-  as: 'farmer'
+db.IncomeExpense.belongsTo(db.User, {
+  foreignKey: 'user_id',
+  as: 'user'
 })
 
 db.RiceCaltivation.hasMany(db.IncomeExpense, {

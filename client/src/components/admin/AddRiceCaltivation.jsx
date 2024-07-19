@@ -18,7 +18,7 @@ const AddriceCaltivation = () => {
     rice_price_per_kg: 0,
     rice_consumption: 0,
     seed_rice: 0,
-    farmer_id: 0,
+    user_id: 0,
   });
 
   const handleModal = () => {
@@ -50,7 +50,7 @@ const AddriceCaltivation = () => {
       values.endDate !== "" &&
       values.riceVariety !== "" &&
       values.area !== "" &&
-      values.farmer_id !== ""
+      values.user_id !== ""
     ) {
       try {
         await axios
@@ -217,10 +217,10 @@ const AddriceCaltivation = () => {
                       </label>
                       <input
                         type="number"
-                        name="farmer_id"
-                        id="farmer_id"
+                        name="user_id"
+                        id="user_id"
                         onChange={(e) =>
-                          setValues({ ...values, farmer_id: e.target.value })
+                          setValues({ ...values, user_id: e.target.value })
                         }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />

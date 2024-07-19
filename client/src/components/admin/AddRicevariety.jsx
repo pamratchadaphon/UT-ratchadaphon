@@ -162,15 +162,18 @@ const AddRicevariety = () => {
                     >
                       ความไวแสง
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="photosensitivity"
                       id="photosensitivity"
-                      required
-                      value={photosensitivity}
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                       onChange={(e) => setPhotosensitivity(e.target.value)}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg p-2.5 w-1/3 md:w-2/4"
-                    />
+                      value={photosensitivity}
+                      required
+                    >
+                      <option value="">เลือกความไวแสง</option>
+                      <option value="ไวต่อช่วงแสง">ไวต่อช่วงแสง</option>
+                      <option value="ไม่ไวต่อช่วงแสง">ไม่ไวต่อช่วงแสง</option>
+                    </select>
                   </div>
                   <div className="flex items-center text-sm">
                     <label

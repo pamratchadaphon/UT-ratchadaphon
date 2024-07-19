@@ -31,16 +31,16 @@ const Login = () => {
     if (values.email !== "" && values.password !== "") {
       try {
         const response = await axios.post(
-          "http://localhost:8080/farmer/login",
+          "http://localhost:8080/user/login",
           values
         );
-        const id = response.data.farmer_id;
+        const id = response.data.user_id;
         if (response.data.role === "admin") {
           localStorage.setItem("token", response.data.token);
           navigator(`/admin/dashboard`);
         } else {
           localStorage.setItem("token", response.data.token);
-          navigator(`/farmer/home/${id}`);
+          navigator(`/user/home/${id}`);
         }
       } catch (error) {
         console.error("Error:", error);
@@ -49,7 +49,7 @@ const Login = () => {
             title: "รหัสผ่านไม่ถูกต้อง",
             icon: "error",
           });
-        } else if (error.response.data.error === "Farmer not found") {
+        } else if (error.response.data.error === "User not found") {
           Swal.fire({
             title: "ยังไม่มีบัญชี",
             text: "กรุณาสร้างบัญชีก่อนลงชื่อเข้าใช้",
@@ -90,7 +90,7 @@ const Login = () => {
               onSubmit={handleSubmit}
             >
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                <label className="block mb-2 text-sm font-medium text-gray-900">
                   อีเมล
                 </label>
                 <input
@@ -111,7 +111,7 @@ const Login = () => {
                 ) : null}
               </div>
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">
+                <label className="block mb-2 text-sm font-medium text-gray-900">
                   รหัสผ่าน
                 </label>
                 <input

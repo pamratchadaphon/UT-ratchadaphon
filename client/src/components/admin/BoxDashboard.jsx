@@ -5,17 +5,17 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 
 const BoxDashboard = () => {
-  const [farmer, setFarmer] = useState([]);
+  const [user, setUser] = useState([]);
   const [riceCaltivation, setRiceCaltivation] = useState([]);
   const [riceVariety, setRiceVariety] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resFarmer = await axios.get(`http://localhost:8080/farmer`);
-        setFarmer(resFarmer.data.filter((data) => data.role === 'user'));
+        const resUser = await axios.get(`http://localhost:8080/user`);
+        setUser(resUser.data.filter((data) => data.role === 'user'));
         const resRiceCaltivation = await axios.get(`http://localhost:8080/riceCaltivation`);
-        setRiceCaltivation(resRiceCaltivation.data.filter((data) => data.farmer_id !== null));
+        setRiceCaltivation(resRiceCaltivation.data.filter((data) => data.user_id !== null));
         const resRiceVariety = await axios.get(`http://localhost:8080/riceVariety`);
         setRiceVariety(resRiceVariety.data)
       } catch (error) {
@@ -33,7 +33,7 @@ const BoxDashboard = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-gray-500">ชาวนา</span>
-            <span className="text-xl">{farmer.length}</span>
+            <span className="text-xl">{user.length}</span>
           </div>
         </div>
         <div className="flex rounded-lg bg-gray-50 shadow p-4 gap-4 w-full lg:w-1/3">

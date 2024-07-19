@@ -21,7 +21,7 @@ const EditRiceVariety = ({ id }) => {
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
   const [type, setType] = useState("");
-
+console.log(type);
   const handleModal = () => {
     setModal(!modal);
   };
@@ -203,15 +203,18 @@ const EditRiceVariety = ({ id }) => {
                     >
                       ความไวแสง
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="photosensitivity"
                       id="photosensitivity"
-                      value={photosensitivity}
+                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 mr-2 w-1/3 md:w-2/4"
                       onChange={(e) => setPhotosensitivity(e.target.value)}
+                      value={photosensitivity}
                       required
-                      className="bg-gray-50 border border-gray-300 rounded-lg p-2.5 w-1/3 md:w-2/4"
-                    />
+                    >
+                      <option value="">เลือกความไวแสง</option>
+                      <option value="ไวต่อช่วงแสง">ไวต่อช่วงแสง</option>
+                      <option value="ไม่ไวต่อช่วงแสง">ไม่ไวต่อช่วงแสง</option>
+                    </select>
                   </div>
                   <div className="flex items-center text-gray-900 text-sm">
                     <label

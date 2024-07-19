@@ -15,11 +15,11 @@ const ShowName = ({ search, page, riceCaltivation_id_search }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/riceCaltivation");
-        const data = res.data.filter((data) => data.farmer !== null);
+        const data = res.data.filter((data) => data.user !== null);
         const nameAll = [];
         data.filter((data) =>
-          data.farmer.fname === search
-            ? nameAll.push(`${data.farmer.fname}  ${data.farmer.lname}`)
+          data.user.fname === search
+            ? nameAll.push(`${data.user.fname}  ${data.user.lname}`)
             : null
         );
         setName([...new Set(nameAll)]);

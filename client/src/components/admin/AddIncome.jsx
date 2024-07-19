@@ -13,7 +13,7 @@ const AddIncome = () => {
     detail: "เกี่ยวข้าว",
     price: "",
     type: "รายรับ",
-    farmer_id: "",
+    user_id: "",
     riceCaltivation_id: "",
   });
 
@@ -29,7 +29,9 @@ const AddIncome = () => {
     () =>
       setValues({
         ...values,
-        price: yield_rice.yield * yield_rice.rice_price_per_kg,
+        price: Math.round(
+          Number(yield_rice.yield) * Number(yield_rice.rice_price_per_kg)
+        ),
       }),
     [yield_rice.yield, yield_rice.rice_price_per_kg]
   );
@@ -37,20 +39,20 @@ const AddIncome = () => {
   const [total_yield, setTotal_yield] = useState(false);
   const [yield_input, setYield_Input] = useState(false);
   const [rice_price_per_kg, setRice_price_per_kg] = useState(false);
-  const [farmer_id, setFarmer_id] = useState(false);
+  const [user_id, setUser_id] = useState(false);
   const [riceCaltivation_id, setRiceCaltivation_id] = useState(false);
 
   useEffect(() => setTotal_yield(false), [yield_rice.total_yield]);
   useEffect(() => setYield_Input(false), [yield_rice.yield]);
   useEffect(() => setRice_price_per_kg(false), [yield_rice.rice_price_per_kg]);
-  useEffect(() => setFarmer_id(false), [values.farmer_id]);
+  useEffect(() => setUser_id(false), [values.user_id]);
   useEffect(() => setRiceCaltivation_id(false), [values.riceCaltivation_id]);
 
   const check = () => {
     yield_rice.total_yield === "" ? setTotal_yield(true) : null;
     yield_rice.yield === "" ? setYield_Input(true) : null;
     yield_rice.rice_price_per_kg === "" ? setRice_price_per_kg(true) : null;
-    values.farmer_id === "" ? setFarmer_id(true) : null;
+    values.user_id === "" ? setUser_id(true) : null;
     values.riceCaltivation_id === "" ? setRiceCaltivation_id(true) : null;
   };
 
@@ -61,12 +63,12 @@ const AddIncome = () => {
       yield_rice.total_yield !== "" &&
       yield_rice.yield !== "" &&
       yield_rice.rice_price_per_kg !== "" &&
-      values.farmer_id !== "" &&
+      values.user_id !== "" &&
       values.riceCaltivation_id !== ""
     ) {
       try {
         const res = await axios.get(
-          `http://localhost:8080/farmer/riceCaltivation_incomeExpense/${values.farmer_id}`
+          `http://localhost:8080/user/riceCaltivation_incomeExpense/${values.user_id}`
         );
         if (res.data[0].riceCaltivation.length !== 0) {
           await axios
@@ -106,7 +108,7 @@ const AddIncome = () => {
         if (
           error.response.data.error.name ===
             "SequelizeForeignKeyConstraintError" &&
-          error.response.data.error.fields[0] === "farmer_id"
+          error.response.data.error.fields[0] === "user_id"
         ) {
           Swal.fire({
             title: "ไม่พบรหัสชาวนา",
@@ -326,25 +328,25 @@ const AddIncome = () => {
                       </div>
                       <div>
                         <label
-                          htmlFor="farmer_id"
+                          htmlFor="user_id"
                           className="block mb-2 text-sm font-medium text-gray-900 "
                         >
                           รหัสชาวนา
                         </label>
                         <input
                           type="number"
-                          name="farmer_id"
-                          id="farmer_id"
-                          value={values.farmer_id}
+                          name="user_id"
+                          id="user_id"
+                          value={values.user_id}
                           onChange={(e) =>
                             setValues({
                               ...values,
-                              farmer_id: e.target.value,
+                              userr_id: e.target.value,
                             })
                           }
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         />
-                        {farmer_id ? (
+                        {user_id ? (
                           <div className="text-sm text-red-500 flex items-center gap-1">
                             <RiErrorWarningLine />
                             <span>กรุณากรอกรหัสชาวนา</span>

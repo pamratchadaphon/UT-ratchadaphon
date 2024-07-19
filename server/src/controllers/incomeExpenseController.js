@@ -1,7 +1,5 @@
 const db = require("../models");
 const IncomeExpense = db.IncomeExpense;
-const Farmer = db.Farmer;
-const RiceCaltivation = db.RiceCaltivation;
 
 module.exports = {
   async create(req, res) {
@@ -16,8 +14,8 @@ module.exports = {
     const incomeExpense = await IncomeExpense.findAll({
       include: [
         {
-          model: db.Farmer,
-          as: "farmer",
+          model: db.User,
+          as: "user",
         },
         {
           model: db.RiceCaltivation,
@@ -45,12 +43,12 @@ module.exports = {
     });
     res.status(200).send("incomeexpense is deleted!");
   },
-  async farmer(req, res) {
+  async user(req, res) {
     const incomeExpense = await IncomeExpense.findAll({
       include: [
         {
-          model: db.Farmer,
-          as: "farmer",
+          model: db.User,
+          as: "user",
         },
       ],
       where: { income_expense_id: req.params.income_expense_id },

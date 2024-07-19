@@ -10,8 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const routeFarmer = require('./src/routes/farmerRoute')
-app.use('/farmer', routeFarmer)
+const routeUser = require('./src/routes/userRoute')
+app.use('/user', routeUser)
 
 const routeRiceVariety = require('./src/routes/riceVarietyRoute')
 app.use('/riceVariety', routeRiceVariety)

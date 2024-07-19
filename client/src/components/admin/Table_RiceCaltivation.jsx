@@ -9,7 +9,7 @@ import { FaSort } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const Table_RiceCaltivation = ({ search, fname, lname}) => {
+const Table_RiceCaltivation = ({ search, fname, lname }) => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState("DSC");
 
@@ -17,17 +17,16 @@ const Table_RiceCaltivation = ({ search, fname, lname}) => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/riceCaltivation");
-        const data = res.data.filter((data) => data.farmer !== null);
+        const data = res.data.filter((data) => data.user !== null);
         if (fname !== undefined && lname !== undefined) {
           const searchName = data.filter(
             (data) =>
-              data.farmer.fname.includes(fname) &&
-              data.farmer.lname.includes(lname)
+              data.user.fname.includes(fname) && data.user.lname.includes(lname)
           );
           setData(searchName.sort((a, b) => a.year - b.year));
         } else {
           const searchName = data.filter((data) =>
-            data.farmer.fname.includes(search)
+            data.user.fname.includes(search)
           );
           setData(searchName.sort((a, b) => a.year - b.year));
         }
@@ -67,14 +66,14 @@ const Table_RiceCaltivation = ({ search, fname, lname}) => {
   const sortingName = (column) => {
     if (order === "ASC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column] > b.farmer[column] ? 1 : -1
+        a.user[column] > b.user[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...data].sort((a, b) =>
-        a.farmer[column] < b.farmer[column] ? 1 : -1
+        a.user[column] < b.user[column] ? 1 : -1
       );
       setData(sorted);
       setOrder("ASC");
@@ -248,7 +247,7 @@ const Table_RiceCaltivation = ({ search, fname, lname}) => {
                 {data.riceCaltivation_id}
               </th>
               <th scope="row" className="p-2 font-normal text-start">
-                {data.farmer.fname} {data.farmer.lname}
+                {data.user.fname} {data.user.lname}
               </th>
               <th scope="row" className="p-2 font-normal">
                 {data.year}
@@ -269,12 +268,14 @@ const Table_RiceCaltivation = ({ search, fname, lname}) => {
                 {data.rice_price_per_kg.toLocaleString()}
               </th>
               <th scope="row" className="p-2 font-normal text-end">
-                {(data.yield * data.rice_price_per_kg).toLocaleString()}
+                {Math.round(
+                  data.yield * data.rice_price_per_kg
+                ).toLocaleString()}
               </th>
               <th scope="row" className="p-2 font-normal">
                 <div className="flex justify-center items-center gap-2">
                   <View_RiceCaltivation id={data.riceCaltivation_id} />
-                  <Edit_RiceCaltivation id={data.riceCaltivation_id}/>
+                  <Edit_RiceCaltivation id={data.riceCaltivation_id} />
                   <button
                     className="flex justify-center items-center"
                     onClick={() =>
