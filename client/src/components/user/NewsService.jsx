@@ -27,7 +27,7 @@ const NewsService = () => {
             <a
               href={`${data[0].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow  hover:bg-yellow-600 hover:text-white rounded-lg w-full"
+              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow  hover:bg-yellow-600 hover:text-white rounded-lg w-full duration-500"
             >
               <div className="rounded-full p-4 text-yellow-700 bg-yellow-100 animate-bounce">
                 <FaBahtSign />
@@ -37,7 +37,7 @@ const NewsService = () => {
             <a
               href={`${data[1].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-sky-600 hover:text-white rounded-md w-full"
+              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-sky-600 hover:text-white rounded-lg w-full duration-500"
             >
               <div className="rounded-full p-4 text-sky-700 bg-sky-100 animate-bounce">
                 <FaDroplet />
@@ -47,7 +47,7 @@ const NewsService = () => {
             <a
               href={`${data[2].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-green-600 hover:text-white rounded-md w-full"
+              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-green-600 hover:text-white rounded-lg w-full duration-500"
             >
               <div className="rounded-full p-4 text-green-700 bg-green-100 animate-bounce">
                 <FaNewspaper />
@@ -57,7 +57,7 @@ const NewsService = () => {
             <a
               href={`${data[3].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-gray-600 hover:text-white rounded-md w-full"
+              className="flex flex-col md:flex-row items-center justify-center gap-2 py-2 px-4 bg-gray-50 shadow hover:bg-gray-600 hover:text-white rounded-lg w-full duration-500"
             >
               <div className="rounded-full p-4 text-gray-700 bg-gray-100 animate-bounce">
                 <LiaTemperatureLowSolid />
@@ -82,7 +82,8 @@ const NewsService = () => {
             <a
               href={`${data[1].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-md w-full"            >
+              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-lg w-full"
+            >
               <div className="rounded-full p-4 text-sky-700 bg-sky-100 animate-bounce">
                 <FaDroplet />
               </div>
@@ -91,7 +92,8 @@ const NewsService = () => {
             <a
               href={`${data[2].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-md w-full"            >
+              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-lg w-full"
+            >
               <div className="rounded-full p-4 text-green-700 bg-green-100 animate-bounce">
                 <FaNewspaper />
               </div>
@@ -100,7 +102,8 @@ const NewsService = () => {
             <a
               href={`${data[3].content}`}
               target="_blank"
-              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-md w-full"            >
+              className="flex flex-col md:flex-row items-center justify-center p-2 bg-gray-50 shadow rounded-lg w-full"
+            >
               <div className="rounded-full p-4 text-gray-700 bg-gray-100 animate-bounce">
                 <LiaTemperatureLowSolid />
               </div>

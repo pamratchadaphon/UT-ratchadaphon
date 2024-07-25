@@ -180,7 +180,7 @@ const TableIncomeExpense = ({
             >
               <div className="flex flex-col w-1/3">
                 <span className="text-sm">{d.detail}</span>
-                {/* <span className="text-xs text-gray-500">{d.payee}</span> */}
+                <span className="text-xs text-gray-500">{d.payee}</span>
                 <span className="text-xs text-gray-500">
                   {formatDate(d.date)}
                 </span>

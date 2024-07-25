@@ -10,19 +10,31 @@ import { FaSort } from "react-icons/fa";
 
 const Table_Users = ({ search }) => {
   const [data, setData] = useState([]);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:8080/user`);
         const user = res.data.filter((data) => data.role === "user");
-        setData(user.filter((data) => data.fname.includes(search)));
+        const name = search.split(" ");
+        if (name.length === 1) {
+          setFname(name[0]);
+        } else {
+          setFname(name[0]);
+          setLname(name[1]);
+        }
+        const searchName = user.filter(
+          (data) => data.fname.includes(fname) && data.lname.includes(lname)
+        );
+        setData(searchName);
       } catch (error) {
         console.log("Error : " + error);
       }
     };
     fetchData();
-  }, [search]);
+  }, [search, fname, lname]);
 
   const [page, setPage] = useState(1);
   const recodesPerPage = 10;
@@ -108,8 +120,7 @@ const Table_Users = ({ search }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4 text-start">
-            ชื่อ
-
+              ชื่อ
             </th>
             <th scope="col" className="px-2 py-4 text-start">
               นามสกุล

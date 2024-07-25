@@ -196,7 +196,7 @@ const Sidebar = ({ page, showSidebar_Moble, setShowSideBar_Moble }) => {
             initial={{ x: -100 }}
             animate={{ x: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed top-0 right-0 left-0 z-50 border-r h-screen px-5 bg-white flex-col justify-between w-2/3 md:w-1/3"
+            className="fixed top-0 right-0 left-0 z-50 border-r h-full px-5 bg-white flex flex-col justify-between w-2/3 md:w-1/3"
           >
             <div>
               <div className="text-end mt-4">
