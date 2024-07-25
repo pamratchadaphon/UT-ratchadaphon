@@ -21,7 +21,7 @@ const EditRiceVariety = ({ id }) => {
   const [stability, setStability] = useState("");
   const [precautions, setPrecautions] = useState("");
   const [type, setType] = useState("");
-console.log(type);
+
   const handleModal = () => {
     setModal(!modal);
   };

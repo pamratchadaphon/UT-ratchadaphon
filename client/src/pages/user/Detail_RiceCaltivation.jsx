@@ -33,14 +33,14 @@ const Detail_RiceCaltivationjsx = () => {
     <div className="h-screen flex flex-col">
       <Navbar id={user_id} />
       <Bg_header text={'รายงานแปลงนา'}/>
-      <div className="mx-auto max-w-screen-xl px-4  pb-4 space-y-4 flex flex-col mt-8 w-full">
+      <div className="mx-auto max-w-screen-xl space-y-4 flex flex-col p-6 md:p-8 w-full">
         <motion.div
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           transition={{
             duration: "1",
           }}
-          className="flex flex-col lg:flex-row gap-4 md:gap-10 justify-between"
+          className="flex flex-col lg:flex-row gap-6 md:gap-8 justify-between"
         >
           <Info_ricecrop
             riceCaltivation={riceCaltivation}

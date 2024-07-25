@@ -113,6 +113,8 @@ const BarChart = () => {
             },
           },
         },
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
 
@@ -123,14 +125,16 @@ const BarChart = () => {
 
   return (
     <div className="bg-gray-50 rounded-lg p-8 shadow w-full">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <span className="text-gray-700">ผลผลิตการเก็บเกี่ยวของปี {year}</span>
         <div className="flex gap-2">
-          <Select_Year setYear={setYear}/>
-          <SelectProvince setProvince={setProvince} year={Number(year)}/>
+          <Select_Year setYear={setYear} />
+          <SelectProvince setProvince={setProvince} year={Number(year)} />
         </div>
       </div>
-      <canvas ref={chartRef}></canvas>
+      <div className="h-64 sm:h-80 lg:h-96">
+        <canvas ref={chartRef}></canvas>
+      </div>
     </div>
   );
 };

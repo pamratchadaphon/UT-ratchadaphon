@@ -64,7 +64,7 @@ const Content = ({ status, setStatus }) => {
       {status === "old" ? (
         <div>
           <div className="flex flex-col justify-center items-center">
-            <h1 className="mb-4 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 leading-none  md:text-6xl lg:text-7xl p-3">
+            <h1 className="mb-4 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-700 to-green-600 leading-none  md:text-6xl lg:text-7xl pb-3">
               พันธุ์ {data.riceVariety}
             </h1>
             <p className="mb-4 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48">

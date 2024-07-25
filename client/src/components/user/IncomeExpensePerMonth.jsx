@@ -102,11 +102,13 @@ const IncomeExpensePerMonth = ({
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return `จำนวนเงิน : ${(tooltipItem.raw).toLocaleString()} บาท`;
+                return `จำนวนเงิน : ${tooltipItem.raw.toLocaleString()} บาท`;
               },
             },
           },
         },
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
 
@@ -120,8 +122,10 @@ const IncomeExpensePerMonth = ({
       <div className="border-b pb-4">
         <span>กราฟแสดงการเปรียบเทียบรายรับและรายจ่าย</span>
       </div>{" "}
-      <div className=" flex flex-col justify-center">
-        <canvas ref={chartRef}></canvas>
+      <div className="flex flex-col justify-center w-full max-w-3xl mx-auto">
+        <div className="h-64 sm:h-80 lg:h-96">
+          <canvas ref={chartRef}></canvas>
+        </div>
       </div>
     </div>
   );

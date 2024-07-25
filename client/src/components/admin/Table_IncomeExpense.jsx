@@ -11,6 +11,8 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 
 const Table_IncomeExpense = ({ search, type }) => {
   const [data, setData] = useState([]);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +24,17 @@ const Table_IncomeExpense = ({ search, type }) => {
             data.user_id !== null &&
             data.user !== null
         );
+        const name = search.split(" ");
+
+        if (name.length === 1) {
+          setFname(name[0])
+        } else {
+          setFname(name[0]);
+          setLname(name[1]);
+        }
 
         const search_data = dataAll.filter(
-          (data) => data.type.includes(type) && data.user.fname.includes(search)
+          (data) => data.type.includes(type) && data.user.fname.includes(fname) && data.user.lname.includes(lname)
         );
         search_data.sort((a, b) => {
           return new Date(a.date) - new Date(b.date);
@@ -35,7 +45,7 @@ const Table_IncomeExpense = ({ search, type }) => {
       }
     };
     fetchData();
-  }, [search, type]);
+  }, [search, type, fname, lname]);
 
   const [order, setOrder] = useState("DSC");
   const sortingName = (column) => {
@@ -120,129 +130,126 @@ const Table_IncomeExpense = ({ search, type }) => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col overflow-x-scroll lg:overflow-x-hidden">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-center">
-                  ชื่อชาวนา
-                  <button
-                    className="text-gray-400 hover:text-gray-700"
-                    onClick={() => sortingName("fname")}
-                  >
-                    <FaSort />
-                  </button>
-                </div>
+    <div className="flex flex-col overflow-x-scroll lg:overflow-x-hidden">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                ชื่อชาวนา
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sortingName("fname")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-center">
+                รหัสรอบการปลูก
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("riceCaltivation_id")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-start">
+                วันที่
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("date")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4">
+              <div className="flex items-center gap-2 justify-start">
+                รายการ
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("detail")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-4 py-2">
+              <div className="flex items-center gap-2 justify-end">
+                ราคา (บาท)
+                <button
+                  className="text-gray-400 hover:text-gray-700"
+                  onClick={() => sorting("price")}
+                >
+                  <FaSort />
+                </button>
+              </div>
+            </th>
+            <th scope="col" className="px-2 py-4 text-center">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {records.map((d, i) => (
+            <tr
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
+              key={i}
+            >
+              <td className="p-2 text-center">
+                {d.user.fname} {d.user.lname}
+              </td>
+              <td className="p-2 text-center">{d.riceCaltivation_id}</td>
+              <th className="p-2 font-normal text-start">
+                {new Date(d.date).getDate()}/{new Date(d.date).getMonth() + 1}/
+                {new Date(d.date).getFullYear()}
               </th>
-              <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-center">
-                  รหัสรอบการปลูก
-                  <button
-                    className="text-gray-400 hover:text-gray-700"
-                    onClick={() => sorting("riceCaltivation_id")}
-                  >
-                    <FaSort />
-                  </button>
-                </div>
-              </th>
-              <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-start">
-                  วันที่
-                  <button
-                    className="text-gray-400 hover:text-gray-700"
-                    onClick={() => sorting("date")}
-                  >
-                    <FaSort />
-                  </button>
-                </div>
-              </th>
-              <th scope="col" className="px-2 py-4">
-                <div className="flex items-center gap-2 justify-start">
-                  รายการ
-                  <button
-                    className="text-gray-400 hover:text-gray-700"
-                    onClick={() => sorting("detail")}
-                  >
-                    <FaSort />
-                  </button>
-                </div>
-              </th>
-              <th scope="col" className="px-4 py-2">
-                <div className="flex items-center gap-2 justify-end">
-                  ราคา
-                  <button
-                    className="text-gray-400 hover:text-gray-700"
-                    onClick={() => sorting("price")}
-                  >
-                    <FaSort />
-                  </button>
-                </div>
-              </th>
-              <th scope="col" className="px-2 py-4 text-center">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((d, i) => (
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
-                key={i}
-              >
-                <td className="p-2 text-center">
-                  {d.user.fname} {d.user.lname}
-                </td>
-                <td className="p-2 text-center">{d.riceCaltivation_id}</td>
-                <th className="p-2 font-normal text-start">
-                  {new Date(d.date).getDate()}/{new Date(d.date).getMonth() + 1}
-                  /{new Date(d.date).getFullYear()}
-                </th>
-                <td className="p-2 text-start">{d.detail}</td>
-                <td className="p-2 text-end">{d.price.toLocaleString()}</td>
+              <td className="p-2 text-start">{d.detail}</td>
+              <td className="p-2 text-end">{d.price.toLocaleString()}</td>
 
-                <td className="p-2">
-                  <div className="flex justify-center items-center gap-2">
-                    <div className="flex justify-center items-center cursor-pointer">
-                      <div className="hover:bg-sky-400 hover:text-white rounded-md bg-sky-100 text-sky-500  w-8 h-8 flex justify-center items-center border border-sky-200">
-                        {d.type === "รายจ่าย" ? (
-                          <EditExpense
-                            income_expense_id={d.income_expense_id}
-                            riceCaltivation_id={d.riceCaltivation_id}
-                          />
-                        ) : (
-                          <EditIncome
-                            income_expense_id={d.income_expense_id}
-                            riceCaltivation_id={d.riceCaltivation_id}
-                          />
-                        )}
-                      </div>
+              <td className="p-2">
+                <div className="flex justify-center items-center gap-2">
+                  <div className="flex justify-center items-center cursor-pointer">
+                    <div className="hover:bg-sky-400 hover:text-white rounded-md bg-sky-100 text-sky-500  w-8 h-8 flex justify-center items-center border border-sky-200">
+                      {d.type === "รายจ่าย" ? (
+                        <EditExpense
+                          income_expense_id={d.income_expense_id}
+                          riceCaltivation_id={d.riceCaltivation_id}
+                        />
+                      ) : (
+                        <EditIncome
+                          income_expense_id={d.income_expense_id}
+                          riceCaltivation_id={d.riceCaltivation_id}
+                        />
+                      )}
                     </div>
-                    <button
-                      className="flex justify-center items-center cursor-pointer"
-                      onClick={() =>
-                        handleDelete(d.detail, d.income_expense_id)
-                      }
-                    >
-                      <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
-                        <IoTrashOutline className="w-6 h-6" />
-                      </div>
-                    </button>
                   </div>
-                </td>
-              </tr>
-            ))}
-            {records.length === 0 ? (
-              <tr>
-                <td className="text-center py-4" colSpan="6">
-                  ไม่พบข้อมูล
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-      </div>
+                  <button
+                    className="flex justify-center items-center cursor-pointer"
+                    onClick={() => handleDelete(d.detail, d.income_expense_id)}
+                  >
+                    <div className="hover:bg-red-400 rounded-md bg-red-100 text-red-500 hover:text-white w-8 h-8 flex justify-center items-center border border-red-300">
+                      <IoTrashOutline className="w-6 h-6" />
+                    </div>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+          {records.length === 0 ? (
+            <tr>
+              <td className="text-center py-4" colSpan="6">
+                ไม่พบข้อมูล
+              </td>
+            </tr>
+          ) : null}
+        </tbody>
+      </table>
+
       <nav
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 w-full"
         aria-label="Table navigation"

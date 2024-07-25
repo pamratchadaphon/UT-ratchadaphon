@@ -204,7 +204,7 @@ const Navbar = ({ id, page }) => {
           </ul>
         </div>
         {isOpenToggle ? (
-          <ul className="fixed top-14 right-0 left-0 z-50 md:hidden flex flex-col p-4 mt-4 rounded-b-lg shadow font-medium border-b border-gray-100 bg-white rtl:space-x-reverse w-full">
+          <ul className="fixed top-14 right-0 left-0 z-50 md:hidden flex flex-col p-4 mt-4 rounded-b-lg shadow font-medium border-b border-gray-300 bg-white rtl:space-x-reverse w-full">
             <li>
               {home ? (
                 <a

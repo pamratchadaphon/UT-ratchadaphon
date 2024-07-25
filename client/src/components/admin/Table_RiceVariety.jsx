@@ -99,56 +99,56 @@ const Table_RiceVariety = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ชื่อพันธุ์
-                <button
+                {/* <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("name")}
                 >
                   <FaSort />
-                </button>
+                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 ">
                 อายุเก็บเกี่ยว
-                <button
+                {/* <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("age")}
                 >
                   <FaSort />
-                </button>
+                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ผลผลิต
-                <button
+                {/* <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("yield")}
                 >
                   <FaSort />
-                </button>
+                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ความสูง
-                <button
+                {/* <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("height")}
                 >
                   <FaSort />
-                </button>
+                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ความไวแสง
-                <button
+                {/* <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("photosensitivity")}
                 >
                   <FaSort />
-                </button>
+                </button> */}
               </div>
             </th>
             <th scope="col" className="px-6 py-3 text-center">

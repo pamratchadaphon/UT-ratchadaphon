@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Chart, PieController, ArcElement, Tooltip, Legend } from "chart.js";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
@@ -103,11 +103,13 @@ const Cetegory_Expense = ({ incomeExpense }) => {
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return `จำนวนเงิน : ${(tooltipItem.raw).toLocaleString()} บาท`;
+                return `จำนวนเงิน : ${tooltipItem.raw.toLocaleString()} บาท`;
               },
             },
           },
         },
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
 
@@ -119,13 +121,17 @@ const Cetegory_Expense = ({ incomeExpense }) => {
   return (
     <div className="bg-white border rounded-lg p-4 space-y-4 md:w-1/3 shadow-md">
       <div className="border-b pb-4">สัดส่วนค่าใช้จ่ายในแต่ละหมวดหมู่</div>
-      <canvas ref={chartRef}></canvas>
+      <div className="flex flex-col justify-center w-full max-w-3xl mx-auto">
+        <div className="h-64 sm:h-80 lg:h-96">
+          <canvas ref={chartRef}></canvas>
+        </div>
+      </div>
     </div>
   );
 };
 
 Cetegory_Expense.propTypes = {
-  incomeExpense: PropTypes.array
-}
+  incomeExpense: PropTypes.array,
+};
 
 export default Cetegory_Expense;

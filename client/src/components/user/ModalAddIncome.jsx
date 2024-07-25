@@ -35,7 +35,9 @@ const ModalAddIncome = ({
   useEffect(() => {
     setValues({
       ...values,
-      price: Math.round(Number(yield_rice.yield) * Number(yield_rice.rice_price_per_kg)),
+      price: Math.round(
+        Number(yield_rice.yield) * Number(yield_rice.rice_price_per_kg)
+      ),
     });
   }, [yield_rice.yield, yield_rice.rice_price_per_kg]);
 
@@ -283,7 +285,7 @@ const ModalAddIncome = ({
                         />
                       </div>
 
-                      <div>
+                      <div className="p-4 bg-yellow-100 rounded-lg">
                         <label
                           htmlFor="rice_consumption"
                           className="block mb-2 text-sm font-medium text-gray-900 "
@@ -301,10 +303,10 @@ const ModalAddIncome = ({
                               rice_consumption: e.target.value,
                             })
                           }
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                          className="bg-gray-50 border border-yellow-500 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         />
                       </div>
-                      <div>
+                      <div className="p-4 bg-yellow-100 rounded-lg">
                         <label
                           htmlFor="seed_rice"
                           className="block mb-2 text-sm font-medium text-gray-900 "
@@ -322,7 +324,7 @@ const ModalAddIncome = ({
                               seed_rice: e.target.value,
                             })
                           }
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                          className="bg-gray-50 border border-yellow-500 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         />
                       </div>
                     </div>

@@ -2,7 +2,7 @@ import PorpTypes from "prop-types";
 
 const BoxIncomeExpense = ({ sumExpense, sumIncome }) => {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex flex-col md:flex-row gap-4">
       <div className=" bg-gradient-to-br from-red-300 to-rose-200 rounded-lg  p-4 w-full md:w-60  flex items-center justify-between shadow-md">
         <div className="flex flex-col">
           <span className="text-gray-700">รายจ่าย</span>

@@ -20,7 +20,7 @@ const Info_ricecrop = ({
   };
 
   return (
-    <div className="w-full lg:w-1/3 flex flex-col rounded-2xl p-4 md:px-10 md:py-16 bg-gradient-to-b from-violet-200 to-fuchsia-200 text-gray-700 shadow-xl border border-violet-300">
+    <div className="w-full lg:w-1/3 flex flex-col rounded-2xl p-6 md:px-10 md:py-16 bg-gradient-to-b from-violet-200 to-fuchsia-200 text-gray-700 shadow-xl border border-violet-300">
       <div className="border-b-2 pb-2 mb-4 md:pb-8 md:mb-8 border-violet-400">
         <div className="flex gap-2 justify-between items-center">
           <div>

@@ -54,7 +54,6 @@ const Table_NewsService = ({ data }) => {
         <tbody>
           {records.map((d, i) => (
             <tr key={i} className="bg-white border-b hover:bg-gray-50">
-
               <th scope="row" className="px-4 py-2 font-normal text-start">
                 {d.name}
               </th>
@@ -62,15 +61,15 @@ const Table_NewsService = ({ data }) => {
                 scope="row"
                 className="p-2 font-normal text-start lg:max-w-4xl"
               >
-                <a
-                  href={d.content}
-                  target="_blank"
-                  className="underline text-blue-600"
-                >
-                  
-                 {d.content}
-                  {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor magni vero, aliquid aut sint excepturi fugiat. Dolore sunt dicta facilis repudiandae. Veniam perferendis fugit repellendus quis earum suscipit dolore corrupti! */}
-                </a>
+                <div className="w-96 overflow-x-scroll">
+                  <a
+                    href={d.content}
+                    target="_blank"
+                    className="underline text-blue-600"
+                  >
+                    {d.content}
+                  </a>
+                </div>
               </th>
               <th scope="row" className="p-2 font-normal">
                 <div className="flex justify-center items-center gap-2">
@@ -96,11 +95,7 @@ const Table_NewsService = ({ data }) => {
           ) : null}
         </tbody>
       </table>
-      <Pagination
-        data={data}
-        setRecords={setRecords}
-        recodesPerPage={4}
-      />
+      <Pagination data={data} setRecords={setRecords} recodesPerPage={4} />
     </div>
   );
 };

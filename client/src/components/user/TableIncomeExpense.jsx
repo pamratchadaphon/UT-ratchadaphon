@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) => {
+const TableIncomeExpense = ({
+  incomeExpense,
+  selectMonth,
+  riceCaltivation_id,
+}) => {
   const formatDate = (string) => {
     const date = new Date(string);
     const day = date.getDate();
@@ -68,13 +72,16 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios.delete(`http://localhost:8080/incomeExpense/${id}`);
-        await axios.put(`http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,{
-          total_yield: 0,
-          yield: 0,
-          rice_price_per_kg: 0,
-          rice_consumption: 0,
-          seed_rice: 0
-        })
+        await axios.put(
+          `http://localhost:8080/riceCaltivation/${riceCaltivation_id}`,
+          {
+            total_yield: 0,
+            yield: 0,
+            rice_price_per_kg: 0,
+            rice_consumption: 0,
+            seed_rice: 0,
+          }
+        );
         await Swal.fire({
           title: "ลบสำเร็จ",
           icon: "success",
@@ -100,6 +107,9 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
                 ราคา (บาท)
               </th>
               <th scope="col" className="px-6 py-3 text-center">
+                ไปยัง
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
                 Action
               </th>
             </tr>
@@ -116,6 +126,9 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
                 <td className="px-6 py-4 text-center">{d.detail}</td>
                 <td className="px-6 py-4 text-end">
                   {d.price.toLocaleString()}
+                </td>
+                <td className="px-6 py-4 text-center">
+                  {d.payee === null ? "-" : d.payee}
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-center items-center gap-2">
@@ -150,7 +163,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
             ))}
             {data.length === 0 ? (
               <tr>
-                <td className="text-center py-4" colSpan="4">
+                <td className="text-center py-4" colSpan="5">
                   ไม่พบข้อมูล
                 </td>
               </tr>
@@ -165,22 +178,28 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
               className="flex justify-between items-center text- border p-2 bg-gray-50"
               key={i}
             >
-              <div className="flex flex-col">
+              <div className="flex flex-col w-1/3">
                 <span className="text-sm">{d.detail}</span>
+                {/* <span className="text-xs text-gray-500">{d.payee}</span> */}
                 <span className="text-xs text-gray-500">
                   {formatDate(d.date)}
                 </span>
               </div>
 
-              <div className="flex gap-1">
-                <div className="flex gap-1 items-center mr-7">
-                  {d.type === "รายจ่าย" ? (
-                    <span className="text-red-600 font-bold">{d.price.toLocaleString()}</span>
-                  ) : (
-                    <span className="text-green-600 font-bold">{d.price.toLocaleString()}</span>
-                  )}
-                  <span className="text-xs text-gray-800">บาท</span>
-                </div>
+              <div className="flex gap-1 items-center w-24 justify-end">
+                {d.type === "รายจ่าย" ? (
+                  <span className="text-red-600 font-bold">
+                    {d.price.toLocaleString()}
+                  </span>
+                ) : (
+                  <span className="text-green-600 font-bold">
+                    {d.price.toLocaleString()}
+                  </span>
+                )}
+                <span className="text-xs text-gray-800">บาท</span>
+              </div>
+
+              <div className="flex gap-1 w-1/3 justify-end">
                 {d.type === "รายจ่าย" ? (
                   <div className="text-sky-400">
                     <Edit_Expense
@@ -224,6 +243,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
             {data.length}
           </span>
         </span>
+
         <ReactPaginate
           breakLabel={
             <span className="w-8 h-8 hover:bg-green-100 rounded-lg flex justify-center items-center hover:text-green-700">
@@ -266,7 +286,7 @@ const TableIncomeExpense = ({ incomeExpense, selectMonth, riceCaltivation_id }) 
 TableIncomeExpense.propTypes = {
   incomeExpense: PropTypes.array,
   selectMonth: PropTypes.string,
-  riceCaltivation_id: PropTypes.string
+  riceCaltivation_id: PropTypes.string,
 };
 
 export default TableIncomeExpense;

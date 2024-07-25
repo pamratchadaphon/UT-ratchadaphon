@@ -56,7 +56,7 @@ const View_RiceCaltivation = ({ id }) => {
                 encType="multipart/form-data"
               >
                 <div className="grid md:grid-cols-1 gap-4">
-                  <div className="flex text-start gap-2">
+                  <div className="flex text-start">
                     <span className="text-sm font-medium text-gray-900 w-1/2">
                       ปี
                     </span>

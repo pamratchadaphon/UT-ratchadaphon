@@ -9,27 +9,29 @@ import { FaSort } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
 
-const Table_RiceCaltivation = ({ search, fname, lname }) => {
+const Table_RiceCaltivation = ({ search }) => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState("DSC");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/riceCaltivation");
         const data = res.data.filter((data) => data.user !== null);
-        if (fname !== undefined && lname !== undefined) {
-          const searchName = data.filter(
-            (data) =>
-              data.user.fname.includes(fname) && data.user.lname.includes(lname)
-          );
-          setData(searchName.sort((a, b) => a.year - b.year));
+        const name = search.split(" ");
+        if (name.length === 1) {
+          setFname(name[0]);
         } else {
-          const searchName = data.filter((data) =>
-            data.user.fname.includes(search)
-          );
-          setData(searchName.sort((a, b) => a.year - b.year));
+          setFname(name[0]);
+          setLname(name[1]);
         }
+        const searchName = data.filter(
+          (data) =>
+            data.user.fname.includes(fname) && data.user.lname.includes(lname)
+        );
+        setData(searchName.sort((a, b) => a.year - b.year));
       } catch (error) {
         console.log("Error : " + error);
       }
@@ -170,7 +172,7 @@ const Table_RiceCaltivation = ({ search, fname, lname }) => {
               </div>
             </th>
             <th scope="col" className="px-2 py-4 text-start">
-              <div className="flex items-center gap-2 justify-start">
+              <div className="flex items-center gap-1 justify-start">
                 พันธุ์ข้าว
                 <button
                   className="text-gray-400 hover:text-gray-700"
@@ -215,7 +217,7 @@ const Table_RiceCaltivation = ({ search, fname, lname }) => {
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 justify-end">
-                ราคา/กิโลกรัม
+                ราคา/กิโลกรัม (บาท)
                 <button
                   className="text-gray-400 hover:text-gray-700"
                   onClick={() => sorting("rice_price_per_kg")}

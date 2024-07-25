@@ -32,7 +32,7 @@ const Dashboard = () => {
               showSidebar_Web={showSidebar_Web}
               showSidebar_Moble={showSidebar_Moble}
             />
-            <div className="bg-white rounded-lg shadow space-y-4 p-4 lg:p-8 basis-5/6">
+            <div className="bg-white rounded-lg shadow space-y-4 p-4 lg:p-8 basis-5/6 h-screen">
               <BoxDashboard />
               <div className="flex flex-col md:flex-row gap-8 pt-4">
                 <Productivity_graph />
@@ -62,7 +62,7 @@ const Dashboard = () => {
               showSidebar_Web={showSidebar_Web}
               showSidebar_Moble={showSidebar_Moble}
             />
-            <div className="bg-white rounded-lg shadow space-y-4 p-8 basis-5/6">
+            <div className="bg-white rounded-lg shadow space-y-4 p-8 basis-5/6 h-screen">
               <BoxDashboard />
               <div className="flex flex-col md:flex-row gap-8 pt-4">
                 <Productivity_graph />

@@ -38,7 +38,7 @@ const TableRicecrop = ({ user_id }) => {
 
   return (
     <div>
-      <div className="hidden md:flex bg-white p-4 mt-4 shadow rounded-lg mb-4">
+      <div className="hidden md:flex bg-white p-4 mt-4 shadow rounded-lg mb-4 overflow-x-scroll">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 border">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -121,10 +121,10 @@ const TableRicecrop = ({ user_id }) => {
       <div className="md:hidden flex flex-col">
         {records.map((d, i) => (
           <div
-            className="flex flex-col gap-1  mb-4 bg-white p-4 rounded-lg border"
+            className="flex flex-col gap-1  mb-4 p-4 rounded-lg bg-gradient-to-br from-emerald-100 to-green-100"
             key={i}
           >
-            <div className="flex items-center text-sm space-x-1 p-2 bg-gray-200 shadow">
+            <div className="flex items-center text-sm space-x-1 p-2 bg-white shadow rounded-xl">
               <img src={dot} width={17} />
               <span>ปี</span>
               <span>{d.year}</span>
@@ -134,7 +134,7 @@ const TableRicecrop = ({ user_id }) => {
               <span>{formatDate(d.startDate)}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">วันที่เก็บเกี่ยว</span>
+              <span className="text-gray-500">วันที่คาดว่าจะเก็บเกี่ยว</span>
               <span>{formatDate(d.endDate)}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
@@ -146,19 +146,19 @@ const TableRicecrop = ({ user_id }) => {
               <span>{d.area} (ไร่)</span>
             </div>
             <div className="flex items-center justify-between">
-              <div className="text-sm w-1/2 p-2 text-center bg-orange-100 border border-orange-200">
+              <div className="text-sm w-1/2 p-2 text-center  bg-gradient-to-r from-red-400 to-orange-400 rounded-l-xl">
                 <a
                   href={`/ricecrop/history/${user_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center text-orange-600 focus:underline gap-1"
+                  className="flex justify-center items-center text-white focus:underline gap-1"
                 >
                   <TbClipboardText />
                   รายงานค่าใช้จ่าย
                 </a>
               </div>
-              <div className="text-sm w-1/2 p-2 text-center bg-sky-100 border border-sky-200">
+              <div className="text-sm w-1/2 p-2 text-center bg-gradient-to-r from-sky-400 to-blue-400 rounded-r-xl">
                 <a
                   href={`/ricecrop/detail/${user_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center  text-sky-600 focus:underline gap-1"
+                  className="flex justify-center items-center  text-white focus:underline gap-1"
                 >
                   <FaEye />
                   รายงานแปลงนา

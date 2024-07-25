@@ -148,7 +148,7 @@ const EditExpense = ({ income_expense_id, riceCaltivation_id }) => {
 
       {modal ? (
         <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 max-h-full flex justify-center items-center bg-black bg-opacity-50 h-screen">
-          <div className="relative p-4 w-full max-w-md max-h-full ">
+          <div className="relative p-4 w-full max-w-md max-h-full">
             <motion.div
               initial={{ y: -100 }}
               animate={{ y: 0 }}
