@@ -16,7 +16,6 @@ const AddIncome = () => {
     user_id: "",
     riceCaltivation_id: "",
   });
-
   const [yield_rice, setYield] = useState({
     total_yield: "",
     yield: "",
@@ -59,6 +58,14 @@ const AddIncome = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
+    const data_yield = {
+      total_yield: yield_rice.total_yield,
+      yield: yield_rice.yield,
+      rice_price_per_kg: yield_rice.rice_price_per_kg,
+      seed_rice: yield_rice.seed_rice === "" ? 0 : yield_rice.seed_rice,
+      rice_consumption:
+        yield_rice.rice_consumption === "" ? 0 : yield_rice.rice_consumption,
+    };
     if (
       yield_rice.total_yield !== "" &&
       yield_rice.yield !== "" &&
@@ -68,25 +75,60 @@ const AddIncome = () => {
     ) {
       try {
         const res = await axios.get(
-          `http://localhost:8080/user/riceCaltivation_incomeExpense/${values.user_id}`
+          `http://localhost:8080/user/riceCaltivation_incomeExpense/${Number(
+            values.user_id
+          )}`
         );
         if (res.data[0].riceCaltivation.length !== 0) {
-          await axios
-            .post(`http://localhost:8080/incomeExpense`, values)
-            .then((result) => console.log(result.data));
-          await axios
-            .put(
-              `http://localhost:8080/riceCaltivation/${values.riceCaltivation_id}`
-            )
-            .then((result) => console.log(result.data));
-          Swal.fire({
-            title: "บันทึกรายรับสำเร็จ",
-            icon: "success",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
+          if (
+            Number(yield_rice.yield) +
+              Number(yield_rice.rice_consumption) +
+              Number(yield_rice.seed_rice) ===
+            Number(yield_rice.total_yield)
+          ) {
+            await axios
+              .post(`http://localhost:8080/incomeExpense`, values)
+              .then((result) => console.log(result.data));
+            await axios
+              .put(
+                `http://localhost:8080/riceCaltivation/${Number(
+                  values.riceCaltivation_id
+                )}`,
+                data_yield
+              )
+              .then((result) => console.log(result.data));
+            Swal.fire({
+              title: "บันทึกรายรับสำเร็จ",
+              icon: "success",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+            });
+          } else if (
+            Number(yield_rice.yield) +
+              Number(yield_rice.rice_consumption) +
+              Number(yield_rice.seed_rice) <
+            Number(yield_rice.total_yield)
+          ) {
+            Swal.fire({
+              title: "เกิดข้อผิดพลาด",
+              text: "กรอกปริมาณข้าวน้อยกว่าข้าวที่ได้",
+              icon: "error",
+            });
+          } else if (
+            Number(yield_rice.yield) +
+              Number(yield_rice.rice_consumption) +
+              Number(yield_rice.seed_rice) >
+            Number(yield_rice.total_yield)
+          ) {
+            Swal.fire({
+              title: "เกิดข้อผิดพลาด",
+              text: "กรอกปริมาณข้าวมากกว่าข้าวที่ได้",
+              icon: "error",
+            });
+          }
+          console.log(yield_rice);
         } else {
           Swal.fire({
             title: "ชาวนายังไม่ได้สร้างรอบการปลูก",
@@ -341,7 +383,7 @@ const AddIncome = () => {
                           onChange={(e) =>
                             setValues({
                               ...values,
-                              userr_id: e.target.value,
+                              user_id: e.target.value,
                             })
                           }
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"

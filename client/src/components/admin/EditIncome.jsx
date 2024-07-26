@@ -150,8 +150,8 @@ const EditIncome = ({ income_expense_id, riceCaltivation_id }) => {
                       </label>
                       <input
                         type="number"
-                        name="yield_rice"
-                        id="yield_rice"
+                        name="total_yield"
+                        id="total_yield"
                         value={yield_rice.total_yield}
                         onChange={(e) =>
                           setYield({

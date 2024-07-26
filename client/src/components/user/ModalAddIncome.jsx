@@ -58,7 +58,6 @@ const ModalAddIncome = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     check();
-    console.log(yield_rice);
     const data_yield = {
       total_yield: yield_rice.total_yield,
       yield: yield_rice.yield,

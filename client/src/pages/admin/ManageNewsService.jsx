@@ -21,7 +21,7 @@ const ManageNewsService = () => {
       }
     };
     fetchData();
-  });
+  }, []);
   return (
     <div>
       {showSidebar_Web ? (

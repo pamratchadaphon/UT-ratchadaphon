@@ -93,7 +93,7 @@ module.exports = {
     }
   },
   async delete(req, res) {
-    await user.destroy({ where: { user_id: req.params.user_id } });
+    await User.destroy({ where: { user_id: req.params.user_id } });
     res.status(200).send("user is deleted!");
   },
   async riceCaltivation_incomeExpense(req, res) {

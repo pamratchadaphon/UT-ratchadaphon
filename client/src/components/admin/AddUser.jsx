@@ -4,6 +4,8 @@ import { IoMdClose } from "react-icons/io";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 
 const AddUser = () => {
   const [modal, setModal] = useState(false);
@@ -27,6 +29,91 @@ const AddUser = () => {
   const [subdistrict, setSubdistrict] = useState(false);
   const [diatrict, setDistrict] = useState(false);
   const [province, setProvince] = useState(false);
+
+  const provinces = [
+    "กรุงเทพมหานคร",
+    "กระบี่",
+    "กาญจนบุรี",
+    "กาฬสินธุ์",
+    "กำแพงเพชร",
+    "ขอนแก่น",
+    "จันทบุรี",
+    "ฉะเชิงเทรา",
+    "ชลบุรี",
+    "ชัยนาท",
+    "ชัยภูมิ",
+    "ชุมพร",
+    "เชียงราย",
+    "เชียงใหม่",
+    "ตรัง",
+    "ตราด",
+    "ตาก",
+    "นครนายก",
+    "นครปฐม",
+    "นครพนม",
+    "นครราชสีมา",
+    "นครศรีธรรมราช",
+    "นครสวรรค์",
+    "นนทบุรี",
+    "นราธิวาส",
+    "น่าน",
+    "บึงกาฬ",
+    "บุรีรัมย์",
+    "ปทุมธานี",
+    "ประจวบคีรีขันธ์",
+    "ปราจีนบุรี",
+    "ปัตตานี",
+    "พระนครศรีอยุธยา",
+    "พังงา",
+    "พัทลุง",
+    "พิจิตร",
+    "พิษณุโลก",
+    "เพชรบุรี",
+    "เพชรบูรณ์",
+    "แพร่",
+    "พะเยา",
+    "ภูเก็ต",
+    "มหาสารคาม",
+    "มุกดาหาร",
+    "แม่ฮ่องสอน",
+    "ยโสธร",
+    "ยะลา",
+    "ร้อยเอ็ด",
+    "ระนอง",
+    "ระยอง",
+    "ราชบุรี",
+    "ลพบุรี",
+    "ลำปาง",
+    "ลำพูน",
+    "เลย",
+    "ศรีสะเกษ",
+    "สกลนคร",
+    "สงขลา",
+    "สตูล",
+    "สมุทรปราการ",
+    "สมุทรสงคราม",
+    "สมุทรสาคร",
+    "สระแก้ว",
+    "สระบุรี",
+    "สิงห์บุรี",
+    "สุโขทัย",
+    "สุพรรณบุรี",
+    "สุราษฎร์ธานี",
+    "สุรินทร์",
+    "หนองคาย",
+    "หนองบัวลำภู",
+    "อ่างทอง",
+    "อุดรธานี",
+    "อุทัยธานี",
+    "อุตรดิตถ์",
+    "อุบลราชธานี",
+    "อำนาจเจริญ",
+  ];
+  const [dropdown, setDropdown] = useState(false);
+  const clickSelectProvince = (province) => {
+    setValues({ ...values, province: province });
+    setDropdown(!dropdown);
+  };
 
   const check = () => {
     values.fname === "" ? setFirstName(true) : null;
@@ -309,31 +396,40 @@ const AddUser = () => {
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="province"
-                        className="text-sm text-gray-900 font-medium block mb-2"
-                      >
-                        จังหวัด
-                      </label>
-
-                      <input
-                        type="text"
-                        name="province"
-                        id="province"
-                        value={values.province}
-                        onChange={(e) =>
-                          setValues({ ...values, province: e.target.value })
-                        }
-                        className="blok bg-gray-50 border border-gray-300 rounded-lg text-gray-900 p-2.5 text-sm w-full"
-                      />
-                      {province ? (
-                        <div className="text-sm text-red-500 flex items-center gap-1">
-                          <RiErrorWarningLine />
-                          <span>กรุณากรอกจังหวัด</span>
-                        </div>
-                      ) : null}
+                  <label className="block mb-2 text-sm font-medium text-gray-900">
+                    จังหวัด
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setDropdown(!dropdown)}
+                    className="inline-flex items-center justify-between bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg hover:border-green-700 hover:border-2 w-full p-2.5"
+                  >
+                    {values.province === "" ? "เลือกจังหวัด" : values.province}{" "}
+                    {dropdown ? <IoIosArrowUp /> : <IoIosArrowDown />}
+                  </button>
+                  {dropdown ? (
+                    <div className="bg-white divide-y divide-gray-100 rounded-lg shadow">
+                      <ul className="py-2 text-sm text-gray-700 overflow-y-scroll h-44 w-full">
+                        {provinces.map((province, index) => (
+                          <li
+                            className="block px-4 py-2 hover:bg-gray-100 cursor-default"
+                            onClick={() => clickSelectProvince(province)}
+                            key={index}
+                          >
+                            {province}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
+                  ) : null}
+                  {province ? (
+                    <div className="text-sm text-red-500 flex items-center gap-1">
+                      <RiErrorWarningLine />
+                      <span>กรุณากรอกจังหวัด</span>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
 
                   <div className="space-x-2 flex justify-end items-center">
                     <button

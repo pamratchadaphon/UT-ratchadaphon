@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { FaArrowRightLong } from "react-icons/fa6";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
@@ -40,16 +39,6 @@ const Cards = ({ data }) => {
             <p className="text-xs lg:text-sm text-gray-700 mb-3 pl-2">
               ผลผลิต : {d.yield} กก./ไร่
             </p>
-
-            {/* <div className="flex items-center">
-              <button
-                className="inline-flex gap-2 items-center px-3 py-2 text-xs md:text-sm font-medium text-center rounded-lg  hover:bg-green-100 hover:text-green-700 hover:duration-500 text-white bg-green-600"
-                onClick={() => handleModal(d.riceVariety_id)}
-              >
-                <span>ดูข้อมูล</span>
-                <FaArrowRightLong />
-              </button>
-            </div> */}
           </div>
         </div>
       ))}

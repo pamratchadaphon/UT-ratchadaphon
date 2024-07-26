@@ -20,11 +20,7 @@ const EditNewService = ({ id }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:8080/newsService/${id}`);
-        setValues({
-          ...values,
-          name: res.data.name,
-          content: res.data.content,
-        });
+        setValues({...values, name: res.data.name, content: res.data.content});
       } catch (error) {
         console.log("Error : " + error);
       }
@@ -103,16 +99,20 @@ const EditNewService = ({ id }) => {
                     <label className="block text-sm font-medium text-gray-900 mb-2">
                       หัวข้อ
                     </label>
-                    <input
-                      type="text"
+                    <select
                       name="name"
                       id="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 block w-full"
                       value={values.name}
                       onChange={(e) =>
                         setValues({ ...values, name: e.target.value })
                       }
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 block w-full"
-                    />
+                    >
+                      <option value="ราคาข้าว">ราคาข้าว</option>
+                      <option value="สถานการณ์น้ำ">สถานการณ์น้ำ</option>
+                      <option value="ข่าวราคาข้าว">ข่าวราคาข้าว</option>
+                      <option value="พยากรณ์อากาศ">พยากรณ์อากาศ</option>
+                    </select>
                     {name ? (
                       <div className="text-sm text-red-500 flex items-center gap-1">
                         <RiErrorWarningLine />

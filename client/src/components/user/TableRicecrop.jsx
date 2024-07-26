@@ -119,54 +119,103 @@ const TableRicecrop = ({ user_id }) => {
         </table>
       </div>
       <div className="md:hidden flex flex-col">
-        {records.map((d, i) => (
-          <div
-            className="flex flex-col gap-1  mb-4 p-4 rounded-lg bg-gradient-to-br from-emerald-100 to-green-100"
-            key={i}
-          >
-            <div className="flex items-center text-sm space-x-1 p-2 bg-white shadow rounded-xl">
-              <img src={dot} width={17} />
-              <span>ปี</span>
-              <span>{d.year}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">วันที่ปลูก</span>
-              <span>{formatDate(d.startDate)}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">วันที่คาดว่าจะเก็บเกี่ยว</span>
-              <span>{formatDate(d.endDate)}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">พันธุ์ข้าว</span>
-              <span>{d.riceVariety}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-gray-500">พื้นที่</span>
-              <span>{d.area} (ไร่)</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="text-sm w-1/2 p-2 text-center  bg-gradient-to-r from-red-400 to-orange-400 rounded-l-xl">
-                <a
-                  href={`/ricecrop/history/${user_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center text-white focus:underline gap-1"
-                >
-                  <TbClipboardText />
-                  รายงานค่าใช้จ่าย
-                </a>
+        {records.map((d, i) =>
+          i % 3 === 0 ? (
+            <div
+              className="flex flex-col gap-1  mb-4 p-4 rounded-lg bg-gradient-to-br from-orange-100 to-yellow-100"
+              key={i}
+            >
+              <div className="flex items-center text-sm space-x-1 p-2 bg-white shadow rounded-xl">
+                <img src={dot} width={17} />
+                <span>ปี</span>
+                <span>{d.year}</span>
               </div>
-              <div className="text-sm w-1/2 p-2 text-center bg-gradient-to-r from-sky-400 to-blue-400 rounded-r-xl">
-                <a
-                  href={`/ricecrop/detail/${user_id}/${d.riceCaltivation_id}`}
-                  className="flex justify-center items-center  text-white focus:underline gap-1"
-                >
-                  <FaEye />
-                  รายงานแปลงนา
-                </a>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">วันที่ปลูก</span>
+                <span>{formatDate(d.startDate)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">วันที่คาดว่าจะเก็บเกี่ยว</span>
+                <span>{formatDate(d.endDate)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">พันธุ์ข้าว</span>
+                <span>{d.riceVariety}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">พื้นที่</span>
+                <span>{d.area} (ไร่)</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="text-sm w-1/2 p-2 text-center  bg-gradient-to-r from-red-400 to-pink-400 rounded-l-xl">
+                  <a
+                    href={`/ricecrop/history/${user_id}/${d.riceCaltivation_id}`}
+                    className="flex justify-center items-center text-white focus:underline gap-1"
+                  >
+                    <TbClipboardText />
+                    รายงานค่าใช้จ่าย
+                  </a>
+                </div>
+                <div className="text-sm w-1/2 p-2 text-center bg-gradient-to-r from-sky-400 to-blue-400 rounded-r-xl">
+                  <a
+                    href={`/ricecrop/detail/${user_id}/${d.riceCaltivation_id}`}
+                    className="flex justify-center items-center  text-white focus:underline gap-1"
+                  >
+                    <FaEye />
+                    รายงานแปลงนา
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ) : (
+            <div
+              className="flex flex-col gap-1  mb-4 p-4 rounded-lg bg-gradient-to-br from-emerald-100 to-green-100"
+              key={i}
+            >
+              <div className="flex items-center text-sm space-x-1 p-2 bg-white shadow rounded-xl">
+                <img src={dot} width={17} />
+                <span>ปี</span>
+                <span>{d.year}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">วันที่ปลูก</span>
+                <span>{formatDate(d.startDate)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">วันที่คาดว่าจะเก็บเกี่ยว</span>
+                <span>{formatDate(d.endDate)}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">พันธุ์ข้าว</span>
+                <span>{d.riceVariety}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-gray-500">พื้นที่</span>
+                <span>{d.area} (ไร่)</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="text-sm w-1/2 p-2 text-center  bg-gradient-to-r from-red-400 to-pink-400 rounded-l-xl">
+                  <a
+                    href={`/ricecrop/history/${user_id}/${d.riceCaltivation_id}`}
+                    className="flex justify-center items-center text-white focus:underline gap-1"
+                  >
+                    <TbClipboardText />
+                    รายงานค่าใช้จ่าย
+                  </a>
+                </div>
+                <div className="text-sm w-1/2 p-2 text-center bg-gradient-to-r from-sky-400 to-blue-400 rounded-r-xl">
+                  <a
+                    href={`/ricecrop/detail/${user_id}/${d.riceCaltivation_id}`}
+                    className="flex justify-center items-center  text-white focus:underline gap-1"
+                  >
+                    <FaEye />
+                    รายงานแปลงนา
+                  </a>
+                </div>
+              </div>
+            </div>
+          )
+        )}
       </div>
       <Pagination
         data={data}
