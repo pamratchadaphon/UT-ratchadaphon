@@ -74,6 +74,7 @@ const IncomeExpensePerMonth = ({
     };
     dataset.push(monthData);
   }
+  
   const chartRef = useRef(null);
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");

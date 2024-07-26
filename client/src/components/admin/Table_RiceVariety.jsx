@@ -7,7 +7,6 @@ import EditRiceVariety from "./EditRiceVariety";
 import PropTypes from "prop-types";
 import ReactPaginate from "react-paginate";
 import { GrNext, GrPrevious } from "react-icons/gr";
-import { FaSort } from "react-icons/fa";
 
 const Table_RiceVariety = ({ search }) => {
   const [data, setData] = useState([]);
@@ -52,20 +51,6 @@ const Table_RiceVariety = ({ search }) => {
     }
   }, [firstIndex, records]);
 
-  const [order, setOrder] = useState('ASC');
-  const sorting = (column) => {
-    if (order === "ASC") {
-      const sorted = data.sort((a, b) => a[column] > b[column] ? 1 : -1);
-      setData(sorted);
-      setOrder("DSC")
-    }
-    if (order === "DSC") {
-      const sorted = data.sort((a, b) => a[column] < b[column] ? 1 : -1);
-      setData(sorted);
-      setOrder("ASC")
-    }
-  }
-
   const deleteRiceVariety = async (id, name) => {
     Swal.fire({
       title: "ยืนยันการลบ?",
@@ -99,56 +84,26 @@ const Table_RiceVariety = ({ search }) => {
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ชื่อพันธุ์
-                {/* <button
-                  className="text-gray-400 hover:text-gray-700"
-                  onClick={() => sorting("name")}
-                >
-                  <FaSort />
-                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2 ">
                 อายุเก็บเกี่ยว
-                {/* <button
-                  className="text-gray-400 hover:text-gray-700"
-                  onClick={() => sorting("age")}
-                >
-                  <FaSort />
-                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ผลผลิต
-                {/* <button
-                  className="text-gray-400 hover:text-gray-700"
-                  onClick={() => sorting("yield")}
-                >
-                  <FaSort />
-                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ความสูง
-                {/* <button
-                  className="text-gray-400 hover:text-gray-700"
-                  onClick={() => sorting("height")}
-                >
-                  <FaSort />
-                </button> */}
               </div>
             </th>
             <th scope="col" className="px-2 py-4">
               <div className="flex items-center gap-2">
                 ความไวแสง
-                {/* <button
-                  className="text-gray-400 hover:text-gray-700"
-                  onClick={() => sorting("photosensitivity")}
-                >
-                  <FaSort />
-                </button> */}
               </div>
             </th>
             <th scope="col" className="px-6 py-3 text-center">

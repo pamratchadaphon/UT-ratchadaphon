@@ -11,40 +11,13 @@ const RiceVariety = () => {
 
   const [data, setData] = useState([]);
 
-  const [type, setType] = useState("");
-  const [photosensitivity, setPhotosensitivity] = useState("");
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get("http://localhost:8080/riceVariety/");
-
-      if (type !== "" && photosensitivity !== "") {
-        setData(
-          res.data.filter(
-            (data) =>
-              data.type === (type) &&
-            data.photosensitivity === photosensitivity
-          )
-        );
-      } else if (photosensitivity === "") {
-        setData(
-          res.data.filter(
-            (data) =>
-              data.type.includes(type) 
-          )
-        );
-      } else {
-        setData(
-          res.data.filter(
-            (data) =>
-              data.type.includes(type) &&
-              data.photosensitivity === photosensitivity
-          )
-        );
-      }
+      setData(res.data);
     };
     fetchData();
-  }, [type, photosensitivity]);
+  }, []);
 
   const [records, setRecords] = useState([]);
 
@@ -79,28 +52,6 @@ const RiceVariety = () => {
             duration: 1,
           }}
         >
-          {/* <div className="px-4 pb-4 space-x-2 md:space-x-4">
-            <select
-              name="type"
-              id="type"
-              className="border border-gray-300 rounded-lg p-2 text-sm text-gray-500"
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="">ชนิด</option>
-              <option value="ข้าวเจ้า">ข้าวเจ้า</option>
-              <option value="ข้าวเหนียว">ข้าวเหนียว</option>
-            </select>
-            <select
-              name="photosensitivity"
-              id="photosensitivity"
-              className="border border-gray-300 rounded-lg p-2 text-sm  text-gray-500"
-              onChange={(e) => setPhotosensitivity(e.target.value)}
-            >
-              <option value="">ความไวแสง</option>
-              <option value="ไวต่อช่วงแสง">ไวต่อช่วงแสง</option>
-              <option value="ไม่ไวต่อช่วงแสง">ไม่ไวต่อช่วงแสง</option>
-            </select>
-          </div> */}
           <Cards data={records} />
           <div className="px-4 pb-4">
             <Pagination
