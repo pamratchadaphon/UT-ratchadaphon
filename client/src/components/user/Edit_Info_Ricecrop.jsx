@@ -38,7 +38,9 @@ const Edit_Info_Ricecrop = ({ riceCaltivation_id }) => {
     const formatDate = (string) => {
       const date = new Date(string);
       return `${date.getFullYear()}-${
-        date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : null
+        date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1
       }-${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}`;
     };
     setValues({

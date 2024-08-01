@@ -23,7 +23,6 @@ const Yield_rice = ({ riceCaltivation }) => {
           <img src={sack_rice} />
         </div>
         <span>
-          ปริมาณข้าวที่ได้ :{" "}
           {riceCaltivation.total_yield > 0 ? (
             riceCaltivation.total_yield.toLocaleString()
           ) : (
